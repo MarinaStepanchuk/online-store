@@ -1,3 +1,4 @@
+import data from './data.json';
 import { IProducts, IProduct } from './data.interfaces';
 
 class Database {
@@ -12,4 +13,6 @@ class Database {
   }
 }
 
-export default Database;
+const DataBase = new Database(data);
+
+export default DataBase;
