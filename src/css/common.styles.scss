@@ -1,6 +1,3 @@
-@import './fonts.scss';
-@import './normalize.scss';
-
 html {
     font-size: 10px;
 }
@@ -11,6 +8,6 @@ body {
     margin-right: auto;
 	font-family: 'CeraProReg', arial, serif;
     font-size: 1.6rem;
-    background-color: rgb(72, 32, 32);
+    background-color: #FFF;
     color: $color-main;
 }
