@@ -1,13 +1,13 @@
-import { IProducts } from './data.interfaces';
+import { IProducts, IProduct } from './data.interfaces';
 
 class Database {
-  private dataJSON: IProducts;
+  private dataJSON: IProduct[];
 
   constructor(dataJSON: IProducts) {
-    this.dataJSON = dataJSON;
+    this.dataJSON = dataJSON.products;
   }
 
-  public getData(): IProducts {
+  public getData(): IProduct[] {
     return this.dataJSON;
   }
 }
