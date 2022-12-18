@@ -1,5 +1,15 @@
+import { IProducts } from './data.interfaces';
+
 class Database {
-    // there will be some static methods for manage DB
+  dataJSON: IProducts;
+
+  constructor(dataJSON: IProducts) {
+    this.dataJSON = dataJSON;
+  }
+
+  getData() {
+    return this.dataJSON;
+  }
 }
 
-export default Database
+export default Database;
