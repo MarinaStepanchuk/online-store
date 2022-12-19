@@ -1,5 +1,12 @@
+import data from './data.json';
+import { IProducts, IProduct } from './data.interfaces';
+
 class Database {
-    // there will be some static methods for manage DB
+  static dataJSON : IProducts = data;
+
+  static getAllProducts(): IProduct[] {
+    return Database.dataJSON.products;
+  }
 }
 
-export default Database
+export default Database;
