@@ -2,17 +2,11 @@ import data from './data.json';
 import { IProducts, IProduct } from './data.interfaces';
 
 class Database {
-  private dataJSON: IProduct[];
+  static dataJSON : IProducts = data;
 
-  constructor(dataJSON: IProducts) {
-    this.dataJSON = dataJSON.products;
-  }
-
-  public getData(): IProduct[] {
-    return this.dataJSON;
+  static getAllProducts(): IProduct[] {
+    return Database.dataJSON.products;
   }
 }
 
-const DataBase = new Database(data);
-
-export default DataBase;
+export default Database;
