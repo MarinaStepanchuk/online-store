@@ -1,0 +1,15 @@
+@mixin button ($width: 130px, $height: 40px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $width;
+    height: $height;
+    color: $color-red;
+    border: 1px solid $color-red;
+    border-radius: 6px;
+
+    &:hover {
+        color: $color-red;
+        background-color: $color-red;
+    }
+}
