@@ -1,5 +1,5 @@
 import data from './data.json';
-import { IProduct } from './Database.interfaces';
+import { IProduct } from './DataBase.interfaces';
 
 class Database {
   static dataJSON : IProduct[] = data.products;
