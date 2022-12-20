@@ -1,5 +1,5 @@
 class Database {
-    // there will be some static methods for manage DB
+  // there will be some static methods for manage DB
 }
 
-export default Database
+export default Database;

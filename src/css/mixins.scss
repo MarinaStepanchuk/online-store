@@ -4,12 +4,22 @@
     align-items: center;
     width: $width;
     height: $height;
-    color: $color-red;
-    border: 1px solid $color-red;
     border-radius: 6px;
-
+}
+@mixin button_red () {
+    background-color: $color-red;
+    border: 1px solid $color-red;
+    color: #FFFFFF;
     &:hover {
         color: $color-red;
+        background-color: #FFFFFF;
+    }
+}
+@mixin button_white () {
+    color: $color-red;
+    border: 1px solid $color-red;
+    &:hover {
+        color: #FFFFFF;
         background-color: $color-red;
     }
 }

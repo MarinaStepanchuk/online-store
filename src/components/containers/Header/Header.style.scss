@@ -1,0 +1,53 @@
+.header {
+  height: 85px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  &__logo {
+    width: 230px;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  &__money {
+    display: none;
+    font-size: 3.2rem;
+    color: $color-green;
+    &.show {
+      display: block;
+    }
+  }
+  &__basket {
+    position: relative;
+    width: 70px;
+    height: 65px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    &__amount {
+      display: none;
+      top: -5px;
+      right: -20px;
+      position: absolute;
+      font-size: 2.4rem;
+      color: #FFFFFF;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid #FFFFFF;
+      background-color: $color-red;
+      align-items: center;
+      justify-content: center;
+      &.show {
+        display: flex;
+      }
+    }
+  }
+}
