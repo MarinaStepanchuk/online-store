@@ -1,12 +1,12 @@
-import Goods from '../pages/Goods/Goods';
-import Description from '../pages/Description/Description';
-import Basket from '../pages/Basket/Basket';
+import Goods from '../pages/MainPage/MainPage';
+import Description from '../pages/ProductPage/ProductPage';
+import BasketPage from '../pages/BasketPage/BasketPage';
 
 export const RoutesWithRequiredParams = ['/description'];
 
 const Routes = {
   '/': Goods.render,
-  '/basket': Basket.render,
+  '/basket': BasketPage.render,
   '/description': Description.render,
 };
 

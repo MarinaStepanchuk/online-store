@@ -1,5 +1,5 @@
 import data from './data.json';
-import { IProducts, IProduct } from './data.interfaces';
+import { IProducts, IProduct } from './DataBase.interfaces';
 
 class Database {
   static dataJSON : IProducts = data;

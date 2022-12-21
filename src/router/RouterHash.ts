@@ -1,6 +1,6 @@
-import Error404 from '../pages/Error404/Error404';
-import RoutesType from './router.types';
-import { RoutesWithRequiredParams } from './routes';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import RoutesType from './Router.types';
+import { RoutesWithRequiredParams } from './Routes';
 
 class RouterHash {
   static routes: RoutesType = {};
@@ -9,20 +9,12 @@ class RouterHash {
     RouterHash.routes = initRoutes;
   }
 
-  public addRoute(path: string, cb: () => void): void {
-    RouterHash.routes[path] = cb;
-  }
-
-  public deleteRoute(path: string): void {
-    delete RouterHash.routes[path];
-  }
-
   static resolveRoute(url: string): (param?: string) => void {
     const cb = RouterHash.routes[url];
     if (cb) {
       return cb;
     }
-    return Error404.render;
+    return ErrorPage.render;
   }
 
   static router(): void {
@@ -35,7 +27,7 @@ class RouterHash {
     } else if (!RoutesWithRequiredParams.includes(url) && !param) {
       rout();
     } else {
-      Error404.render();
+      ErrorPage.render();
     }
   }
 
