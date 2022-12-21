@@ -1,0 +1,18 @@
+.range {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+
+  &__title {}
+  &__line {
+    margin-left: 15px;
+    width: 85%;
+  }
+  &__values {
+    padding-left: 15px;
+    font-size: 1.6rem;
+    color: $color-red;
+    font-weight: 700;
+  }
+}

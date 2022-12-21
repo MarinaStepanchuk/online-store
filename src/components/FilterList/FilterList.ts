@@ -1,4 +1,5 @@
 import camelize from '../../utils/camelize';
+import './FilterList.style.scss';
 
 class FilterList {
   private filterTitle: string;
@@ -33,18 +34,14 @@ class FilterList {
       });
 
       return `
-        <div class="filter filters__category">
-            <h3 class="h3 filter__title">Categories</h3>
+        <div class="filter filters__${this.filterTitle.toLowerCase()}">
+            <h3 class="h3 filter__title">${this.filterTitle}</h3>
             <ul class="filter__list">${filterItems}</ul>
         </div>
         `;
     };
 
-    return `
-        <aside class="filters">
-            ${getCategoriesFilter()}
-        </aside>
-    `;
+    return getCategoriesFilter();
   }
 }
 
