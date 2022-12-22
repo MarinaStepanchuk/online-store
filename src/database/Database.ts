@@ -1,11 +1,11 @@
 import data from './data.json';
-import { IProducts, IProduct } from './data.interfaces';
+import { IProduct } from './Database.interfaces';
 
 class Database {
-  static dataJSON : IProducts = data;
+  static dataJSON : IProduct[] = data.products;
 
   static getAllProducts(): IProduct[] {
-    return Database.dataJSON.products;
+    return Database.dataJSON;
   }
 }
 
