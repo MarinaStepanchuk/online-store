@@ -10,4 +10,10 @@
   .shopnow {
     margin-bottom: 40px;
   }
+  .goods {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+  }
 }

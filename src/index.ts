@@ -1,5 +1,5 @@
 import './css/common.styles.scss';
-import GoodsPage from './pages/GoodsPage/GoodsPage';
+import MainPage from './pages/MainPage/MainPage';
 
-const startPage = new GoodsPage();
+const startPage = new MainPage();
 startPage.render();
