@@ -1,5 +1,5 @@
 type RoutesType = {
-  [key: string]: (param?: string) => void,
+  [key: string]: (param: string | undefined) => void,
 };
 
 export default RoutesType;

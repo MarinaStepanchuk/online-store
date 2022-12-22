@@ -18,8 +18,8 @@ const baseConfig = {
             loader: 'sass-resources-loader',
             options: {
               resources: [
-                'src/css/vars.scss',
-                'src/css/mixins.scss',
+                'src/styles/vars.scss',
+                'src/styles/mixins.scss',
               ],
             },
           },

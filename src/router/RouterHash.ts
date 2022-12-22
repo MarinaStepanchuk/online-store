@@ -1,9 +1,9 @@
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import RoutesType from './Router.types';
-import { RoutesWithRequiredParams } from './Routes';
+import Routes, { RoutesWithRequiredParams } from './Routes';
 
 class RouterHash {
-  static routes: RoutesType = {};
+  static routes: RoutesType = Routes as RoutesType;
 
   constructor(initRoutes: RoutesType) {
     RouterHash.routes = initRoutes;
@@ -18,9 +18,9 @@ class RouterHash {
   }
 
   static router(): void {
-    const urlParts = window.location.hash.split('/');
-    const url: string = urlParts[1] ? `/${urlParts[1]}` : '/';
-    const param = urlParts[2];
+    const [,urlPart1, urlPart2] = window.location.hash.split('/');
+    const url: string = urlPart1 ? `/${urlPart1}` : '/';
+    const param = urlPart2;
     const rout = RouterHash.resolveRoute(url);
     if (RoutesWithRequiredParams.includes(url) && param) {
       rout(param);
@@ -29,11 +29,6 @@ class RouterHash {
     } else {
       ErrorPage.render();
     }
-  }
-
-  public init(): void {
-    window.addEventListener('load', RouterHash.router);
-    window.addEventListener('hashchange', RouterHash.router);
   }
 }
 
