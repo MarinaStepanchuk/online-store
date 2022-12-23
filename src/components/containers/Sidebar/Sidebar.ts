@@ -2,10 +2,17 @@ import './Sidebar.style.scss';
 import FilterList from '../../FilterList/FilterList';
 import FilterRange from '../../FilterRange/FilterRange';
 
+const FilterParamTitles = {
+  categories: 'Categories',
+  brands: 'Brand',
+  price: 'Price',
+  stock: 'Stoke',
+};
+const CURRENCY_SYMBOL = '$';
+
 class Sidebar {
   render(): string {
     // TODO: каждый раз получаем товары, которые отсортированы
-    // ID[] из localStorage
     const categories = ['house plants', 'Potato', 'Some new staff', 'something1', 'something2', 'something3',
       'something5', 'something-create', 'some thief', 'something good', 'some thing', 'some shape', 'hint',
       'my sql', 'react', 'filters big', 'decoration'];
@@ -16,11 +23,13 @@ class Sidebar {
       'react', 'filtron', 'decoration tank'];
     const dataBrandsAmount = [['4', '15'], ['1', '2'], ['2', '3'], ['0', '23'], ['4', '23'], ['4', '23'], ['4', '23'],
       ['4', '23'], ['4', '23'], ['4', '23'], ['4', '56'], ['4', '23'], ['5', '23']];
+    const testRange = [12, 560];
+    // these constants only for testing layout, in future they will be deleted
 
-    const categoryFilter = new FilterList('Categories', categories);
-    const brandFilter = new FilterList('Brand', brands);
-    const priceRange = new FilterRange('Price', [12, 560], '$');
-    const stockRange = new FilterRange('Stoke', [12, 560]);
+    const categoryFilter = new FilterList(FilterParamTitles.categories, categories);
+    const brandFilter = new FilterList(FilterParamTitles.brands, brands);
+    const priceRange = new FilterRange(FilterParamTitles.price, testRange, CURRENCY_SYMBOL);
+    const stockRange = new FilterRange(FilterParamTitles.stock, testRange);
 
     return `
       <aside class="filters">

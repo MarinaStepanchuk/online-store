@@ -12,7 +12,7 @@ class ProductsGrid {
       return acc + product.render();
     }, '');
 
-    return `<div class="grid grid4col">${productsList}</div>`;
+    return `<div class="grid grid3col">${productsList}</div>`;
   }
 }
 

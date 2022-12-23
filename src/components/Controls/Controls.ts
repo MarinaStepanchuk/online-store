@@ -5,11 +5,18 @@ import searchIcon from '../../assets/svg/search_icon.svg';
 import searchCross from '../../assets/svg/search_cross.svg';
 
 const SORT_TITLE = 'Sort by:';
+const SortingNames = {
+  discount: {
+    fromLowToHigh: '▲ discount',
+    fromHighToLow: '▼ discount',
+  },
+  stock: {
+    fromLowToHigh: '▲ in stock',
+    fromHighToLow: '▼ in stock',
+  },
+};
 const SEARCH_RESULT_TITLE = 'Found:';
-
-/* interface IControlsParams {
-
-} */
+const SEARCH_PLACEHOLDER = 'search';
 
 enum ViewMode {
   grid3,
@@ -17,19 +24,16 @@ enum ViewMode {
 }
 
 class Controls {
-  /* constructor(params: IControlsParams) {
-  } */
-
   render():string {
     const getSortBlock = (): string => `
         <div class="controls__sort sorter">
             <span class="sorter__title">${SORT_TITLE}</span>
             <div class="sorter__droplist-wrap">
               <select class="sorter__droplist" name="sort" id="sorter-droplist">
-                <option value="upDiscount">▲ discount</option>
-                <option value="downDiscount">▼ discount</option>
-                <option value="upStock">▲ in stock</option>
-                <option value="downStock">▼ in stock</option>
+                <option value="upDiscount">${SortingNames.discount.fromLowToHigh}</option>
+                <option value="downDiscount">${SortingNames.discount.fromHighToLow}</option>
+                <option value="upStock">${SortingNames.stock.fromLowToHigh}</option>
+                <option value="downStock">${SortingNames.stock.fromHighToLow}</option>
               </select>
             </div>
         </div>`;
@@ -41,7 +45,7 @@ class Controls {
                 <span class="search__result__amount" id="search-amount">56</span>
             </div>
             <div class="search__input-wrap">
-                <input type="text" class="search__input" id="search-input" placeholder="search" 
+                <input type="text" class="search__input" id="search-input" placeholder=${SEARCH_PLACEHOLDER} 
                     autofocus autocomplete="off" value=${value}>
                 <img class="search__reset" src=${searchCross} class="search__reset" alt="reset search">
             </div>

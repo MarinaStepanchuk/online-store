@@ -14,8 +14,14 @@
     padding-inline-end: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2.2rem;
     overflow: scroll;
+    &.categories {
+      max-height: 36rem;
+    }
+    &.brand {
+      max-height: 12rem;
+    }
   }
   &__item {
     font-size: 1.6rem;
@@ -37,8 +43,6 @@
       &:hover {
         font-weight: 700;
       }
-      .filter__item__name {}
-      .filter__item__amount-block {}
     }
   }
 }

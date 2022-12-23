@@ -2,6 +2,8 @@ import './Header.style.scss';
 import headerLogo from '../../../assets/img/logo.png';
 import headerBasket from '../../../assets/svg/header-basket.svg';
 
+const TOTAL_MONEY_TITLE = 'Card total:';
+
 class Header {
   render(): string {
     return `
@@ -10,7 +12,7 @@ class Header {
                 <img src=${headerLogo} alt="shop logo">
             </div>
             <div class="header__money show">
-                <span class="header__money__text">Card total:</span>
+                <span class="header__money__text">${TOTAL_MONEY_TITLE}</span>
                 <span id="headerTotalMoney" class="header__money__value">$666.00</span>
             </div>
             <div class="header__basket">

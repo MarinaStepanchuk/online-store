@@ -1,6 +1,7 @@
 import './Product.style.scss';
 import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
+import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 
 const DISCOUNT_TITLE = '% OFF';
 const STOCK_TITLE = 'Stock: ';
@@ -19,6 +20,7 @@ class Product {
     const {
       title, thumbnail, stock, discountPercentage, category, brand, price,
     } = this.data;
+    const actualPrice = getPriceAfterDiscont(price, discountPercentage);
 
     return `
         <div class="product-item">
@@ -51,7 +53,7 @@ class Product {
                 </div>
             </div>
             <div class="product-item__prices">
-                <div class="product-item__prices__new">${SIGN_OF_CURRENCY}${price}</div>
+                <div class="product-item__prices__new">${SIGN_OF_CURRENCY}${actualPrice}</div>
                 <div class="product-item__prices__old">${SIGN_OF_CURRENCY}${price}</div>
             </div>
             <div class="product-item__buttons">
