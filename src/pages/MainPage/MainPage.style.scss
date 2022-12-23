@@ -13,7 +13,13 @@
   .goods {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 6rem;
     align-items: flex-start;
+    .controls-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      width: calc(100% - 36rem); /*30rem(width of sidebar), 6rem(gap between sidebar & controls-grid)*/
+    }
   }
 }

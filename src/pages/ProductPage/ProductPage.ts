@@ -1,5 +1,5 @@
 class ProductPage {
-  static render(param: string) {
+  static render() {
   }
 }
 

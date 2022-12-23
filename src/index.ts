@@ -1,5 +1,5 @@
 import './styles/common.styles.scss';
+import './utils/observer';
 import MainPage from './pages/MainPage/MainPage';
 
-const startPage = new MainPage();
-startPage.render();
+MainPage.render();
