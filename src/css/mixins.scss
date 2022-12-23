@@ -23,3 +23,10 @@
         background-color: $color-red;
     }
 }
+@mixin product-label () {
+    padding: 0.5rem 1rem;
+    background-color: $color-red;
+    color: #FFFFFF;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
