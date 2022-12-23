@@ -12,7 +12,7 @@ class FilterList {
   }
 
   render(amount: string[][]): string {
-    const filterItem = (name: string, [displayedAmount, totalAmount]: string[]): string => {
+    const getFilterItem = (name: string, [displayedAmount, totalAmount]: string[]): string => {
       const id = `${camelize(name)}${this.filterTitle}`;
 
       return `
@@ -26,11 +26,11 @@ class FilterList {
     `;
     };
 
-    const categoriesFilter = () => {
+    const getCategoriesFilter = () => {
       let filterItems = '';
 
       this.filterList.forEach((category: string, idx: number) => {
-        filterItems += filterItem(category, amount[idx]);
+        filterItems += getFilterItem(category, amount[idx]);
       });
 
       return `
@@ -41,7 +41,7 @@ class FilterList {
         `;
     };
 
-    return categoriesFilter();
+    return getCategoriesFilter();
   }
 }
 

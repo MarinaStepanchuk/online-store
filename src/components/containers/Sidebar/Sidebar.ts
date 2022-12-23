@@ -13,6 +13,7 @@ const CURRENCY_SYMBOL = '$';
 class Sidebar {
   render(): string {
     // TODO: каждый раз получаем товары, которые отсортированы
+
     const categories = ['house plants', 'Potato', 'Some new staff', 'something1', 'something2', 'something3',
       'something5', 'something-create', 'some thief', 'something good', 'some thing', 'some shape', 'hint',
       'my sql', 'react', 'filters big', 'decoration'];
