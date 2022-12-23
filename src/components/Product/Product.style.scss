@@ -64,12 +64,13 @@
       position: absolute;
       height: 100%;
       width: 59%;
+      scale: 0.99;
       background-color: $color-rating;
     }
     &__stars {
       position: relative;
       height: 3.5rem;
-      width: auto;
+      width: fit-content;
       display: flex;
       align-items: center;
       justify-content: flex-start;

@@ -5,7 +5,7 @@ import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 
 const DISCOUNT_TITLE = '% OFF';
 const STOCK_TITLE = 'Stock: ';
-const SIGN_OF_CURRENCY = '$';
+const CURRENCY_SYMBOL = '$';
 const CATEGORY_TITLE = 'Category: ';
 const BRAND_TITLE = 'Brand: ';
 
@@ -18,7 +18,7 @@ class Product {
 
   render(): string {
     const {
-      title, thumbnail, stock, discountPercentage, category, brand, price,
+      title, thumbnail, stock, discountPercentage, category, brand, price, rating,
     } = this.data;
     const actualPrice = getPriceAfterDiscont(price, discountPercentage);
 
@@ -49,12 +49,12 @@ class Product {
                     <img src=${star} alt="star of rating">
                     <img src=${star} alt="star of rating">
                     <img src=${star} alt="star of rating">
-                    <div class="product-item__rating__indicator"></div>
+                    <div class="product-item__rating__indicator" style="width: ${(rating / 5) * 100}%"></div>
                 </div>
             </div>
             <div class="product-item__prices">
-                <div class="product-item__prices__new">${SIGN_OF_CURRENCY}${actualPrice}</div>
-                <div class="product-item__prices__old">${SIGN_OF_CURRENCY}${price}</div>
+                <div class="product-item__prices__new">${CURRENCY_SYMBOL}${actualPrice}</div>
+                <div class="product-item__prices__old">${CURRENCY_SYMBOL}${price}</div>
             </div>
             <div class="product-item__buttons">
                 <button class="product-item__buttons_red">DETAILS</button>
