@@ -4,12 +4,11 @@
     align-items: center;
     width: $width;
     height: $height;
-    color: $color-red;
-    border: 1px solid $color-red;
+    font-family: 'CeraProMedium', arial, serif;
+    font-weight: 500;
     border-radius: 6px;
-
+    cursor: pointer;
     &:hover {
-        color: $color-red;
-        background-color: $color-red;
+      filter: drop-shadow(0 0 1rem $color-primary);
     }
 }
