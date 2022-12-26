@@ -1,15 +1,30 @@
-@import './normalize.scss';
-@import './fonts.scss';
+@import "./normalize";
+@import "./fonts";
+
+* {
+  box-sizing: border-box;
+}
 
 html {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 body {
-    max-width: 1440px;
-    margin: 0 auto;
-	font-family: 'CeraProReg', arial, serif;
-    font-size: 1.6rem;
-    background-color: #FFF;
-    color: $color-font;
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: CeraProReg, arial, serif;
+  font-size: 1.6rem;
+  background-color: #fff;
+  color: $color-font;
+}
+
+#app {
+  padding: 24px 0;
+}
+
+.header,
+.main,
+.footer {
+  max-width: 1200px;
+  margin: 0 auto;
 }

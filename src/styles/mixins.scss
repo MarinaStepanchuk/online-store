@@ -1,15 +1,25 @@
-@mixin button ($width: 130px, $height: 40px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: $width;
-    height: $height;
-    color: $color-red;
-    border: 1px solid $color-red;
-    border-radius: 6px;
+@mixin button($width: 130px, $height: 40px) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $width;
+  height: $height;
+  border-radius: 6px;
+  background-color: $color-primary;
+  border: 1px solid $color-primary;
+  color: #fff;
+  cursor: pointer;
 
-    &:hover {
-        color: $color-red;
-        background-color: $color-red;
-    }
+  &:hover {
+    color: $color-primary;
+    background-color: #fff;
+  }
+}
+
+@mixin product-label() {
+  padding: 0.5rem 1rem;
+  background-color: $color-primary;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
 }
