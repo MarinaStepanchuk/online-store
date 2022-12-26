@@ -10,6 +10,7 @@ const devConfig = {
       directory: path.join(__dirname, '../dist'),
     },
     open: true,
+    historyApiFallback: true,
     hot: true,
     liveReload: true,
     port: 3005,

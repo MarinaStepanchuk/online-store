@@ -44,6 +44,7 @@ const baseConfig = {
     extensions: ['.js', '.ts'],
   },
   output: {
+    publicPath: '/',
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },

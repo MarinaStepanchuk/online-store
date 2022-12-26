@@ -18,16 +18,14 @@ class RouterHash {
   }
 
   static router(): void {
-    const [,urlPart1, urlPart2] = window.location.hash.split('/');
+    const [,urlPart1, urlPart2] = window.location.pathname.split('/');
     const url: string = urlPart1 ? `/${urlPart1}` : '/';
     const param = urlPart2;
     const rout = RouterHash.resolveRoute(url);
-    if (RoutesWithRequiredParams.includes(url) && param) {
+    if (RoutesWithRequiredParams.includes(url)) {
       rout(param);
-    } else if (!RoutesWithRequiredParams.includes(url) && !param) {
-      rout();
     } else {
-      ErrorPage.render();
+      rout();
     }
   }
 }
