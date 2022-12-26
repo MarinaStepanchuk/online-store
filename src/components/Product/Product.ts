@@ -8,6 +8,8 @@ const STOCK_TITLE = 'Stock: ';
 const CURRENCY_SYMBOL = '$';
 const CATEGORY_TITLE = 'Category: ';
 const BRAND_TITLE = 'Brand: ';
+const BUTTON_TO_DETAILS = 'DETAILS';
+const BUTTON_ADD_TO_BASKET = 'ADD TO BASKET';
 
 class Product {
   private data: IProduct;
@@ -18,10 +20,11 @@ class Product {
 
   render(): string {
     const {
-      title, thumbnail, stock, discountPercentage, category, brand, price, rating,
+      title, thumbnail, stock, discountPercentage, category, brand, price, rating, id,
     } = this.data;
     const actualPrice = getPriceAfterDiscont(price, discountPercentage);
 
+    // TODO: change hardcode route after refactoring
     return `
         <div class="product-item">
             <div class="product-item__discont">
@@ -57,8 +60,8 @@ class Product {
                 <div class="product-item__prices__old">${CURRENCY_SYMBOL}${price}</div>
             </div>
             <div class="product-item__buttons">
-                <button class="product-item__buttons_red">DETAILS</button>
-                <button class="product-item__buttons_white">ADD FROM CARD</button>
+                <button onclick="window.location = '#/product/${id}'" class="product-item__buttons_red">${BUTTON_TO_DETAILS}</button>
+                <button class="product-item__buttons_white">${BUTTON_ADD_TO_BASKET}</button>
             </div>
         </div>
         `;

@@ -1,12 +1,13 @@
 import './Sidebar.style.scss';
 import FilterList from '../../FilterList/FilterList';
 import FilterRange from '../../FilterRange/FilterRange';
+import Database from '../../../database/Database';
 
 const FilterParamTitles = {
   categories: 'Categories',
   brands: 'Brand',
   price: 'Price',
-  stock: 'Stoke',
+  stock: 'Stock',
 };
 const CURRENCY_SYMBOL = '$';
 
@@ -24,13 +25,13 @@ class Sidebar {
       'react', 'filtron', 'decoration tank'];
     const dataBrandsAmount = [['4', '15'], ['1', '2'], ['2', '3'], ['0', '23'], ['4', '23'], ['4', '23'], ['4', '23'],
       ['4', '23'], ['4', '23'], ['4', '23'], ['4', '56'], ['4', '23'], ['5', '23']];
-    const testRange = [12, 560];
+    // const testRange = [12, 560];
     // these constants only for testing layout, in future they will be deleted
 
     const categoryFilter = new FilterList(FilterParamTitles.categories, categories);
     const brandFilter = new FilterList(FilterParamTitles.brands, brands);
-    const priceRange = new FilterRange(FilterParamTitles.price, testRange, CURRENCY_SYMBOL);
-    const stockRange = new FilterRange(FilterParamTitles.stock, testRange);
+    const priceRange = new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), CURRENCY_SYMBOL);
+    const stockRange = new FilterRange(FilterParamTitles.stock, Database.getMinMaxStock());
 
     return `
       <aside class="filters">

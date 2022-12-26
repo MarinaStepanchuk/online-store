@@ -8,11 +8,11 @@ import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
 
 class MainPage {
   static render() {
-    const header = (new Header()).render();
-    const welcomeBlock = (new WelcomeBlock()).render();
-    const sideBar = (new Sidebar()).render();
-    const controls = (new Controls()).render();
-    const grid = (new ProductsGrid()).render();
+    const header = new Header().render();
+    const welcomeBlock = new WelcomeBlock().render();
+    const sideBar = new Sidebar().render();
+    const controls = new Controls().render();
+    const grid = new ProductsGrid().render();
 
     const main = `
       <main class="main">

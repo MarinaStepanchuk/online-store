@@ -12,36 +12,36 @@ class FilterList {
   }
 
   render(amount: string[][]): string {
-    const getFilterItem = (name: string, [displayedAmount, totalAmount]: string[]): string => {
-      const id = `${camelize(name)}${this.filterTitle}`;
+    return this.getCategoriesFilter(amount);
+  }
 
-      return `
-        <li class="filter__item">
-            <input id=${id} class="filter__item__input" type="checkbox">
-            <label for=${id} class="filter__item__label">
-                <span class="filter__item__name">${name}</span>
-                <span class="filter__item__amount-block">(${displayedAmount}/${totalAmount})</span>
-            </label>
-        </li>
-    `;
-    };
+  getFilterItem(name: string, [displayedAmount, totalAmount]: string[]): string {
+    const id = `${camelize(name)}${this.filterTitle}`;
 
-    const getCategoriesFilter = () => {
-      let filterItems = '';
+    return `
+      <li class="filter__item">
+        <input id=${id} class="filter__item__input" type="checkbox">
+        <label for=${id} class="filter__item__label">
+          <span class="filter__item__name">${name}</span>
+          <span class="filter__item__amount-block">(${displayedAmount}/${totalAmount})</span>
+        </label>
+      </li>`;
+  }
 
-      this.filterList.forEach((category: string, idx: number) => {
-        filterItems += getFilterItem(category, amount[idx]);
-      });
+  getCategoriesFilter(amount: string[][]): string {
+    let filterItems = '';
 
-      return `
-        <div class="filter filters__${this.filterTitle.toLowerCase()}">
-            <h3 class="h3 filter__title">${this.filterTitle}</h3>
-            <ul class="filter__list ${this.filterTitle.toLowerCase()}">${filterItems}</ul>
-        </div>
-        `;
-    };
+    this.filterList.forEach((category: string, idx: number) => {
+      filterItems += this.getFilterItem(category, amount[idx]);
+    });
 
-    return getCategoriesFilter();
+    return `
+      <div class="filter filters__${this.filterTitle.toLowerCase()}">
+        <h3 class="h3 filter__title">${this.filterTitle}</h3>
+        <ul class="filter__list ${this.filterTitle.toLowerCase()}">
+          ${filterItems}
+        </ul>
+      </div>`;
   }
 }
 

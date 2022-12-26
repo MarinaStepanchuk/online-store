@@ -7,10 +7,7 @@ class ProductsGrid {
   private productsDataList: IProduct[] = Database.getAllProducts();
 
   render(): string {
-    const productsList = this.productsDataList.reduce((acc: string, data: IProduct) => {
-      const product = new Product(data);
-      return acc + product.render();
-    }, '');
+    const productsList = this.productsDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');
 
     return `<div class="grid grid3col">${productsList}</div>`;
   }

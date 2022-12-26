@@ -1,32 +1,25 @@
-@mixin button ($width: 130px, $height: 40px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: $width;
-    height: $height;
-    border-radius: 6px;
-}
-@mixin button_red () {
-    background-color: $color-primary;
-    border: 1px solid $color-primary;
-    color: #FFFFFF;
-    &:hover {
-        color: $color-primary;
-        background-color: #FFFFFF;
-    }
-}
-@mixin button_white () {
+@mixin button($width: 130px, $height: 40px) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $width;
+  height: $height;
+  border-radius: 6px;
+  background-color: $color-primary;
+  border: 1px solid $color-primary;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
     color: $color-primary;
-    border: 1px solid $color-primary;
-    &:hover {
-        color: #FFFFFF;
-        background-color: $color-primary;
-    }
+    background-color: #fff;
+  }
 }
-@mixin product-label () {
-    padding: 0.5rem 1rem;
-    background-color: $color-primary;
-    color: #FFFFFF;
-    font-size: 1.6rem;
-    font-weight: 500;
+
+@mixin product-label() {
+  padding: 0.5rem 1rem;
+  background-color: $color-primary;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
 }

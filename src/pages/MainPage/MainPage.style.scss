@@ -1,25 +1,19 @@
-.header, .main, .footer {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.header {
-  margin-bottom: 15px;
-}
 .main {
   .shopnow {
-    margin-bottom: 40px;
+    margin-bottom: 4rem;
   }
+
   .goods {
     display: flex;
     justify-content: space-between;
     gap: 6rem;
     align-items: flex-start;
+
     .controls-grid {
       display: flex;
       flex-direction: column;
       gap: 4rem;
-      width: calc(100% - 36rem); /*30rem(width of sidebar), 6rem(gap between sidebar & controls-grid)*/
+      width: calc(100% - 36rem); /* 30rem(width of sidebar), 6rem(gap between sidebar & controls-grid) */
     }
   }
 }

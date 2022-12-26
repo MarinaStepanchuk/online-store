@@ -7,6 +7,7 @@
     margin-block-end: 0;
     margin-bottom: 1rem;
   }
+
   &__list {
     list-style-type: none;
     margin-block-start: 0;
@@ -15,31 +16,38 @@
     display: flex;
     flex-direction: column;
     gap: 2.2rem;
-    overflow: scroll;
+    overflow-y: scroll;
+
     &.categories {
       max-height: 36rem;
     }
+
     &.brand {
       max-height: 12rem;
     }
   }
+
   &__item {
     font-size: 1.6rem;
     font-weight: 400;
+
     &__input {
       display: none;
-      &:checked+label {
+
+      &:checked + label {
         font-size: 1.6rem;
         font-weight: 700;
         color: $color-primary;
       }
     }
+
     &__label {
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
+
       &:hover {
         font-weight: 700;
       }

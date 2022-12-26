@@ -2,9 +2,11 @@
   width: 100%;
   display: grid;
   gap: 3rem;
+
   &.grid3col {
     grid-template-columns: repeat(3, 1fr);
   }
+
   &.grid4col {
     grid-template-columns: repeat(4, 1fr);
   }
