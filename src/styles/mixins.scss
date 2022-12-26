@@ -23,3 +23,13 @@
   font-size: 1.6rem;
   font-weight: 500;
 }
+
+@mixin basket-subheader-box() {
+  height: 3rem;
+  min-width: 3rem;
+  border: 1px solid $color-basket-nav;
+  border-radius: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

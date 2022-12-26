@@ -1,0 +1,154 @@
+.basket-product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3.5rem;
+
+  &__index {
+    width: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      width: 3rem;
+      height: 3rem;
+      text-align: center;
+      background-color: $color-basket-nav;
+      border-radius: 50%;
+    }
+  }
+
+  &__image {
+    max-width: 12.7%;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__desc {
+    width: 21.7%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    justify-content: center;
+
+    &__title {
+      color: $color-font;
+      font-weight: 600;
+      font-size: 1.6rem;
+    }
+
+    &__brand {
+      &__title {
+        font-weight: 400;
+        font-size: 1.4rem;
+        color: $color-basket-font-light;
+      }
+
+      &__value {
+        font-weight: 500;
+        font-size: 1.4rem;
+        color: $color-basket-font-normal;
+      }
+    }
+
+    &__stock {
+      &__title {
+        font-weight: 400;
+        font-size: 1.4rem;
+        color: $color-basket-font-light;
+      }
+
+      &__value {
+        font-weight: 500;
+        font-size: 1.4rem;
+        color: $color-basket-font-normal;
+      }
+    }
+  }
+
+  &__prices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    justify-content: center;
+    font-size: 1.6rem;
+
+    &__old {
+      color: $color-basket-font-light;
+      font-weight: 400;
+    }
+
+    &__actual {
+      color: $color-basket-font-normal;
+      font-weight: 500;
+    }
+  }
+
+  &__quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__minus {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      text-align: center;
+      border-radius: 50%;
+      background-color: $color-primary;
+      color: #fff;
+    }
+
+    &__value {
+      text-align: center;
+      min-width: 2.5rem;
+    }
+
+    &__plus {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      text-align: center;
+      border-radius: 50%;
+      background-color: $color-primary;
+      color: #fff;
+    }
+  }
+
+  &__total {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    justify-content: center;
+    font-size: 1.6rem;
+
+    &__old {
+      color: $color-basket-font-light;
+      font-weight: 400;
+    }
+
+    &__actual {
+      font-weight: 700;
+      color: $color-secondary;
+    }
+  }
+
+  &__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

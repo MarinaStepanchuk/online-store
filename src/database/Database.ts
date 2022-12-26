@@ -18,6 +18,10 @@ class Database {
     return [...uniqueBrands];
   }
 
+  static getProductById(id: number) {
+    return Database.dataJSON.find((prod: IProduct) => prod.id === id) as IProduct;
+  }
+
   static getMinMaxStock(): [number, number] {
     const stockValues = Database.dataJSON.map((p: IProduct) => p.stock);
 

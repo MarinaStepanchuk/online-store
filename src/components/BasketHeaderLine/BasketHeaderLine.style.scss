@@ -1,0 +1,67 @@
+.basket__subheader {
+  display: flex;
+  align-items: center;
+
+  &__title {
+    margin-right: 22%;
+  }
+
+  &__amount {
+    display: flex;
+    align-items: center;
+    gap: 3.7rem;
+
+    .items-counter {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+
+      &__title {
+        font-size: 2rem;
+      }
+
+      &__value-box {
+        @include basket-subheader-box;
+      }
+
+      &__value {
+        font-size: 1.8rem;
+        font-weight: 300;
+      }
+    }
+
+    .pages-counter {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+
+      &__title {
+        font-size: 2rem;
+      }
+
+      &__prev {
+        cursor: pointer;
+
+        @include basket-subheader-box;
+      }
+
+      &__value-box {
+        background-color: $color-secondary;
+
+        @include basket-subheader-box;
+      }
+
+      &__value {
+        font-weight: 700;
+        color: #fff;
+        font-size: 1.8rem;
+      }
+
+      &__next {
+        cursor: pointer;
+
+        @include basket-subheader-box;
+      }
+    }
+  }
+}
