@@ -1,0 +1,21 @@
+.filters {
+  margin-left: 1.5rem;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__category {
+    padding-left: 1.5rem;
+
+    .filter__list {
+      height: 42rem;
+    }
+  }
+
+  &__brand {
+    .filter__list {
+      height: 22rem;
+    }
+  }
+}

@@ -8,6 +8,10 @@
     gap: 5%;
     width: 45%;
 
+    &__general {
+      width: 74%;
+    }
+
     .general-photo {
       width: 100%;
       border-radius: 2rem;
@@ -115,20 +119,20 @@
       font-weight: 700;
       margin: 2.5rem 0;
 
-      &_red {
+      &_buy {
         @include button(20%);
-        @include button_red;
       }
 
-      &_white {
+      &_basket {
         @include button(40%);
-        @include button_white;
       }
 
       .basket-link {
-        display: block;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
+        height: 100%;
       }
     }
   }

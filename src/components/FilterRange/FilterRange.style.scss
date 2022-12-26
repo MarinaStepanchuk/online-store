@@ -1,0 +1,17 @@
+.range {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__line {
+    margin-left: 1.5rem;
+    width: 85%;
+  }
+
+  &__values {
+    padding-left: 1.5rem;
+    font-size: 1.6rem;
+    color: $color-primary;
+    font-weight: 700;
+  }
+}

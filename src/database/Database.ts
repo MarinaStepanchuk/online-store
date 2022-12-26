@@ -21,6 +21,24 @@ class Database {
   static getProductById(id: string): IProduct | undefined {
     return this.dataJSON.find((elem) => elem.id === Number(id));
   }
+
+  static getMinMaxStock(): [number, number] {
+    const stockValues = Database.dataJSON.map((p: IProduct) => p.stock);
+
+    return [
+      Math.min(...stockValues),
+      Math.max(...stockValues),
+    ];
+  }
+
+  static getMinMaxPrice(): [number, number] {
+    const discountValues = Database.dataJSON.map((p: IProduct) => p.price);
+
+    return [
+      Math.min(...discountValues),
+      Math.max(...discountValues),
+    ];
+  }
 }
 
 export default Database;

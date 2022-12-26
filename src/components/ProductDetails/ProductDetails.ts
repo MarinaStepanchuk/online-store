@@ -72,10 +72,10 @@ class ProductDetails {
           <span>${discountPercentage}${DISCOUNT_SYMBOL}</span>
         </div>
         <div class="product-details__information__buttons">
-          <div class="product-details__information__buttons_red">
+          <div class="product-details__information__buttons_buy">
             <a class="basket-link" href="#/basket">${BUTTON_BUY}</a>
           </div>
-          <button class="product-details__information__buttons_white">${BUTTON_TO_CARD.ADD}</button>
+          <button class="product-details__information__buttons_basket">${BUTTON_TO_CARD.ADD}</button>
         </div>
         <div class="product-details__information__description">
           <span class="product-details__information__description__title">${DESCRIPTION_TITLE}</span>
