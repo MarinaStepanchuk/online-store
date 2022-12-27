@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-enum KEYS_PRODUCT {
+enum KeysProduct {
   ID = 'id',
   TITLE = 'title',
   DESCRIPTION = 'description',
@@ -13,4 +12,4 @@ enum KEYS_PRODUCT {
   PHOTOS_LINKS = 'images',
 }
 
-export default KEYS_PRODUCT;
+export default KeysProduct;
