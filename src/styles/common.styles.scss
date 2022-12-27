@@ -18,6 +18,11 @@ body {
   color: $color-font;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 #app {
   padding: 24px 0;
 }
