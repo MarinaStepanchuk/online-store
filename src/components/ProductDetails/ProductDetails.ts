@@ -3,26 +3,7 @@ import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import ProductPhotosSlider from '../ProductPhotosSlider/ProductPhotosSlider';
-
-enum TITLES {
-  DISCOUNT = 'Discount Percentage: ',
-  STOCK = 'Stock: ',
-  CATEGORY = 'Category: ',
-  BRAND = 'Brand: ',
-  DESCRIPTION = 'Description:',
-}
-
-enum SYMBOLS {
-  DISCOUNT = '%',
-  CURRENCY = '$',
-}
-
-enum BUTTONS {
-  ADD = 'ADD TO CARD',
-  REMOVE = 'REMOVE FROM CARD',
-}
-
-const BUTTON_BUY = 'BUY NOW';
+import { Titles, Symbols, Buttons } from './ProductDetails.enums';
 
 class ProductDetails {
   constructor(private product: IProduct) {
@@ -47,8 +28,8 @@ class ProductDetails {
         <h4 class="product-details__information__title">${title}</h4>
         <div class="product-details__information__container">
           <div class="product-details__information__prices">
-            <div class="product-details__information__prices__new">${SYMBOLS.CURRENCY}${actualPrice}</div>
-            <div class="product-details__information__prices__old">${SYMBOLS.CURRENCY}${price}</div>
+            <div class="product-details__information__prices__new">${Symbols.CURRENCY}${actualPrice}</div>
+            <div class="product-details__information__prices__old">${Symbols.CURRENCY}${price}</div>
           </div>
           <div class="product-details__information__rating">
             <span>${rating}</span>
@@ -63,29 +44,27 @@ class ProductDetails {
           </div>
         </div>
         <div class="product-details__information__category">
-          <span class="product-details__information__category__title">${TITLES.CATEGORY}</span>
+          <span class="product-details__information__category__title">${Titles.CATEGORY}</span>
           <span class="product-details__information__category__text">${category}</span>
         </div>
         <div class="product-details__information__brand">
-          <span class="product-details__information__brand__title">${TITLES.BRAND}</span>
+          <span class="product-details__information__brand__title">${Titles.BRAND}</span>
           <span>${brand}</span>
         </div>
         <div class="product-details__information__stock">
-          <span class="product-details__information__stock__title">${TITLES.STOCK}</span>
+          <span class="product-details__information__stock__title">${Titles.STOCK}</span>
           <span>${stock}</span>
         </div>
         <div class="product-details__information__discont">
-          <span class="product-details__information__discont__title">${TITLES.DISCOUNT}</span>
-          <span>${discountPercentage}${SYMBOLS.DISCOUNT}</span>
+          <span class="product-details__information__discont__title">${Titles.DISCOUNT}</span>
+          <span>${discountPercentage}${Symbols.DISCOUNT}</span>
         </div>
         <div class="product-details__information__buttons">
-          <div class="product-details__information__buttons_buy">
-            <a class="basket-link" href="#/basket">${BUTTON_BUY}</a>
-          </div>
-          <button class="product-details__information__buttons_basket">${BUTTONS.ADD}</button>
+          <button onclick="window.location.pathname = '/basket'" class="product-details__information__buttons_buy">${Buttons.BUY}</button>
+          <button class="product-details__information__buttons_basket">${Buttons.ADD}</button>
         </div>
         <div class="product-details__information__description">
-          <span class="product-details__information__description__title">${TITLES.DESCRIPTION}</span>
+          <span class="product-details__information__description__title">${Titles.DESCRIPTION}</span>
           <span>${description}</span>
         </div>
       </div>

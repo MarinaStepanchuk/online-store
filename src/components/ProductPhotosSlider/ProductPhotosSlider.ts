@@ -1,9 +1,9 @@
 import './ProductPhotosSlider.style.scss';
 import { IProduct } from '../../database/DataBase.interfaces';
-import KEYS_PRODUCT from '../../database/DataBase.enums'
+import KeysProduct from '../../database/DataBase.enums';
 
 class ProductPhotosSlider {
-  constructor(private images: IProduct[KEYS_PRODUCT.PHOTOS_LINKS]) {
+  constructor(private images: IProduct[KeysProduct.PHOTOS_LINKS]) {
     this.images = images;
   }
 
