@@ -14,7 +14,7 @@ class ProductPage {
     if (!Database.getProductById(param)) {
       main = `
         <main class="main">
-          <div class="produt-error">
+          <div class="produсt-error">
             Product ${param} not found.
           </div>
         </main>

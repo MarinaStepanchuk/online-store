@@ -2,7 +2,7 @@ import './PathProduct.style.scss';
 import { IProduct } from '../../database/DataBase.interfaces';
 import formatToPascalCase from '../../utils/formatToPascalCase';
 
-const HOME_LINK = 'shope';
+const HOME_LINK = 'shop';
 
 class PathProduct {
   constructor(private product: IProduct) {
