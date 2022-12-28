@@ -1,19 +1,22 @@
-@mixin button($width: 130px, $height: 40px) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: $width;
-  height: $height;
-  border-radius: 6px;
-  background-color: $color-primary;
-  border: 1px solid $color-primary;
-  color: #fff;
-  cursor: pointer;
-
-  &:hover {
-    color: $color-primary;
-    background-color: #fff;
-  }
+@mixin button ($width: 130px, $height: 40px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $width;
+    height: $height;
+    font-family: 'CeraProMedium', arial, serif;
+    font-weight: 500;
+    border-radius: 6px;
+    background-color: $color-primary;
+    border: 1px solid $color-primary;
+    color: #fff;
+    cursor: pointer;
+    
+    &:hover {
+      filter: drop-shadow(0 0 1rem $color-primary);
+      color: $color-primary;
+      background-color: #fff;
+    }
 }
 
 @mixin product-label() {

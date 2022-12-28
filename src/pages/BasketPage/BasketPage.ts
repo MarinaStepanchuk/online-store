@@ -1,9 +1,9 @@
 import './BasketPage.style.scss';
 import Header from '../../components/containers/Header/Header';
 import { findElem } from '../../utils/findElem';
-import BasketHeaderLine from '../../components/BasketHeaderLine/BasketHeaderLine';
+import BasketControl from '../../components/BasketControl/BasketControl';
 import BasketGoods from '../../components/BasketGoods/BasketGoods';
-import BasketCalc from '../../components/BasketCalc/BasketCalc';
+import BasketTotalCalc from '../../components/BasketTotalCalc/BasketTotalCalc';
 import Database from '../../database/Database';
 import { IBasketProduct } from '../../components/BasketProduct/BasketProduct.interface';
 import { IProduct } from '../../database/DataBase.interfaces';
@@ -20,17 +20,17 @@ const basketListOfProds: IBasketProduct[] = tempListOfProds.map((prod: IProduct,
 class BasketPage {
   static render() {
     const header = new Header().render();
-    const basketHeaderLine = new BasketHeaderLine().render();
-    const goodsList = new BasketGoods(basketListOfProds).render();
-    const asideBlock = new BasketCalc().render();
+    const control = new BasketControl().render();
+    const basket = new BasketGoods(basketListOfProds).render();
+    const totalCard = new BasketTotalCalc().render();
 
     const main = `
       <main class="main basket">
-        ${basketHeaderLine}
         <div class="basket__content">
-          ${goodsList}
-          ${asideBlock}
+          ${control}
+          ${basket}
         </div>
+        ${totalCard}
       </main>
     `;
 

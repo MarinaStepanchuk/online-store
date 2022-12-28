@@ -9,17 +9,21 @@ class Database {
   }
 
   static getAllCategories(): string[] {
-    const uniqueCategories = new Set(Database.dataJSON.map((p: IProduct) => p.category));
+    const uniqueCategories = new Set(Database.dataJSON.map((product: IProduct) => product.category));
     return [...uniqueCategories];
   }
 
   static getAllBrands(): string[] {
-    const uniqueBrands = new Set(Database.dataJSON.map((p: IProduct) => p.brand));
+    const uniqueBrands = new Set(Database.dataJSON.map((product: IProduct) => product.brand));
     return [...uniqueBrands];
   }
 
   static getProductById(id: number) {
     return Database.dataJSON.find((prod: IProduct) => prod.id === id) as IProduct;
+  }
+
+  static getProductByParameters(param: string): IProduct | undefined {
+    return Database.dataJSON.find((elem) => elem.id === Number(param));
   }
 
   static getMinMaxStock(): [number, number] {

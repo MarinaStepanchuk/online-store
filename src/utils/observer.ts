@@ -1,4 +1,3 @@
-import RouterHash from '../router/RouterHash';
+import Router from '../router/Router';
 
-window.addEventListener('load', RouterHash.router);
-window.addEventListener('hashchange', RouterHash.router);
+window.addEventListener('load', Router.router);

@@ -1,4 +1,4 @@
-import './BasketHeaderLine.style.scss';
+import './BasketControl.style.scss';
 import prevBtn from '../../assets/svg/basket-arrow-prev.svg';
 import nextBtn from '../../assets/svg/basket-arrow-next.svg';
 
@@ -22,12 +22,8 @@ class BasketHeaderLine {
   getBlockAmountItems() {
     return `
       <div class="basket__subheader__amount__items items-counter">
-        <span class="items-counter__title">
-          ${AMOUNT_BASKET_GOODS_TITLE}
-        </span>
-        <div class="items-counter__value-box">
-          <span class="items-counter__value">2</span>
-        </div>
+        ${AMOUNT_BASKET_GOODS_TITLE}
+        <input type="text" class="items-counter__value" value="2">
       </div>`;
   }
 

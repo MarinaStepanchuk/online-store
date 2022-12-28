@@ -18,26 +18,23 @@ class BasketGoods {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            ${this.getListOfGoods()}
-          </tr>
+          ${this.getListOfGoods()}
         </tbody>
       </table>`;
   }
 
   getTableCaptions() {
     return `
-      <th class="basket-goods__index caption">Products</th>
-      <th class="basket-goods__image caption"></th>
-      <th class="basket-goods__desc caption"></th>
-      <th class="basket-goods__prices caption">Price</th>
-      <th class="basket-goods__quantity caption">Quantity</th>
-      <th class="basket-goods__total caption">Total</th>
-      <th class="basket-goods__remove caption"></th>`;
+      <th class="basket-goods__index"></th>
+      <th class="basket-goods__product">Products</th>
+      <th class="basket-goods__prices">Price</th>
+      <th class="basket-goods__quantity">Quantity</th>
+      <th class="basket-goods__total">Total</th>
+      <th class="basket-goods__remove"></th>`;
   }
 
   getListOfGoods() {
-    return this.goodsList.reduce((acc: string, prod: IBasketProduct): string => `${acc}<td class="basket-product">${new BasketProduct(prod).render()}</td>`, '');
+    return this.goodsList.reduce((acc: string, prod: IBasketProduct): string => `${acc}<tr class="basket-product">${new BasketProduct(prod).render()}</tr>`, '');
   }
 }
 

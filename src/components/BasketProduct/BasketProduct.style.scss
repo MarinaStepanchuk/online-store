@@ -1,27 +1,27 @@
 .basket-product {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3.5rem;
+  width: 100%;
+  margin-bottom: 2rem;
 
   &__index {
-    width: 5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     span {
       width: 3rem;
       height: 3rem;
       text-align: center;
       background-color: $color-basket-nav;
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
+  &__container {
+    display: flex;
+    gap: 5%
+  }
+
   &__image {
-    max-width: 12.7%;
-    width: 10rem;
+    min-width: 10rem;
     height: 10rem;
     border-radius: 1rem;
     overflow: hidden;
@@ -34,11 +34,6 @@
   }
 
   &__desc {
-    width: 21.7%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    justify-content: center;
 
     &__title {
       color: $color-font;
@@ -60,7 +55,8 @@
       }
     }
 
-    &__stock {
+    &__stock,
+    &__discount {
       &__title {
         font-weight: 400;
         font-size: 1.4rem;
@@ -83,8 +79,18 @@
     font-size: 1.6rem;
 
     &__old {
+      position: relative;
       color: $color-basket-font-light;
       font-weight: 400;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: 50%;
+        background-color: $color-font-inactive;
+      }
     }
 
     &__actual {
@@ -108,6 +114,7 @@
       border-radius: 50%;
       background-color: $color-primary;
       color: #fff;
+      cursor: pointer;
     }
 
     &__value {
@@ -125,6 +132,7 @@
       border-radius: 50%;
       background-color: $color-primary;
       color: #fff;
+      cursor: pointer;
     }
   }
 
@@ -136,8 +144,18 @@
     font-size: 1.6rem;
 
     &__old {
+      position: relative;
       color: $color-basket-font-light;
       font-weight: 400;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: 50%;
+        background-color: $color-font-inactive;
+      }
     }
 
     &__actual {
@@ -150,5 +168,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+  }
+
+  &__descriotion {
+
+    &__value {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -moz-box;
+      display: -webkit-box;
+      line-clamp: 2;
+      box-orient: vertical;
+      -moz-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
   }
 }
