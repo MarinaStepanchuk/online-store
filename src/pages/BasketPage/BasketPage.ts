@@ -7,7 +7,7 @@ import Database from '../../database/Database';
 import { IBasketProduct } from '../../components/BasketProduct/BasketProduct.interface';
 import { IProduct } from '../../database/DataBase.interfaces';
 import BasketCalc from '../../components/BasketCalc/BasketCalc';
-import BasketPromoBlock from '../../components/BasketPromoBlock/BasketPromoBlock';
+import BasketCoupons from '../../components/BasketCoupons/BasketCoupons';
 
 // ****** its for testing layout block *******
 const tempListOfProds: IProduct[] = [
@@ -24,7 +24,7 @@ class BasketPage {
     const control = new BasketControl().render();
     const basket = new BasketGoods(basketListOfProds).render();
     const basketCalc = new BasketCalc().render();
-    const basketPromo = new BasketPromoBlock().render();
+    const basketPromo = new BasketCoupons().render();
 
     const main = `
       <main class="main basket">

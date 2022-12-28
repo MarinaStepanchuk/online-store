@@ -4,6 +4,9 @@ export enum Buttons {
   REMOVE = 'REMOVE FROM CARD',
   DETAILS = 'DETAILS',
   BUY = 'BUY NOW',
+  CLEAR_INPUT = 'CLEAR',
+  COUPON_APPLY = 'APPLY',
+  COUPON_ADD = 'ADD',
 }
 
 export enum Titles {
