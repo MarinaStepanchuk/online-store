@@ -3,7 +3,7 @@ import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import ProductPhotosSlider from '../ProductPhotosSlider/ProductPhotosSlider';
-import { Titles, Symbols, Buttons } from './ProductDetails.enums';
+import { Titles, Symbols, Buttons } from '../../common.types/enums';
 
 class ProductDetails {
   constructor(private product: IProduct) {
@@ -56,7 +56,7 @@ class ProductDetails {
           <span>${stock}</span>
         </div>
         <div class="product-details__information__discont">
-          <span class="product-details__information__discont__title">${Titles.DISCOUNT}</span>
+          <span class="product-details__information__discont__title">${Titles.DETAILS_DISCOUNT}</span>
           <span>${discountPercentage}${Symbols.DISCOUNT}</span>
         </div>
         <div class="product-details__information__buttons">

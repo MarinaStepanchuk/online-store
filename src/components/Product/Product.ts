@@ -2,7 +2,7 @@ import './Product.style.scss';
 import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
-import { Titles, Symbols, Buttons } from './Product.enums';
+import { Titles, Symbols, Buttons } from '../../common.types/enums';
 
 class Product {
   private data: IProduct;
@@ -21,7 +21,7 @@ class Product {
     return `
         <div class="product-item">
             <div class="product-item__discont">
-                <span>${discountPercentage}${Symbols.DISCOUNT}${Titles.DISCOUNT}</span>
+                <span>${discountPercentage}${Symbols.DISCOUNT}${Titles.PRODUCT_DISCOUNT}</span>
             </div>
             <div class="product-item__stock">
                 <span>${Titles.STOCK}${stock}</span>

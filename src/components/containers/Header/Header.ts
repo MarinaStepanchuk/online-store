@@ -1,8 +1,7 @@
 import './Header.style.scss';
 import headerLogo from '../../../assets/img/logo.png';
 import headerBasket from '../../../assets/svg/header-basket.svg';
-
-const TOTAL_MONEY_TITLE = 'Card total:';
+import { Titles } from '../../../common.types/enums';
 
 class Header {
   render(): string {
@@ -13,7 +12,7 @@ class Header {
                 <img src=${headerLogo} alt="shop logo">
             </a>
             <div class="header__money show">
-                <span class="header__money__text">${TOTAL_MONEY_TITLE}</span>
+                <span class="header__money__text">${Titles.HEADER_TOTAL_MONEY}</span>
                 <span id="headerTotalMoney" class="header__money__value">$666.00</span>
             </div>
             <div onclick="window.location.pathname = '/basket'" class="header__basket">

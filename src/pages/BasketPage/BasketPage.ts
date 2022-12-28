@@ -3,10 +3,11 @@ import Header from '../../components/containers/Header/Header';
 import { findElem } from '../../utils/findElem';
 import BasketControl from '../../components/BasketControl/BasketControl';
 import BasketGoods from '../../components/BasketGoods/BasketGoods';
-import BasketTotalCalc from '../../components/BasketTotalCalc/BasketTotalCalc';
 import Database from '../../database/Database';
 import { IBasketProduct } from '../../components/BasketProduct/BasketProduct.interface';
 import { IProduct } from '../../database/DataBase.interfaces';
+import BasketCalc from '../../components/BasketCalc/BasketCalc';
+import BasketPromoBlock from '../../components/BasketPromoBlock/BasketPromoBlock';
 
 // ****** its for testing layout block *******
 const tempListOfProds: IProduct[] = [
@@ -22,15 +23,19 @@ class BasketPage {
     const header = new Header().render();
     const control = new BasketControl().render();
     const basket = new BasketGoods(basketListOfProds).render();
-    const totalCard = new BasketTotalCalc().render();
+    const basketCalc = new BasketCalc().render();
+    const basketPromo = new BasketPromoBlock().render();
 
     const main = `
       <main class="main basket">
-        <div class="basket__content">
+        <section class="basket__content">
           ${control}
           ${basket}
-        </div>
-        ${totalCard}
+        </section>
+        <section class="basket__aside-block">
+          ${basketCalc}
+          ${basketPromo}
+        </section>
       </main>
     `;
 

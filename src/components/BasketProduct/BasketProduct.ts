@@ -2,18 +2,7 @@ import './BasketProduct.style.scss';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import removeIcon from '../../assets/svg/delete_button.svg';
 import { IBasketProduct } from './BasketProduct.interface';
-
-const BUTTON_MINUS_SYMBOL = '-';
-const BUTTON_PLUS_SYMBOL = '+';
-const DESCRIPTION_BRAND_TITLE = 'brand:';
-const DESCRIPTION_CATEGORY_TITLE = 'category:';
-const DESCRIPTION_STOCK_TITLE = 'stock:';
-const DESCRIPTION_DISCOUNT_TITLE = 'discount:';
-
-export enum Symbols {
-  DISCOUNT = '%',
-  CURRENCY = '$',
-}
+import { Titles, Symbols } from '../../common.types/enums';
 
 class BasketProduct {
   private product: IBasketProduct;
@@ -24,7 +13,7 @@ class BasketProduct {
 
   render(): string {
     const {
-      index, amount, title, brand, stock, discountPercentage, price, thumbnail, category, description,
+      index, amount, title, brand, stock, discountPercentage, price, thumbnail, category, description, id,
     } = this.product;
     const actualPrice = getPriceAfterDiscont(price, discountPercentage);
     const totalOldPrice = price * amount;
@@ -34,7 +23,7 @@ class BasketProduct {
       <td class="basket-product__index">
         <span>${index}</span>
       </td>
-      <td>
+      <td class="basket-product__info" onclick="window.location.pathname = '/product/${id}'">
         <div class="basket-product__container">
           <div class="basket-product__image">
             <img src=${thumbnail} alt="product image">
@@ -42,19 +31,19 @@ class BasketProduct {
           <div class="basket-product__desc">
             <span class="basket-product__desc__title">${title}</span>
             <div class="basket-product__desc__brand">
-              <span class="basket-product__desc__brand__title">${DESCRIPTION_CATEGORY_TITLE}</span>
+              <span class="basket-product__desc__brand__title">${Titles.CATEGORY}</span>
               <span class="basket-product__desc__brand__value">${category}</span>
             </div>
             <div class="basket-product__desc__brand">
-              <span class="basket-product__desc__brand__title">${DESCRIPTION_BRAND_TITLE}</span>
+              <span class="basket-product__desc__brand__title">${Titles.BRAND}</span>
               <span class="basket-product__desc__brand__value">${brand}</span>
             </div>
             <div class="basket-product__desc__stock">
-              <span class="basket-product__desc__title">${DESCRIPTION_STOCK_TITLE}</span>
+              <span class="basket-product__desc__title">${Titles.STOCK}</span>
               <span class="basket-product__desc__value">${stock}</span>
             </div>
             <div class="basket-product__desc__discount">
-              <span class="basket-product__desc__title">${DESCRIPTION_DISCOUNT_TITLE}</span>
+              <span class="basket-product__desc__title">${Titles.DISCOUNT}</span>
               <span class="basket-product__desc__value">${discountPercentage}${Symbols.DISCOUNT}</span>
             </div>
           </div>
@@ -63,7 +52,7 @@ class BasketProduct {
           <span class="basket-product__descriotion__value">${description}</span>
         </div>
       </td>
-      <td class="">
+      <td>
         <div class="basket-product__prices">
           <span class="basket-product__prices__old">${Symbols.CURRENCY}${price}</span>
           <span class="basket-product__prices__actual">${Symbols.CURRENCY}${actualPrice}</span>
@@ -71,9 +60,9 @@ class BasketProduct {
       </td>
       <td class="">
         <div class="basket-product__quantity">
-          <div class="basket-product__quantity__minus">${BUTTON_MINUS_SYMBOL}</div>
+          <div class="basket-product__quantity__minus">${Symbols.MINUS}</div>
           <span class="basket-product__quantity__value">${amount}</span>
-          <div class="basket-product__quantity__plus">${BUTTON_PLUS_SYMBOL}</div>
+          <div class="basket-product__quantity__plus">${Symbols.PLUS}</div>
         </div>
       </td>
       <td class="">
