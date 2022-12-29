@@ -2,7 +2,7 @@ import './Product.style.scss';
 import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
-import { Titles, Symbols, Buttons } from '../../common.types/enums';
+import { Title, Symbol, Button } from '../../common.types/enums';
 
 class Product {
   private data: IProduct;
@@ -21,21 +21,21 @@ class Product {
     return `
         <div class="product-item">
             <div class="product-item__discont">
-                <span>${discountPercentage}${Symbols.DISCOUNT}${Titles.PRODUCT_DISCOUNT}</span>
+                <span>${discountPercentage}${Symbol.DISCOUNT}${Title.PRODUCT_DISCOUNT}</span>
             </div>
             <div class="product-item__stock">
-                <span>${Titles.STOCK}${stock}</span>
+                <span>${Title.STOCK}${stock}</span>
             </div>
             <div class="product-item__image">
                 <img src=${thumbnail} alt="product image">
             </div>
             <div class="product-item__title">${title}</div>
             <div class="product-item__category">
-                <span class="product-item__category__title">${Titles.CATEGORY}</span>
+                <span class="product-item__category__title">${Title.CATEGORY}</span>
                 <span class="product-item__category__text">${category}</span>
             </div>
             <div class="product-item__brand">
-                <span class="product-item__brand__title">${Titles.BRAND}</span>
+                <span class="product-item__brand__title">${Title.BRAND}</span>
                 <span class="product-item__brand__text">${brand}</span>
             </div>
             <div class="product-item__rating">
@@ -49,12 +49,12 @@ class Product {
                 </div>
             </div>
             <div class="product-item__prices">
-                <div class="product-item__prices__new">${Symbols.CURRENCY}${actualPrice}</div>
-                <div class="product-item__prices__old">${Symbols.CURRENCY}${price}</div>
+                <div class="product-item__prices__new">${Symbol.CURRENCY}${actualPrice}</div>
+                <div class="product-item__prices__old">${Symbol.CURRENCY}${price}</div>
             </div>
             <div class="product-item__buttons">
-                <button onclick="window.location.pathname = '/product/${id}'" class="product-item__buttons_red">${Buttons.DETAILS}</button>
-                <button class="product-item__buttons_white">${Buttons.ADD}</button>
+                <button onclick="window.location.pathname = '/product/${id}'" class="product-item__buttons_red">${Button.DETAILS}</button>
+                <button class="product-item__buttons_white">${Button.ADD}</button>
             </div>
         </div>
         `;

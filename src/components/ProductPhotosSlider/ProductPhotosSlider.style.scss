@@ -10,12 +10,12 @@
   cursor: pointer;
 
   img {
-  width: 100%;
-  overflow: hidden;
-  border-radius: 1rem;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 1rem;
   }
 }
 
 .active {
-  filter: drop-shadow(0 0 2rem #FFDA2D);
+  filter: drop-shadow(0 0 2rem #ffda2d);
 }

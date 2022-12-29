@@ -14,7 +14,7 @@
     margin-bottom: 1rem;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -23,7 +23,7 @@
     }
 
     &__title {
-      font-family: 'CeraProBold', arial, serif;
+      font-family: CeraProBold, arial, serif;
     }
   }
 
@@ -43,14 +43,13 @@
     }
 
     &__subtotal {
-
       &__value {
         position: relative;
-        font-family: 'CeraProBold', arial, serif;
+        font-family: CeraProBold, arial, serif;
         color: $color-basket-font-light;
 
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           bottom: 50%;
           width: 100%;
@@ -61,10 +60,10 @@
     }
 
     &__summary {
-      font-family: 'CeraProBold', arial, serif;
+      font-family: CeraProBold, arial, serif;
 
       &__value {
-        color: $color-secondary
+        color: $color-secondary;
       }
     }
 

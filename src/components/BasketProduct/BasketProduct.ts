@@ -2,13 +2,13 @@ import './BasketProduct.style.scss';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import removeIcon from '../../assets/svg/delete_button.svg';
 import { IBasketProduct } from './BasketProduct.interface';
-import { Titles, Symbols } from '../../common.types/enums';
+import { Title, Symbol } from '../../common.types/enums';
 
 class BasketProduct {
   private product: IBasketProduct;
 
-  constructor(param: IBasketProduct) {
-    this.product = param;
+  constructor(product: IBasketProduct) {
+    this.product = product;
   }
 
   render(): string {
@@ -31,20 +31,20 @@ class BasketProduct {
           <div class="basket-product__desc">
             <span class="basket-product__desc__title">${title}</span>
             <div class="basket-product__desc__brand">
-              <span class="basket-product__desc__brand__title">${Titles.CATEGORY}</span>
+              <span class="basket-product__desc__brand__title">${Title.CATEGORY}</span>
               <span class="basket-product__desc__brand__value">${category}</span>
             </div>
             <div class="basket-product__desc__brand">
-              <span class="basket-product__desc__brand__title">${Titles.BRAND}</span>
+              <span class="basket-product__desc__brand__title">${Title.BRAND}</span>
               <span class="basket-product__desc__brand__value">${brand}</span>
             </div>
             <div class="basket-product__desc__stock">
-              <span class="basket-product__desc__title">${Titles.STOCK}</span>
+              <span class="basket-product__desc__title">${Title.STOCK}</span>
               <span class="basket-product__desc__value">${stock}</span>
             </div>
             <div class="basket-product__desc__discount">
-              <span class="basket-product__desc__title">${Titles.DISCOUNT}</span>
-              <span class="basket-product__desc__value">${discountPercentage}${Symbols.DISCOUNT}</span>
+              <span class="basket-product__desc__title">${Title.DISCOUNT}</span>
+              <span class="basket-product__desc__value">${discountPercentage}${Symbol.DISCOUNT}</span>
             </div>
           </div>
         </div>
@@ -54,21 +54,21 @@ class BasketProduct {
       </td>
       <td>
         <div class="basket-product__prices">
-          <span class="basket-product__prices__old">${Symbols.CURRENCY}${price}</span>
-          <span class="basket-product__prices__actual">${Symbols.CURRENCY}${actualPrice}</span>
+          <span class="basket-product__prices__old">${Symbol.CURRENCY}${price}</span>
+          <span class="basket-product__prices__actual">${Symbol.CURRENCY}${actualPrice}</span>
         </div>
       </td>
       <td class="">
         <div class="basket-product__quantity">
-          <div class="basket-product__quantity__minus">${Symbols.MINUS}</div>
+          <div class="basket-product__quantity__minus">${Symbol.MINUS}</div>
           <span class="basket-product__quantity__value">${amount}</span>
-          <div class="basket-product__quantity__plus">${Symbols.PLUS}</div>
+          <div class="basket-product__quantity__plus">${Symbol.PLUS}</div>
         </div>
       </td>
       <td class="">
         <div class="basket-product__total">
-          <span class="basket-product__total__old">${Symbols.CURRENCY}${totalOldPrice}</span>
-          <span class="basket-product__total__actual">${Symbols.CURRENCY}${totalActualPrice}</span>
+          <span class="basket-product__total__old">${Symbol.CURRENCY}${totalOldPrice}</span>
+          <span class="basket-product__total__actual">${Symbol.CURRENCY}${totalActualPrice}</span>
         </div>
       </td>
       <td class="">

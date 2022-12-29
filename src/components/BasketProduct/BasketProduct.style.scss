@@ -21,7 +21,7 @@
 
   &__container {
     display: flex;
-    gap: 5%
+    gap: 5%;
   }
 
   &__image {
@@ -39,7 +39,6 @@
   }
 
   &__desc {
-
     &__title {
       color: $color-font;
       font-weight: 600;
@@ -89,7 +88,7 @@
       font-weight: 400;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 1px;
@@ -109,7 +108,8 @@
     align-items: center;
     justify-content: center;
 
-    &__minus {
+    &__minus,
+    &__plus {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -126,19 +126,6 @@
       text-align: center;
       min-width: 2.5rem;
     }
-
-    &__plus {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      text-align: center;
-      border-radius: 50%;
-      background-color: $color-primary;
-      color: #fff;
-      cursor: pointer;
-    }
   }
 
   &__total {
@@ -154,7 +141,7 @@
       font-weight: 400;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 1px;
@@ -177,7 +164,6 @@
   }
 
   &__descriotion {
-
     &__value {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -189,6 +175,5 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
-
   }
 }

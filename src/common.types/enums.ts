@@ -1,4 +1,4 @@
-export enum Buttons {
+export enum Button {
   ORDERING = 'Proceed To Checkout',
   ADD = 'ADD TO CARD',
   REMOVE = 'REMOVE FROM CARD',
@@ -9,7 +9,7 @@ export enum Buttons {
   COUPON_ADD = 'ADD',
 }
 
-export enum Titles {
+export enum Title {
   BASKET_HEADER__TITLE = 'Card Totals',
   PRODUCTS = 'Products: ',
   CARD_SUBTOTAL_MONEY = 'Subtotal:',
@@ -24,7 +24,7 @@ export enum Titles {
   DETAILS_DISCOUNT = 'Discount Percentage: ',
 }
 
-export enum Symbols {
+export enum Symbol {
   DISCOUNT = '%',
   CURRENCY = '$',
   SUBTRACT = '(-)',

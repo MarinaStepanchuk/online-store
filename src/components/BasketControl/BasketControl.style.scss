@@ -46,9 +46,9 @@
       }
 
       &__value-box {
-        background-color: $color-secondary;
-
         @include basket-subheader-box;
+
+        background-color: $color-secondary;
       }
 
       &__value {

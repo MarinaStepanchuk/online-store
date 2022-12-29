@@ -18,7 +18,7 @@ class Database {
     return [...uniqueBrands];
   }
 
-  static getProductById(id: number) {
+  static getProductById(id: number): IProduct {
     return Database.dataJSON.find((prod: IProduct) => prod.id === id) as IProduct;
   }
 

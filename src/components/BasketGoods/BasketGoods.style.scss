@@ -20,17 +20,18 @@ table {
 
 thead {
   position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 1rem;
+    background-color: $color-font-inactive;
+  }
 }
 
-thead::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: 1rem;
-  background-color: $color-font-inactive;
-}
-
-th, td {
-  padding: 1rem 1rem 3rem 1rem;
+th,
+td {
+  padding: 1rem 1rem 3rem;
 }

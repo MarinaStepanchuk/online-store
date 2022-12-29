@@ -6,7 +6,7 @@
 
   &__title {
     font-size: 1.8rem;
-    font-family: 'CeraProBold', arial, serif;
+    font-family: CeraProBold, arial, serif;
   }
 
   &__input {
@@ -25,7 +25,8 @@
 
     &__clear-button {
       @include button(30%);
-      border-radius: 0px;
+
+      border-radius: 0;
     }
   }
 
@@ -35,7 +36,6 @@
     align-items: center;
     gap: 1rem;
     border: 1px solid $color-primary;
-    
 
     &__value {
       width: 80%;
@@ -44,7 +44,8 @@
 
     &__add {
       @include button(20%, 2.5rem);
-      border-radius: 0px;
+
+      border-radius: 0;
     }
   }
 
@@ -57,12 +58,12 @@
 
     &__title {
       position: relative;
-      margin: 0px;
+      margin: 0;
 
       &::before {
+        content: "";
         position: absolute;
         bottom: -0.5rem;
-        content: '';
         width: 100%;
         height: 1px;
         background-color: $color-primary;
@@ -75,9 +76,9 @@
       align-items: center;
 
       &::before {
+        content: "";
         position: absolute;
         bottom: -0.5rem;
-        content: '';
         width: 100%;
         height: 1px;
         background-color: $color-primary;

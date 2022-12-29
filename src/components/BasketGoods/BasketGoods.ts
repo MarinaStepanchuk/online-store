@@ -34,7 +34,14 @@ class BasketGoods {
   }
 
   getListOfGoods() {
-    return this.goodsList.reduce((acc: string, prod: IBasketProduct): string => `${acc}<tr class="basket-product">${new BasketProduct(prod).render()}</tr>`, '');
+    return this.goodsList.reduce((acc: string, prod: IBasketProduct): string => (
+      `
+      ${acc}
+      <tr class="basket-product">
+        ${new BasketProduct(prod).render()}
+      </tr>
+      `
+    ), '');
   }
 }
 
