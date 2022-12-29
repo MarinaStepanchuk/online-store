@@ -19,12 +19,17 @@ body {
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 #app {
   padding: 24px 0;
+}
+
+.h2 {
+  font-size: 2.8rem;
+  color: $color-font;
 }
 
 .header,

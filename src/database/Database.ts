@@ -18,8 +18,12 @@ class Database {
     return [...uniqueBrands];
   }
 
-  static getProductById(id: string): IProduct | undefined {
-    return this.dataJSON.find((elem) => elem.id === Number(id));
+  static getProductById(id: number): IProduct {
+    return Database.dataJSON.find((prod: IProduct) => prod.id === id) as IProduct;
+  }
+
+  static getProductByParameters(param: string): IProduct | undefined {
+    return Database.dataJSON.find((elem) => elem.id === Number(param));
   }
 
   static getMinMaxStock(): [number, number] {

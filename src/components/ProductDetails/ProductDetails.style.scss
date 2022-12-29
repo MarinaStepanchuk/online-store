@@ -22,9 +22,9 @@
     width: 50%;
 
     &__title {
-      font-family: 'CeraProBold', arial, serif;
+      font-family: CeraProBold, arial, serif;
       font-size: 2.8rem;
-      margin: 0 0 1.4rem 0;
+      margin: 0 0 1.4rem;
     }
 
     &__container {
@@ -33,7 +33,7 @@
       align-items: center;
       font-size: 2.2rem;
       padding-bottom: 1.3rem;
-      border-bottom: 0.3px solid rgba(37, 113, 67, 0.2);
+      border-bottom: 0.3px solid rgb(37 113 67 / 20%);
       margin-bottom: 1.3rem;
     }
 
@@ -46,7 +46,7 @@
         font-weight: 700;
         color: $color-secondary;
       }
-      
+
       &__old {
         font-weight: 400;
         color: $color-font-inactive;
@@ -58,12 +58,8 @@
       display: flex;
       align-items: center;
       font-weight: 500;
-    }
-
-    &__rating {
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
+      justify-content: space-between;
+      gap: 1rem;
 
       &__indicator {
         z-index: -1;
@@ -100,7 +96,7 @@
     &__stock__title,
     &__discont__title,
     &__description__title {
-      font-family: 'CeraProBold', arial, serif;
+      font-family: CeraProBold, arial, serif;
     }
 
     &__description {

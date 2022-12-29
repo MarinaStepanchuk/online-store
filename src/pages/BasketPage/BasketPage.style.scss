@@ -1,0 +1,13 @@
+.basket {
+  padding: 3.5rem 1rem 0;
+  display: flex;
+  justify-content: space-between;
+
+  &__content {
+    width: 70%;
+  }
+
+  &__aside-block {
+    width: 25%;
+  }
+}

@@ -11,7 +11,7 @@ class ProductPage {
     const header = new Header().render();
 
     let main = '';
-    if (!Database.getProductById(param)) {
+    if (!Database.getProductByParameters(param)) {
       main = `
         <main class="main">
           <div class="produсt-error">
@@ -20,7 +20,7 @@ class ProductPage {
         </main>
       `;
     } else {
-      const product = Database.getProductById(param) as IProduct;
+      const product = Database.getProductByParameters(param) as IProduct;
       const pathProduct = new PathProduct(product).render();
       const productDetails = new ProductDetails(product).render();
       main = `

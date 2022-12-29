@@ -4,7 +4,7 @@ import background from '../../assets/img/background_main.jpg';
 const GREETINGS = 'WELCOME TO CHRISTMAS SHOP';
 const SUBTITLE = 'ADD SOME SPARKLE TO ';
 const SUBTITLE_HIGHLIGHTED_TEXT = 'Christmas';
-const BUTTON_NAME = 'SHOP NOW';
+const BUTTON_SHOP = 'SHOP NOW';
 
 class WelcomeBlock {
   render(): string {
@@ -16,7 +16,7 @@ class WelcomeBlock {
                 ${SUBTITLE}
                 <span class="shopnow__subtitle_red">${SUBTITLE_HIGHLIGHTED_TEXT}</span>
             </div>
-            <button class="shopnow__button">${BUTTON_NAME}</button>
+            <button class="shopnow__button">${BUTTON_SHOP}</button>
         </section>
         `;
   }

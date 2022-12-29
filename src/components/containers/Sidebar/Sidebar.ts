@@ -2,6 +2,7 @@ import './Sidebar.style.scss';
 import FilterList from '../../FilterList/FilterList';
 import FilterRange from '../../FilterRange/FilterRange';
 import Database from '../../../database/Database';
+import { Symbol } from '../../../common.types/enums';
 
 const FilterParamTitles = {
   categories: 'Categories',
@@ -9,7 +10,6 @@ const FilterParamTitles = {
   price: 'Price',
   stock: 'Stock',
 };
-const CURRENCY_SYMBOL = '$';
 
 class Sidebar {
   render(): string {
@@ -30,7 +30,7 @@ class Sidebar {
 
     const categoryFilter = new FilterList(FilterParamTitles.categories, categories);
     const brandFilter = new FilterList(FilterParamTitles.brands, brands);
-    const priceRange = new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), CURRENCY_SYMBOL);
+    const priceRange = new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), Symbol.CURRENCY);
     const stockRange = new FilterRange(FilterParamTitles.stock, Database.getMinMaxStock());
 
     return `
