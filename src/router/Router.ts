@@ -1,6 +1,6 @@
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
-import RoutesType from './Router.types';
-import Routes, { RoutesWithRequiredParams } from './Routes';
+import RoutesType from './router.types';
+import Routes, { RoutesWithRequiredParams } from './routes';
 
 class Router {
   static routes: RoutesType = Routes as RoutesType;
