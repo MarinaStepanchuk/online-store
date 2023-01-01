@@ -3,6 +3,7 @@ import modeGrid3Icon from '../../assets/svg/grid3_icon.svg';
 import modeGrid4Icon from '../../assets/svg/grid4_icon.svg';
 import searchIcon from '../../assets/svg/search_icon.svg';
 import searchCross from '../../assets/svg/search_cross.svg';
+import { IProcessedData } from '../../database/DataBase.interfaces';
 
 const SORT_TITLE = 'Sort by:';
 const SortingNames = {
@@ -24,11 +25,14 @@ enum ViewMode {
 }
 
 class Controls {
-  render():string {
+  render(data: IProcessedData):string {
+    const productsAmount = data.productsId.size as number;
+    const searchText = /* data.search */ 'test' as string;
+
     return `
       <div class="controls">
         ${this.getSortBlock()}
-        ${this.getSearchBlock('goods')}
+        ${this.getSearchBlock(productsAmount, searchText)}
         ${this.getModeBlock(ViewMode.grid3)}
       </div>`;
   }
@@ -48,16 +52,16 @@ class Controls {
       </div>`;
   }
 
-  getSearchBlock(value: string): string {
+  getSearchBlock(amount: number, search: string): string {
     return `
       <div class="controls__search search">
         <div class="search__result">
           <span class="search__result__title">${SEARCH_RESULT_TITLE}</span>
-          <span class="search__result__amount" id="search-amount">56</span>
+          <span class="search__result__amount" id="search-amount">${amount}</span>
         </div>
         <div class="search__input-wrap">
           <input type="text" class="search__input" id="search-input" placeholder=${SEARCH_PLACEHOLDER} 
-              autofocus autocomplete="off" value=${value}>
+              autofocus autocomplete="off" value=${search}>
           <img class="search__reset" src=${searchCross} class="search__reset" alt="reset search">
         </div>
         <img class="search__icon" src=${searchIcon} alt="search icon">

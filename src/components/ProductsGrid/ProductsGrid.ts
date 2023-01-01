@@ -4,7 +4,12 @@ import { IProduct } from '../../database/DataBase.interfaces';
 import Database from '../../database/Database';
 
 class ProductsGrid {
-  private productsDataList: IProduct[] = Database.getAllProducts();
+  private productsDataList: IProduct[];
+
+  constructor(private productsId: number[]) {
+    this.productsId = productsId;
+    this.productsDataList = productsId.map((id: number) => Database.getProductById(id));
+  }
 
   render(): string {
     const productsList = this.productsDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');

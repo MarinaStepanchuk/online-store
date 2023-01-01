@@ -1,38 +1,48 @@
 import camelize from '../../utils/camelize';
 import './FilterList.style.scss';
+import { IFilterOptions } from '../../database/DataBase.interfaces';
+// import UrlFormater, { QueryNames } from '../../utils/UrlFormater';
+
+// const formater = new UrlFormater();
+// formater.setQueryParam(QueryNames.CATEGORY, 'Home edition');
+// formater.setQueryParam(QueryNames.CATEGORY, 'kakadu');
+// formater.setQueryParam(QueryNames.BRAND, 'Hosdgfg');
+// formater.setQueryParam(QueryNames.BRAND, 'laptop');
+// formater.setQueryParam(QueryNames.SEARCH, 'AMD asdedition');
+// formater.setQueryParam(QueryNames.SEARCH, 'best choice');
 
 class FilterList {
-  private filterTitle: string;
-
-  private filterList: string[];
-
-  constructor(filterTitle: string, filterList: string[]) {
+  constructor(
+    private readonly filterTitle: string,
+    private readonly filtersList: Record<string, IFilterOptions>,
+  ) {
     this.filterTitle = filterTitle;
-    this.filterList = filterList;
+    this.filtersList = filtersList;
   }
 
-  render(amount: string[][]): string {
-    return this.getCategoriesFilter(amount);
+  render(): string {
+    return this.getFilterCategories();
   }
 
-  getFilterItem(name: string, [displayedAmount, totalAmount]: string[]): string {
+  getFilterItem(name: string, { active, total, isEmphasized }: IFilterOptions): string {
     const id = `${camelize(name)}${this.filterTitle}`;
 
     return `
       <li class="filter__item">
-        <input id=${id} class="filter__item__input" type="checkbox">
+        <input id=${id} class="filter__item__input" ${isEmphasized ? 'checked' : ''} type="checkbox">
         <label for=${id} class="filter__item__label">
           <span class="filter__item__name">${name}</span>
-          <span class="filter__item__amount-block">(${displayedAmount}/${totalAmount})</span>
+          <span class="filter__item__amount-block">(${active}/${total})</span>
         </label>
       </li>`;
   }
 
-  getCategoriesFilter(amount: string[][]): string {
+  getFilterCategories(): string {
     let filterItems = '';
+    const categoryNames = Object.keys(this.filtersList) as string[];
 
-    this.filterList.forEach((category: string, idx: number) => {
-      filterItems += this.getFilterItem(category, amount[idx]);
+    categoryNames.forEach((name: string) => {
+      filterItems += this.getFilterItem(name, this.filtersList[name]);
     });
 
     return `
