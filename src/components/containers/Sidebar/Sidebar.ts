@@ -25,13 +25,14 @@ class Sidebar {
       'react', 'filtron', 'decoration tank'];
     const dataBrandsAmount = [['4', '15'], ['1', '2'], ['2', '3'], ['0', '23'], ['4', '23'], ['4', '23'], ['4', '23'],
       ['4', '23'], ['4', '23'], ['4', '23'], ['4', '56'], ['4', '23'], ['5', '23']];
-    // const testRange = [12, 560];
+    const testRange1: [number, number] = [72, 109];
+    const testRange2: [number, number] = [20, 88];
     // these constants only for testing layout, in future they will be deleted
 
     const categoryFilter = new FilterList(FilterParamTitles.categories, categories);
     const brandFilter = new FilterList(FilterParamTitles.brands, brands);
-    const priceRange = new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), Symbol.CURRENCY);
-    const stockRange = new FilterRange(FilterParamTitles.stock, Database.getMinMaxStock());
+    const priceRange = new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), testRange1, Symbol.CURRENCY);
+    const stockRange = new FilterRange(FilterParamTitles.stock, Database.getMinMaxStock(), testRange2);
 
     return `
       <aside class="filters">
