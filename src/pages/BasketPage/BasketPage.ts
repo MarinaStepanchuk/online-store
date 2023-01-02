@@ -1,6 +1,4 @@
 import './BasketPage.style.scss';
-import Header from '../../components/containers/Header/Header';
-import { findElem } from '../../utils/findElem';
 import BasketControl from '../../components/BasketControl/BasketControl';
 import BasketGoods from '../../components/BasketGoods/BasketGoods';
 import Database from '../../database/Database';
@@ -20,13 +18,13 @@ const basketListOfProds: IBasketProduct[] = tempListOfProds.map((prod: IProduct,
 
 class BasketPage {
   static render() {
-    const header = new Header().render();
     const control = new BasketControl().render();
     const basket = new BasketGoods(basketListOfProds).render();
     const basketCalc = new BasketCalc().render();
     const basketPromo = new BasketCoupons().render();
+    const main = document.querySelector('.main') as HTMLElement;
 
-    const main = `
+    main.innerHTML = `
       <main class="main basket">
         <section class="basket__content">
           ${control}
@@ -37,11 +35,6 @@ class BasketPage {
           ${basketPromo}
         </section>
       </main>
-    `;
-
-    findElem('#app').innerHTML = `
-      ${header}
-      ${main}
     `;
   }
 }

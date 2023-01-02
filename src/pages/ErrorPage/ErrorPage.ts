@@ -1,14 +1,12 @@
 import './ErrorPage.style.scss';
-import { findElem } from '../../utils/findElem';
-import Header from '../../components/containers/Header/Header';
 
 const MESSAGE_ERROR = 'PAGE NOT FOUND (404)';
 
 class ErrorPage {
   static render() {
-    const header = new Header().render();
+    const main = document.querySelector('.main') as HTMLElement;
 
-    const main = `
+    main.innerHTML = `
       <main class="main">
         <section class="error">
           <div>
@@ -16,11 +14,6 @@ class ErrorPage {
           </div>
         </section>
       </main>
-    `;
-
-    findElem('#app').innerHTML = `
-      ${header}
-      ${main}
     `;
   }
 }

@@ -1,18 +1,15 @@
 import './ProductPage.style.scss';
 import { IProduct } from '../../database/DataBase.interfaces';
-import { findElem } from '../../utils/findElem';
 import Database from '../../database/Database';
-import Header from '../../components/containers/Header/Header';
 import PathProduct from '../../components/PathProduct/PathProduct';
 import ProductDetails from '../../components/ProductDetails/ProductDetails';
 
 class ProductPage {
   static render(param: string) {
-    const header = new Header().render();
+    const main = document.querySelector('.main') as HTMLElement;
 
-    let main = '';
     if (!Database.getProductByParameters(param)) {
-      main = `
+      main.innerHTML = `
         <main class="main">
           <div class="produсt-error">
             Product ${param} not found.
@@ -23,7 +20,7 @@ class ProductPage {
       const product = Database.getProductByParameters(param) as IProduct;
       const pathProduct = new PathProduct(product).render();
       const productDetails = new ProductDetails(product).render();
-      main = `
+      main.innerHTML = `
       <main class="main">
         <section class="path">
           ${pathProduct}
@@ -34,11 +31,6 @@ class ProductPage {
       </main>
       `;
     }
-
-    findElem('#app').innerHTML = `
-    ${header}
-    ${main}
-  `;
   }
 }
 
