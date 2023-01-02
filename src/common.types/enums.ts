@@ -31,3 +31,9 @@ export enum Symbol {
   MINUS = '-',
   PLUS = '+',
 }
+
+export enum Events {
+  CLICK = 'click',
+  CHANGE = 'change',
+  INPUT = 'input',
+}

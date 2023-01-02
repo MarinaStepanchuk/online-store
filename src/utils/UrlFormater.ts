@@ -44,7 +44,8 @@ class UrlFormater {
         .join(this.separators.param)}`;
     }
 
-    // history.replaceState(null, '', this.url);
+    // eslint-disable-next-line no-restricted-globals
+    location.search = this.url.search;
   }
 
   setQueryParam(name: string, value: string) {

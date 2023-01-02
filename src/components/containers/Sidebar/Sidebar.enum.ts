@@ -1,5 +1,5 @@
 export const FilterParamTitles = {
-  categories: 'Categories',
+  categories: 'Category',
   brands: 'Brand',
   price: 'Price',
   stock: 'Stock',
