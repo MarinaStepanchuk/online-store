@@ -1,5 +1,6 @@
 import data from './data.json';
 import { IProduct } from './DataBase.interfaces';
+import getPriceAfterDiscont from '../utils/getPriceAfterDiscont';
 
 class Database {
   static dataJSON : IProduct[] = data.products;
@@ -20,6 +21,10 @@ class Database {
 
   static getProductById(id: number): IProduct {
     return Database.dataJSON.find((prod: IProduct) => prod.id === id) as IProduct;
+  }
+
+  static getPriceById(id: number): number {
+    return getPriceAfterDiscont(Database.getProductById(id).price, Database.getProductById(id).discountPercentage);
   }
 
   static getProductByParameters(param: string): IProduct | undefined {
