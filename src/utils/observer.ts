@@ -1,3 +1,3 @@
-import Router from '../router/Router';
+// import Router from '../router/Router';
 
-window.addEventListener('DOMContentLoaded', Router.router);
+// window.addEventListener('DOMContentLoaded', Router.router);

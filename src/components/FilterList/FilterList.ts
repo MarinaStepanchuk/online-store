@@ -4,19 +4,11 @@ import { IFilterOptions } from '../../database/DataBase.interfaces';
 import FilterListHandler from './FilterList.handler';
 import { Events } from '../../common.types/enums';
 import UrlFormater from '../../utils/UrlFormater';
-// import UrlFormater, { QueryNames } from '../../utils/UrlFormater';
-
-// const formater = new UrlFormater();
-// formater.setQueryParam(QueryNames.CATEGORY, 'Home edition');
-// formater.setQueryParam(QueryNames.CATEGORY, 'kakadu');
-// formater.setQueryParam(QueryNames.BRAND, 'Hosdgfg');
-// formater.setQueryParam(QueryNames.BRAND, 'laptop');
-// formater.setQueryParam(QueryNames.SEARCH, 'AMD asdedition');
-// formater.setQueryParam(QueryNames.SEARCH, 'best choice');
+import DataAttrConverter from '../../utils/DataAttrConverter';
 
 class FilterList {
   constructor(
-    private readonly filterTitle: string,
+    private readonly filterTitle: string, // must be one word without spaces!
     private readonly filtersList: Record<string, IFilterOptions>,
   ) {
     this.filterTitle = filterTitle;
@@ -25,13 +17,18 @@ class FilterList {
 
   render(): string {
     FilterListHandler.setEvent(Events.CLICK, (e: Event) => {
-      const target = e.target as HTMLElement;
+      const target = e.target as HTMLInputElement;
 
       if (target.dataset.filterAreaName && target.dataset.filterName) {
-        const filterTitle = target.dataset.filterAreaName as string;
-        const filterName = target.dataset.filterName as string;
+        const filterTitle = target.dataset.filterAreaName.toLowerCase() as string;
+        const filterName = DataAttrConverter.decode(target.dataset.filterName) as string;
+        const urlFormater = new UrlFormater();
 
-        new UrlFormater().setQueryParam(filterTitle.toLowerCase(), filterName);
+        if (target.checked) {
+          urlFormater.setQueryParam(filterTitle, filterName);
+        } else {
+          urlFormater.deleteQueryParam(filterTitle, filterName);
+        }
       }
     }, `.filters__${this.filterTitle.toLowerCase()}`);
 
@@ -44,7 +41,8 @@ class FilterList {
     return `
       <li class="filter__item">
         <input id=${id} class="filter__item__input" ${isEmphasized ? 'checked' : ''} 
-        data-filter-area-name=${this.filterTitle} data-filter-name=${encodeURI(name)} type="checkbox">
+        data-filter-area-name=${this.filterTitle} 
+        data-filter-name=${DataAttrConverter.encode(name)} type="checkbox">
         <label for=${id} class="filter__item__label">
           <span class="filter__item__name">${name}</span>
           <span class="filter__item__amount-block">(${active}/${total})</span>

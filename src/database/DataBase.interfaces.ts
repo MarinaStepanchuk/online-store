@@ -13,8 +13,8 @@ export interface IProduct {
 }
 
 export interface IPageParams {
-  category?: string[],
-  brand?: string[],
+  category?: Set<string>,
+  brand?: Set<string>,
   price?: [number, number],
   stock?: [number, number],
   mode?: string,

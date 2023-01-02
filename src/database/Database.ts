@@ -56,11 +56,11 @@ class Database {
     };
 
     const isSuitable = (product: IProduct) => {
-      if (params.category?.length && !params.category.includes(product.category)) {
+      if (params.category && !params.category.has(product.category)) {
         return false;
       }
 
-      if (params.brand?.length && !params.brand.includes(product.brand)) {
+      if (params.brand && !params.brand.has(product.brand)) {
         return false;
       }
 
