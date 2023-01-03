@@ -9,28 +9,39 @@ class Basket {
   private basket: IBasketItem[];
 
   constructor() {
-    this.basket = localStorage.basket ? JSON.parse(localStorage.basket) : [];
+    this.basketDefolt();
+    this.basket = JSON.parse(localStorage.getItem('basket') as string);
   }
 
-  // refreshBasket(): void {
-  //   this.basket = JSON.parse(localStorage.basket);
-  // }
-
-  // static getBasketFromLocalStorage(): IBasketItem[] {
-  //   console.log(JSON.parse(localStorage.basket));
-  //   return JSON.parse(localStorage.basket);
-  // }
+  private basketDefolt() {
+    if (!localStorage.getItem('basket')) {
+      localStorage.setItem('basket', JSON.stringify([]));
+    }
+  }
 
   public basketContain(id: number) {
     return !!this.basket.find((item) => item.id === id);
   }
 
   public getBasketSum(): number {
-    return this.basket.reduce((acc, item) => acc + +(Database.getPriceById(item.id) * item.amount).toFixed(2), 0);
+    return +(this.basket.reduce((acc, item) => acc + Database.getPriceById(item.id) * item.amount, 0)).toFixed(2);
   }
 
   public getBasketAmount(): number {
     return this.basket.reduce((acc, item) => acc + item.amount, 0);
+  }
+
+  public setProductToBasket(id: number) {
+    this.basket.push({
+      id,
+      amount: 1,
+    });
+    localStorage.basket = JSON.stringify(this.basket);
+  }
+
+  public removeProductFromBasket(id: number) {
+    this.basket = this.basket.filter((item) => item.id !== id);
+    localStorage.basket = JSON.stringify(this.basket);
   }
 }
 

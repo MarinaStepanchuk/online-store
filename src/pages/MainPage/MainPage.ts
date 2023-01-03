@@ -5,6 +5,7 @@ import WelcomeBlock from '../../components/WelcomeBlock/WelcomeBlock';
 import Sidebar from '../../components/containers/Sidebar/Sidebar';
 import Controls from '../../components/Controls/Controls';
 import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
+import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 
 class MainPage {
   static render() {
