@@ -6,6 +6,7 @@ import { IBasketProduct } from '../../components/BasketProduct/BasketProduct.int
 import { IProduct } from '../../database/DataBase.interfaces';
 import BasketCalc from '../../components/BasketCalc/BasketCalc';
 import BasketCoupons from '../../components/BasketCoupons/BasketCoupons';
+import getMainBlock from '../../utils/getMainBlock';
 
 // ****** its for testing layout block *******
 const tempListOfProds: IProduct[] = [
@@ -22,10 +23,10 @@ class BasketPage {
     const basket = new BasketGoods(basketListOfProds).render();
     const basketCalc = new BasketCalc().render();
     const basketPromo = new BasketCoupons().render();
-    const main = document.querySelector('.main') as HTMLElement;
+    const main = getMainBlock();
 
     main.innerHTML = `
-      <main class="main basket">
+      <div class="basket">
         <section class="basket__content">
           ${control}
           ${basket}
@@ -34,7 +35,7 @@ class BasketPage {
           ${basketCalc}
           ${basketPromo}
         </section>
-      </main>
+      <div>
     `;
   }
 }

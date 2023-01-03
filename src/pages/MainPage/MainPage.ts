@@ -3,6 +3,7 @@ import WelcomeBlock from '../../components/WelcomeBlock/WelcomeBlock';
 import Sidebar from '../../components/containers/Sidebar/Sidebar';
 import Controls from '../../components/Controls/Controls';
 import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
+import getMainBlock from '../../utils/getMainBlock';
 
 class MainPage {
   static render() {
@@ -10,7 +11,7 @@ class MainPage {
     const sideBar = new Sidebar().render();
     const controls = new Controls().render();
     const grid = new ProductsGrid().render();
-    const main = document.querySelector('.main') as HTMLElement;
+    const main = getMainBlock();
 
     main.innerHTML = `
       ${welcomeBlock}

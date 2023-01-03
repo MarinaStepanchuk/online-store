@@ -1,15 +1,15 @@
 import Header from '../components/containers/Header/Header';
+import Footer from '../components/containers/Footer/Footer';
 
 class App {
   static render(): void {
-    const body = document.querySelector('#app') as HTMLElement;
-    const header = document.createElement('header');
-    header.classList.add('header');
-    header.innerHTML = new Header().render();
-    const main = document.createElement('main');
-    main.classList.add('main');
-    body.append(header);
-    body.append(main);
+    const coreTemplate = `
+      ${new Header().render()}
+      <main class="main"></main>
+      ${new Footer().render()}
+    `;
+    const body = document.querySelector('#app') as HTMLBodyElement;
+    body.innerHTML = coreTemplate;
   }
 }
 

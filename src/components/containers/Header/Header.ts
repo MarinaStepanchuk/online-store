@@ -6,6 +6,7 @@ import { Title } from '../../../common.types/enums';
 class Header {
   render(): string {
     return `
+          <header class="header">
             <a href="/" class="header__logo">
                 <img src=${headerLogo} alt="shop logo">
             </a>
@@ -17,6 +18,7 @@ class Header {
                 <img src=${headerBasket} alt="basket icon">
                 <div id="headerBasketAmount" class="header__basket__amount show">12</div>
             </div>
+          </header>
           `;
   }
 }
