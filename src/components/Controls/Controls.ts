@@ -4,6 +4,11 @@ import modeGrid4Icon from '../../assets/svg/grid4_icon.svg';
 import searchIcon from '../../assets/svg/search_icon.svg';
 import searchCross from '../../assets/svg/search_cross.svg';
 import { IProcessedData } from '../../database/DataBase.interfaces';
+import Handler from '../../utils/Handler';
+import { Events } from '../../common.types/enums';
+import { findElem } from '../../utils/findElem';
+import FiltersState from '../../utils/FiltersState';
+import UrlFormatter from '../../utils/UrlFormatter';
 
 const SORT_TITLE = 'Sort by:';
 const SortingNames = {
@@ -26,8 +31,9 @@ enum ViewMode {
 
 class Controls {
   render(data: IProcessedData):string {
+    this.setHandlers();
     const productsAmount = data.productsId.size as number;
-    const searchText = /* data.search */ 'test' as string;
+    const searchText = data.search as string;
 
     return `
       <div class="controls">
@@ -62,9 +68,13 @@ class Controls {
         <div class="search__input-wrap">
           <input type="text" class="search__input" id="search-input" placeholder=${SEARCH_PLACEHOLDER} 
               autofocus autocomplete="off" value=${search}>
-          <img class="search__reset" src=${searchCross} class="search__reset" alt="reset search">
+          <button id="reset-search-btn"  class="search__reset">
+            <img src=${searchCross} alt="reset search">
+          </button>
         </div>
-        <img class="search__icon" src=${searchIcon} alt="search icon">
+        <button id="search-btn" class="search__icon">
+            <img src=${searchIcon} alt="search icon">
+        </button>
       </div>
     `;
   }
@@ -79,6 +89,25 @@ class Controls {
           <img src=${modeGrid4Icon} alt="icon mode">
         </div>
       </div>`;
+  }
+
+  setHandlers(): void {
+    // search button
+    Handler.set(Events.CLICK, () => {
+      const inputField = findElem('#search-input') as HTMLInputElement;
+      const updState = { ...FiltersState.getState(), search: inputField.value };
+
+      FiltersState.setState(updState);
+      new UrlFormatter().setQueryParams(updState);
+    }, '#search-btn');
+
+    // reset search button
+    Handler.set(Events.CLICK, () => {
+      const updState = { ...FiltersState.getState(), search: '' };
+
+      FiltersState.setState(updState);
+      new UrlFormatter().setQueryParams(updState);
+    }, '#reset-search-btn');
   }
 }
 

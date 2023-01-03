@@ -1,10 +1,12 @@
 import camelize from '../../utils/camelize';
 import './FilterList.style.scss';
-import { IFilterOptions } from '../../database/DataBase.interfaces';
-import FilterListHandler from './FilterList.handler';
+import { IFilterOptions, IStateParams } from '../../database/DataBase.interfaces';
 import { Events } from '../../common.types/enums';
-import UrlFormater from '../../utils/UrlFormater';
 import DataAttrConverter from '../../utils/DataAttrConverter';
+import FiltersState from '../../utils/FiltersState';
+import { FilterTitle } from '../../database/DataBase.types';
+import UrlFormatter from '../../utils/UrlFormatter';
+import Handler from '../../utils/Handler';
 
 class FilterList {
   constructor(
@@ -16,33 +18,20 @@ class FilterList {
   }
 
   render(): string {
-    FilterListHandler.setEvent(Events.CLICK, (e: Event) => {
-      const target = e.target as HTMLInputElement;
-
-      if (target.dataset.filterAreaName && target.dataset.filterName) {
-        const filterTitle = target.dataset.filterAreaName.toLowerCase() as string;
-        const filterName = DataAttrConverter.decode(target.dataset.filterName) as string;
-        const urlFormater = new UrlFormater();
-
-        if (target.checked) {
-          urlFormater.setQueryParam(filterTitle, filterName);
-        } else {
-          urlFormater.deleteQueryParam(filterTitle, filterName);
-        }
-      }
-    }, `.filters__${this.filterTitle.toLowerCase()}`);
-
+    this.setHandler();
     return this.getFilterCategories();
   }
 
-  getFilterItem(name: string, { active, total, isEmphasized }: IFilterOptions): string {
+  getFilterItem(name: string, {
+    active, total, isAvailable, isChecked,
+  }: IFilterOptions): string {
     const id = `${camelize(name)}${this.filterTitle}`;
 
     return `
       <li class="filter__item">
-        <input id=${id} class="filter__item__input" ${isEmphasized ? 'checked' : ''} 
-        data-filter-area-name=${this.filterTitle} 
-        data-filter-name=${DataAttrConverter.encode(name)} type="checkbox">
+        <input id=${id} class="filter__item__input ${isAvailable ? 'available' : ''}"
+          ${isChecked ? 'checked' : ''} type="checkbox"
+          data-filter-area-name=${this.filterTitle} data-filter-name=${DataAttrConverter.encode(name)} >
         <label for=${id} class="filter__item__label">
           <span class="filter__item__name">${name}</span>
           <span class="filter__item__amount-block">(${active}/${total})</span>
@@ -65,6 +54,29 @@ class FilterList {
           ${filterItems}
         </ul>
       </div>`;
+  }
+
+  setHandler():void {
+    Handler.set(Events.CLICK, (e: Event) => {
+      const target = e.target as HTMLInputElement;
+
+      if (target.dataset.filterAreaName && target.dataset.filterName) {
+        const state: IStateParams = FiltersState.getState();
+        const { filterAreaName, filterName } = target.dataset;
+
+        const correctAreaName = filterAreaName.toLowerCase() as FilterTitle;
+        const correctName = DataAttrConverter.decode(filterName) as string;
+
+        if (state[correctAreaName].has(correctName)) {
+          state[correctAreaName].delete(correctName);
+        } else {
+          state[correctAreaName].add(correctName);
+        }
+        FiltersState.setState(state);
+
+        new UrlFormatter().setQueryParams(state);
+      }
+    }, `.filters__${this.filterTitle.toLowerCase()}`);
   }
 }
 

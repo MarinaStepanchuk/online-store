@@ -21,6 +21,7 @@
   },
   "rules": {
     "no-debugger": "warn",
+    "no-restricted-globals": "off",
     "no-console": "warn",
     "global-require": "off",
     "class-methods-use-this": "off",
