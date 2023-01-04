@@ -11,7 +11,10 @@ import BasketCalc from '../BasketCalc/BasketCalc';
 class BasketGoods {
   private goodsList: IBasketProduct[];
 
-  constructor(goodsList: IBasketProduct[]) {
+  private reRender: () => void;
+
+  constructor(goodsList: IBasketProduct[], cb: () => void) {
+    this.reRender = cb;
     this.goodsList = goodsList;
   }
 
@@ -31,6 +34,7 @@ class BasketGoods {
             break;
           case 'basket-product__remove':
             this.removeProduct(element);
+            this.reRender();
             new BasketCalc().updateBasketCalcHeader();
             break;
           default:
@@ -81,18 +85,18 @@ class BasketGoods {
     const productContainer = element.closest('.basket-product') as HTMLElement;
     const id = Number(productContainer.id);
     new Basket().removeProductFromBasket(id);
-    productContainer.remove();
-    this.refreshGoodsList();
+    // productContainer.remove();
+    // this.refreshGoodsList();
   }
 
-  private refreshGoodsList() {
-    this.goodsList = new Basket().getBasketList();
-    const sequentialNumbers = [...findElems('.basket-product__index')];
-    sequentialNumbers.forEach((item: HTMLElement, index: number) => {
-      const element = item as HTMLElement;
-      element.innerText = `${index + 1}`;
-    });
-  }
+  // private refreshGoodsList() {
+  //   this.goodsList = new Basket().getBasketList();
+  //   const sequentialNumbers = [...findElems('.basket-product__index')];
+  //   sequentialNumbers.forEach((item: HTMLElement, index: number) => {
+  //     const element = item as HTMLElement;
+  //     element.innerText = `${index + 1}`;
+  //   });
+  // }
 
   render(): string {
     this.addListeners();
