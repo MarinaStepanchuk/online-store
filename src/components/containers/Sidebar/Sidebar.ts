@@ -35,8 +35,8 @@ class Sidebar {
     return {
       categoryFilter: new FilterList(FilterParamTitles.categories, data.categories),
       brandFilter: new FilterList(FilterParamTitles.brands, data.brands),
-      priceRange: new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), Symbol.CURRENCY),
-      stockRange: new FilterRange(FilterParamTitles.stock, Database.getMinMaxStock()),
+      priceRange: new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), [25, 75], Symbol.CURRENCY),
+      stockRange: new FilterRange(FilterParamTitles.stock, Database.getMinMaxStock(), [25, 75]),
     };
   }
 }
