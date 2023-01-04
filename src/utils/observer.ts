@@ -1,3 +1,3 @@
 import Router from '../router/Router';
 
-window.addEventListener('load', Router.router);
+window.addEventListener('DOMContentLoaded', Router.router);
