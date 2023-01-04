@@ -42,20 +42,20 @@ class Basket {
   }
 
   public increaseAmount(id: number): void {
-    this.basketHS.forEach((element: IBasketItem) => {
-      const item = element;
-      if (element.id === id) {
-        item.amount += 1;
+    this.basketHS = this.basketHS.map((element: IBasketItem) => {
+      return {
+        ...element,
+        amount: element.id === id ? element.amount + 1 : element.amount
       }
     });
     localStorage.basketHS = JSON.stringify(this.basketHS);
   }
 
   public decreaseAmount(id: number): void {
-    this.basketHS.forEach((element: IBasketItem) => {
-      const item = element;
-      if (element.id === id) {
-        item.amount += 1;
+    this.basketHS = this.basketHS.map((element: IBasketItem) => {
+      return {
+        ...element,
+        amount: element.id === id ? element.amount - 1 : element.amount
       }
     });
     localStorage.basketHS = JSON.stringify(this.basketHS);
