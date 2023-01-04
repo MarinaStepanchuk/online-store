@@ -1,4 +1,5 @@
 import Database from '../database/Database';
+import { IBasketProduct } from '../components/BasketProduct/BasketProduct.interface';
 
 interface IBasketItem {
   id: number;
@@ -6,42 +7,71 @@ interface IBasketItem {
 }
 
 class Basket {
-  private basket: IBasketItem[];
+  private basketHS: IBasketItem[];
 
   constructor() {
-    this.basketDefolt();
-    this.basket = JSON.parse(localStorage.getItem('basket') as string);
+    this.basketDefault();
+    this.basketHS = JSON.parse(localStorage.getItem('basketHS') as string);
   }
 
-  private basketDefolt() {
-    if (!localStorage.getItem('basket')) {
-      localStorage.setItem('basket', JSON.stringify([]));
+  public getBasketList(): IBasketProduct[] {
+    return this.basketHS.map((item: IBasketItem, idx: number): IBasketProduct => ({ ...Database.getProductById(item.id), index: idx + 1, amount: item.amount }));
+  }
+
+  private basketDefault(): void {
+    if (!localStorage.getItem('basketHS')) {
+      localStorage.setItem('basketHS', JSON.stringify([]));
     }
   }
 
-  public basketContain(id: number) {
-    return !!this.basket.find((item) => item.id === id);
+  public basketContain(id: number): boolean {
+    return !!this.basketHS.find((item) => item.id === id);
   }
 
   public getBasketSum(): number {
-    return +(this.basket.reduce((acc, item) => acc + Database.getPriceById(item.id) * item.amount, 0)).toFixed(2);
+    return +(this.basketHS.reduce((acc, item) => acc + Database.getPriceById(item.id) * item.amount, 0)).toFixed(2);
   }
 
   public getBasketAmount(): number {
-    return this.basket.reduce((acc, item) => acc + item.amount, 0);
+    return this.basketHS.reduce((acc, item) => acc + item.amount, 0);
   }
 
-  public setProductToBasket(id: number) {
-    this.basket.push({
+  public getAmountProduct(id: number): number {
+    const element = this.basketHS.find((elem) => elem.id === id) as IBasketItem;
+    return element.amount;
+  }
+
+  public increaseAmount(id: number): void {
+    this.basketHS.forEach((element: IBasketItem) => {
+      const item = element;
+      if (element.id === id) {
+        item.amount += 1;
+      }
+    });
+    localStorage.basketHS = JSON.stringify(this.basketHS);
+  }
+
+  public decreaseAmount(id: number): void {
+    this.basketHS.forEach((element: IBasketItem) => {
+      const item = element;
+      if (element.id === id) {
+        item.amount += 1;
+      }
+    });
+    localStorage.basketHS = JSON.stringify(this.basketHS);
+  }
+
+  public setProductToBasket(id: number): void {
+    this.basketHS.push({
       id,
       amount: 1,
     });
-    localStorage.basket = JSON.stringify(this.basket);
+    localStorage.basketHS = JSON.stringify(this.basketHS);
   }
 
-  public removeProductFromBasket(id: number) {
-    this.basket = this.basket.filter((item) => item.id !== id);
-    localStorage.basket = JSON.stringify(this.basket);
+  public removeProductFromBasket(id: number): void {
+    this.basketHS = this.basketHS.filter((item) => item.id !== id);
+    localStorage.basketHS = JSON.stringify(this.basketHS);
   }
 }
 

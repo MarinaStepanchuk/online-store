@@ -2,31 +2,31 @@ import './ProductsGrid.style.scss';
 import Product from '../Product/Product';
 import { IProduct } from '../../database/DataBase.interfaces';
 import Database from '../../database/Database';
-import Basket from '../../utils/Basket';
-import { Button } from '../../common.types/enums';
+import changeStatusButton from '../../utils/changeStatusButton';
+import { findElem } from '../../utils/findElem';
 
 class ProductsGrid {
   private productsDataList: IProduct[] = Database.getAllProducts();
 
-  render(): string {
-    const productsList = this.productsDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');
-    const basket = new Basket();
-
+  private addListeners(): void {
     setTimeout(() => {
-      document.querySelector('.grid')?.addEventListener('click', (event) => {
+      const allProducts = findElem('.grid');
+      allProducts.addEventListener('click', (event) => {
         const element = event.target as HTMLElement;
         if (element.className === 'product-item__buttons_white') {
-          const id = Number(element.parentElement?.parentElement?.id)
-          if (basket.basketContain(id)) {
-            element.innerHTML = `${Button.ADD}`;
-            basket.removeProductFromBasket(id);
-          } else {
-            element.innerHTML = `${Button.REMOVE}`;
-            basket.setProductToBasket(id);
-          }
+          const productContainer = element.closest('.product-item') as HTMLElement;
+          const id = Number(productContainer.id);
+          changeStatusButton(element, id);
         }
       });
     }, 0);
+  }
+
+  render(): string {
+    const productsList = this.productsDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');
+
+    this.addListeners();
+
     return `<div class="grid grid3col">${productsList}</div>`;
   }
 }

@@ -3,16 +3,14 @@
   margin-bottom: 2rem;
 
   &__index {
-    span {
-      width: 3rem;
-      height: 3rem;
-      text-align: center;
-      background-color: $color-basket-nav;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    background-color: $color-basket-nav;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__info {

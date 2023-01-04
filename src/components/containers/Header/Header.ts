@@ -5,15 +5,15 @@ import { Title, Symbol } from '../../../common.types/enums';
 import Basket from '../../../utils/Basket';
 
 class Header {
-  private previousAmount = new Basket().getBasketAmount();
+  private previousAmount: number = new Basket().getBasketAmount();
 
-  private previousSum = new Basket().getBasketSum();
+  private previousSum: number = new Basket().getBasketSum();
 
   constructor() {
     this.startWatcher();
   }
 
-  private startWatcher() {
+  private startWatcher(): void {
     setInterval(() => {
       const amount = new Basket().getBasketAmount();
       const sum = new Basket().getBasketSum();
@@ -26,9 +26,8 @@ class Header {
   }
 
   public render(): string {
-    // TODO: change hardcode route after refactoring
     return `
-        <header class="header">
+          <header class="header">
             <a href="/" class="header__logo">
                 <img src=${headerLogo} alt="shop logo">
             </a>
@@ -40,8 +39,8 @@ class Header {
                 <img src=${headerBasket} alt="basket icon">
                 <div id="headerBasketAmount" class="header__basket__amount show" name="basket-amount">${this.previousAmount}</div>
             </div>
-        </header>
-    `;
+          </header>
+          `;
   }
 }
 

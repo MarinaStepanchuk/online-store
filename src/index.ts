@@ -1,5 +1,5 @@
 import './styles/common.styles.scss';
 import './utils/observer';
-import MainPage from './pages/MainPage/MainPage';
+import App from './app/App';
 
-MainPage.render();
+App.render();

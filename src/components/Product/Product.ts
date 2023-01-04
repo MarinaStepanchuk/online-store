@@ -18,7 +18,6 @@ class Product {
     } = this.data;
     const actualPrice = getPriceAfterDiscont(price, discountPercentage);
 
-    // TODO: change hardcode route after refactoring
     return `
         <div class="product-item" id="${id}">
             <div class="product-item__discont">
