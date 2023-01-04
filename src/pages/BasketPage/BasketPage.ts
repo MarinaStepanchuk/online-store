@@ -12,7 +12,7 @@ class BasketPage {
   static render(): void {
     const control = new BasketControl().render();
     const basketListOfProds: IBasketProduct[] = new Basket().getBasketList();
-    const basket = new BasketGoods(basketListOfProds, this.reRender).render();
+    const basket = new BasketGoods(basketListOfProds, BasketPage.reRender).render();
     const basketCalc = new BasketCalc().render();
     const basketPromo = new BasketCoupons().render();
     const main = getMainBlock();
