@@ -8,8 +8,7 @@
     "build": "webpack --config ./webpack.prod.config.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint ./src --fix --color",
-    "slint": "stylelint **/*.scss --fix",
-    "test": "eslint . --ext .ts"
+    "slint": "stylelint **/*.scss --fix"
   },
   "repository": {
     "type": "git",

@@ -24,22 +24,22 @@ class FilterRange {
     this.createSlider(rangeId);
 
     return `
-        <div class="range ranges__${additionRangeName}">
-            <h3 class="h3 range__title">${this.rangeTitle}</h3>
-            <div id=${rangeId} class="range__line"></div>
-            <div class="range__values">
-                <span class="range__values__min">${this.symbol + lowest}</span>
-                ${MIN_MAX_SEPARATOR}
-                <span class="range__values__max">${this.symbol + highest}</span>
-            </div>
-        </div>        
+      <div class="range ranges__${additionRangeName}">
+        <h3 class="h3 range__title">${this.rangeTitle}</h3>
+        <div id=${rangeId} class="range__line"></div>
+        <div class="range__values">
+          <span class="range__values__min">${this.symbol + lowest}</span>
+          ${MIN_MAX_SEPARATOR}
+          <span class="range__values__max">${this.symbol + highest}</span>
+        </div>
+      </div>        
       `;
   }
 
   createSlider(containerId: string): void {
     const [lowest, highest] = this.scaleLimits;
 
-    window.addEventListener('DOMContentLoaded', () => {
+    const timer = setTimeout(() => {
       noUiSlider.create(findElem(`#${containerId}`), {
         start: [...this.currentPoses],
         connect: true,
@@ -49,6 +49,8 @@ class FilterRange {
         },
         step: 1,
       });
+
+      clearTimeout(timer);
     });
   }
 }
