@@ -6,17 +6,11 @@ import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
 import UrlFormatter from '../../utils/UrlFormatter';
 import Database from '../../database/Database';
 import { IProcessedData } from '../../database/DataBase.interfaces';
-import FiltersState from '../../utils/FiltersState';
 import getMainBlock from '../../utils/getMainBlock';
 
 class MainPage {
   static getData(): IProcessedData {
-    FiltersState.checkState();
     const urlFormatter = new UrlFormatter();
-
-    /* const pageParams = urlFormatter.isExistedQuery()
-      ? urlFormatter.getAllQueryParams() // get data from url
-      : FiltersState.getState(); // or from sessionStorage */
 
     return Database.getProcessedData(urlFormatter.getAllQueryParams());
   }
@@ -25,9 +19,9 @@ class MainPage {
     const data = MainPage.getData();
 
     const welcomeBlock = new WelcomeBlock().render();
-    const sideBar = new Sidebar().render(data);
-    const controls = new Controls().render(data);
-    const grid = new ProductsGrid([...data.productsId]).render();
+    const sideBar = new Sidebar(MainPage.reRender).render(data);
+    const controls = new Controls(MainPage.reRender).render(data);
+    const grid = new ProductsGrid([...data.productsId], data.mode).render();
     const main = getMainBlock();
 
     main.innerHTML = `
@@ -40,6 +34,10 @@ class MainPage {
         </div>
       </section>
     `;
+  }
+
+  static reRender() {
+    MainPage.render();
   }
 }
 

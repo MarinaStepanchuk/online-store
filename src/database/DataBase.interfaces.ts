@@ -22,16 +22,6 @@ export interface IPageParams {
   search?: string,
 }
 
-export interface IStateParams {
-  category: Set<string>,
-  brand: Set<string>,
-  price: number[],
-  stock: number[],
-  mode: string,
-  sort: string,
-  search: string,
-}
-
 export interface IFilterOptions {
   active: number,
   total: number,
@@ -46,6 +36,7 @@ export interface IProcessedData {
   search: string,
   priceScale: [number, number],
   stockScale: [number, number],
-  price: number[],
-  stock: number[],
+  price: [number, number],
+  stock: [number, number],
+  mode: string,
 }

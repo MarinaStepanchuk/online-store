@@ -1,6 +1,6 @@
 import data from './data.json';
 import {
-  IFilterOptions, IPageParams, IProcessedData, IProduct, IStateParams,
+  IFilterOptions, IPageParams, IProcessedData, IProduct,
 } from './DataBase.interfaces';
 
 const InitFilterOptions: IFilterOptions = {
@@ -53,7 +53,7 @@ class Database {
     ];
   }
 
-  static getProcessedData(params: IStateParams | IPageParams): IProcessedData {
+  static getProcessedData(params: IPageParams): IProcessedData {
     const processedData: IProcessedData = {
       productsId: new Set(),
       categories: {},
@@ -63,6 +63,7 @@ class Database {
       stockScale: Database.getMinMaxStock(),
       price: params.price || Database.getMinMaxPrice(),
       stock: params.stock || Database.getMinMaxStock(),
+      mode: '',
     };
 
     const isSuitable = (product: IProduct) => {
@@ -80,21 +81,21 @@ class Database {
         }
       }
 
-      // if (params.price?.length) {
-      //   const [min, max] = params.price;
-      //
-      //   if (min > product.price || max < product.price) {
-      //     return false;
-      //   }
-      // }
+      if (params.price?.length) {
+        const [min, max] = params.price;
 
-      /* if (params.stock?.length) {
+        if (min > product.price || max < product.price) {
+          return false;
+        }
+      }
+
+      if (params.stock?.length) {
         const [min, max] = params.stock;
 
         if (min > product.stock || max < product.stock) {
           return false;
         }
-      } */
+      }
 
       return true;
     };
@@ -134,8 +135,8 @@ class Database {
 
       processedData.categories[product.category].isChecked = params.category?.has(product.category) || false;
       processedData.brands[product.brand].isChecked = params.brand?.has(product.brand) || false;
-
       processedData.search = params.search || '';
+      processedData.mode = params.mode || '';
     });
 
     return processedData;

@@ -1,3 +1,4 @@
+/*
 import { IStateParams } from '../database/DataBase.interfaces';
 
 const FILTER_STATE_KEY = 'app_filters_state';
@@ -43,3 +44,4 @@ class FiltersState {
 }
 
 export default FiltersState;
+*/

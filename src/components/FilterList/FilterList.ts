@@ -1,9 +1,8 @@
 import camelize from '../../utils/camelize';
 import './FilterList.style.scss';
-import { IFilterOptions, IStateParams } from '../../database/DataBase.interfaces';
+import { IFilterOptions } from '../../database/DataBase.interfaces';
 import { Events } from '../../common.types/enums';
 import DataAttrConverter from '../../utils/DataAttrConverter';
-import FiltersState from '../../utils/FiltersState';
 import { FilterTitle } from '../../database/DataBase.types';
 import UrlFormatter from '../../utils/UrlFormatter';
 import Handler from '../../utils/Handler';
@@ -12,6 +11,7 @@ class FilterList {
   constructor(
     private readonly filterTitle: string, // must be one word without spaces!
     private readonly filtersList: Record<string, IFilterOptions>,
+    private readonly cbRender: () => void,
   ) {
     this.filterTitle = filterTitle;
     this.filtersList = filtersList;
@@ -61,20 +61,14 @@ class FilterList {
       const target = e.target as HTMLInputElement;
 
       if (target.dataset.filterAreaName && target.dataset.filterName) {
-        const state: IStateParams = FiltersState.getState();
         const { filterAreaName, filterName } = target.dataset;
 
         const correctAreaName = filterAreaName.toLowerCase() as FilterTitle;
         const correctName = DataAttrConverter.decode(filterName) as string;
 
-        if (state[correctAreaName].has(correctName)) {
-          state[correctAreaName].delete(correctName);
-        } else {
-          state[correctAreaName].add(correctName);
-        }
-        FiltersState.setState(state);
-
-        new UrlFormatter().setQueryParams(state);
+        const urlFormatter = new UrlFormatter();
+        urlFormatter.setFiltersQueryParam(correctAreaName, correctName);
+        urlFormatter.sendParams(this.cbRender);
       }
     }, `.filters__${this.filterTitle.toLowerCase()}`);
   }

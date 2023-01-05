@@ -1,4 +1,4 @@
-import { IPageParams, IStateParams } from '../database/DataBase.interfaces';
+import { IPageParams } from '../database/DataBase.interfaces';
 
 export enum QueryNames {
   CATEGORY = 'category',
@@ -10,24 +10,24 @@ export enum QueryNames {
   SEARCH = 'search',
 }
 
-/* type ParamsNames = 'category' | 'brand' | 'price' | 'stock' | 'mode' | 'sort' | 'search'; */
-
 class UrlFormatter {
-  private readonly url: URL;
+  private url: URL;
 
   private readonly separators: Record<string, string>;
 
   private objQueryParams: IPageParams = {};
 
   constructor() {
-    this.url = new URL(window.location.href);
+    this.url = new URL(location.href);
     this.separators = {
       value: '↕',
       param: '&',
     };
   }
 
-  readAllQueryParams(): void {
+  readAllQueryParams(): void { // +++++
+    this.url = new URL(location.href);
+
     const temp: Record<string, string> = {};
 
     [...this.url.searchParams].forEach(([name, values]) => {
@@ -37,6 +37,18 @@ class UrlFormatter {
     this.objQueryParams.category = new Set(temp.category?.split(this.separators.value));
     this.objQueryParams.brand = new Set(temp.brand?.split(this.separators.value));
     this.objQueryParams.search = temp.search?.toLowerCase() || '';
+
+    if (temp.price) {
+      const [minPrice, maxPrice] = temp.price.split(this.separators.value);
+      this.objQueryParams.price = [+minPrice, +maxPrice];
+    }
+
+    if (temp.stock) {
+      const [minStock, maxStock] = temp.stock.split(this.separators.value);
+      this.objQueryParams.stock = [+minStock, +maxStock];
+    }
+
+    this.objQueryParams.mode = temp.mode || '';
   }
 
   getAllQueryParams(): IPageParams {
@@ -44,41 +56,55 @@ class UrlFormatter {
     return this.objQueryParams;
   }
 
-  changeQueryUrl(): void {
-    const entries = Object.entries(this.objQueryParams);
+  setFiltersQueryParam(name: string, value: string): void { // +++++
+    if (!this.url.searchParams.has(name)) {
+      this.url.searchParams.append(name, value);
+      return;
+    }
 
-    if (entries.length) {
-      this.url.search = `?${entries
-        .map(([name, values]) => `${name}=${[...values].map((v) => encodeURI(v)).join(this.separators.value)}`)
-        .join(this.separators.param)}`;
+    const stringParamValue = this.url.searchParams.get(name) as string;
+    const convertValues = new Set(stringParamValue.split(this.separators.value)) as Set<string>;
+
+    if (convertValues.has(value)) {
+      convertValues.delete(value);
+    } else {
+      convertValues.add(value);
+    }
+
+    if (convertValues.size === 0) {
+      this.url.searchParams.delete(name);
+    } else {
+      this.url.searchParams.set(name, [...convertValues].join(this.separators.value));
     }
   }
 
-  setQueryParams(state: IStateParams): void {
-    this.url.search = this.getQueryStringByState(state);
-    location.search = this.url.search;
+  setRangeQueryParam(name: string, value: [number, number]): void { // +++++
+    if (!this.url.searchParams.has(name)) {
+      this.url.searchParams.append(name, this.rangeToString(value));
+    } else {
+      this.url.searchParams.set(name, this.rangeToString(value));
+    }
   }
 
-  getQueryStringByState(state: IStateParams): string {
-    const adaptedState = {
-      ...state,
-      category: [...state.category],
-      brand: [...state.brand],
-      mode: state.mode ? [state.mode] : [],
-      search: state.search ? [state.search] : [],
-      sort: state.sort ? [state.sort] : [],
-    };
-
-    const entries = Object.entries(adaptedState);
-
-    return entries
-      .filter(([, values]) => values.length)
-      .map(([name, values]) => `${name}=${[...values].map((v) => encodeURI(`${v}`)).join(this.separators.value)}`)
-      .join(this.separators.param);
+  setModeQueryParam(value: string): void { // +++++
+    if (!this.url.searchParams.has(QueryNames.MODE)) {
+      this.url.searchParams.append(QueryNames.MODE, value);
+    } else {
+      this.url.searchParams.set(QueryNames.MODE, value);
+    }
   }
 
-  isExistedQuery(): boolean {
-    return !!this.url.search;
+  rangeToString(range: [number, number]): string { // +++++
+    return range.join(this.separators.value);
+  }
+
+  deleteQueryParam(name: string): void { // +++++
+    this.url.searchParams.delete(name);
+  }
+
+  sendParams(cbRender: () => void): void { // +++++
+    history.pushState(this.url.href, '', this.url.href);
+    cbRender();
   }
 }
 

@@ -7,8 +7,7 @@ import { IProcessedData } from '../../database/DataBase.interfaces';
 import Handler from '../../utils/Handler';
 import { Events } from '../../common.types/enums';
 import { findElem } from '../../utils/findElem';
-import FiltersState from '../../utils/FiltersState';
-import UrlFormatter from '../../utils/UrlFormatter';
+import UrlFormatter, { QueryNames } from '../../utils/UrlFormatter';
 
 const SORT_TITLE = 'Sort by:';
 const SortingNames = {
@@ -24,14 +23,18 @@ const SortingNames = {
 const SEARCH_RESULT_TITLE = 'Found:';
 const SEARCH_PLACEHOLDER = 'search';
 
-enum ViewMode {
-  grid3,
-  grid4,
+export enum ViewMode {
+  grid3 = 'grid3',
+  grid4 = 'grid4',
 }
 
 class Controls {
+  constructor(private readonly cbRender: () => void) {
+    this.cbRender = cbRender;
+  }
+
   render(data: IProcessedData):string {
-    this.setHandlers();
+    this.setHandlers(data.mode);
     const productsAmount = data.productsId.size as number;
     const searchText = data.search as string;
 
@@ -39,7 +42,7 @@ class Controls {
       <div class="controls">
         ${this.getSortBlock()}
         ${this.getSearchBlock(productsAmount, searchText)}
-        ${this.getModeBlock(ViewMode.grid3)}
+        ${this.getModeBlock(data.mode)}
       </div>`;
   }
 
@@ -79,35 +82,47 @@ class Controls {
     `;
   }
 
-  getModeBlock(value: ViewMode): string {
+  getModeBlock(mode: string): string {
     return `
       <div class="controls__mode">
-        <div class="controls__mode__item ${value === ViewMode.grid3 ? 'active' : ''}">
+        <div class="controls__mode__item ${mode === ViewMode.grid3 ? 'active' : ''}" 
+            id="switch-${ViewMode.grid3}-btn" data-view-mode=${ViewMode.grid3}>
           <img src=${modeGrid3Icon} alt="icon mode">
         </div>
-        <div class="controls__mode__item ${value === ViewMode.grid4 ? 'active' : ''}">
+        <div class="controls__mode__item ${mode === ViewMode.grid4 ? 'active' : ''}" 
+            id="switch-${ViewMode.grid4}-btn" data-view-mode=${ViewMode.grid4}>
           <img src=${modeGrid4Icon} alt="icon mode">
         </div>
       </div>`;
   }
 
-  setHandlers(): void {
+  setHandlers(mode: string): void {
     // search button
-    Handler.set(Events.CLICK, () => {
+    Handler.set(Events.CLICK, (): void => {
       const inputField = findElem('#search-input') as HTMLInputElement;
-      const updState = { ...FiltersState.getState(), search: inputField.value };
 
-      FiltersState.setState(updState);
-      new UrlFormatter().setQueryParams(updState);
+      const urlFormatter = new UrlFormatter();
+      urlFormatter.setFiltersQueryParam(QueryNames.SEARCH, inputField.value);
+      urlFormatter.sendParams(this.cbRender);
     }, '#search-btn');
 
     // reset search button
-    Handler.set(Events.CLICK, () => {
-      const updState = { ...FiltersState.getState(), search: '' };
-
-      FiltersState.setState(updState);
-      new UrlFormatter().setQueryParams(updState);
+    Handler.set(Events.CLICK, (): void => {
+      const urlFormatter = new UrlFormatter();
+      urlFormatter.deleteQueryParam(QueryNames.SEARCH);
+      urlFormatter.sendParams(this.cbRender);
     }, '#reset-search-btn');
+
+    Handler.set(Events.CLICK, (e: Event): void => {
+      const target = e.target as HTMLElement;
+      const wrapper = target.parentElement as HTMLElement;
+
+      if (wrapper.dataset.viewMode && wrapper.dataset.viewMode !== mode) {
+        const urlFormatter = new UrlFormatter();
+        urlFormatter.setModeQueryParam(wrapper.dataset.viewMode);
+        urlFormatter.sendParams(this.cbRender);
+      }
+    }, '.controls__mode');
   }
 }
 
