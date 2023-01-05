@@ -4,9 +4,10 @@ import { IBasketProduct } from '../BasketProduct/BasketProduct.interface';
 import { findElem } from '../../utils/findElem';
 import Basket from '../../utils/Basket';
 import Database from '../../database/Database';
-import { Symbol } from '../../common.types/enums';
+import { DefaultValues, Symbol } from '../../common.types/enums';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import BasketCalc from '../BasketCalc/BasketCalc';
+import QueryParamsBasket from '../../utils/QueryParamsBasket';
 
 enum Classes {
   PLUS_BUTTON = 'basket-product__quantity__plus',
@@ -16,6 +17,8 @@ enum Classes {
 
 class BasketGoods {
   private basket = new Basket();
+
+  private queryParam = new QueryParamsBasket();
 
   constructor(private goodsList: IBasketProduct[], private cb: () => void) {
     this.cb = cb;
@@ -118,8 +121,16 @@ class BasketGoods {
       <th class="basket-goods__remove"></th>`;
   }
 
+  getListOnPage(start: number, end: number): IBasketProduct[] {
+    return this.goodsList.slice(start, end);
+  }
+
   getListOfGoods(): string {
-    return this.goodsList.reduce((acc: string, prod: IBasketProduct): string => (
+    const productOnPage = Number(this.queryParam.getParam('limit')) || DefaultValues.PAGINATION_LIMIT;
+    const valuePage = Number(this.queryParam.getParam('page')) || DefaultValues.PAGINATION_PAGE;
+    const start = (valuePage - 1) * productOnPage;
+    const end = start + productOnPage;
+    return this.getListOnPage(start, end).reduce((acc: string, prod: IBasketProduct): string => (
       `
       ${acc}
       <tr id="${prod.id}" class="basket-product">

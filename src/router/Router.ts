@@ -21,8 +21,12 @@ class Router {
     const [,urlPart1, urlPart2] = window.location.pathname.split('/');
     const url = `/${urlPart1 || ''}`;
     const rout = Router.resolveRoute(url);
-    if (RoutesWithRequiredParams.includes(url)) {
-      rout(urlPart2);
+    if (urlPart2) {
+      if (RoutesWithRequiredParams.includes(url)) {
+        rout(urlPart2);
+      } else {
+        ErrorPage.render();
+      }
     } else {
       rout();
     }
