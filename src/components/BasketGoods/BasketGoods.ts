@@ -1,58 +1,63 @@
 import './BasketGoods.style.scss';
 import BasketProduct from '../BasketProduct/BasketProduct';
 import { IBasketProduct } from '../BasketProduct/BasketProduct.interface';
-import { findElem, findElems } from '../../utils/findElem';
+import { findElem } from '../../utils/findElem';
 import Basket from '../../utils/Basket';
 import Database from '../../database/Database';
 import { Symbol } from '../../common.types/enums';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import BasketCalc from '../BasketCalc/BasketCalc';
 
+enum Classes {
+  PLUS_BUTTON = 'basket-product__quantity__plus',
+  MINUS_BUTTON = 'basket-product__quantity__minus',
+  REMOVE_BUTTON = 'basket-product__remove',
+}
+
 class BasketGoods {
-  private goodsList: IBasketProduct[];
+  private basket = new Basket();
 
-  private reRender: () => void;
-
-  constructor(goodsList: IBasketProduct[], cb: () => void) {
-    this.reRender = cb;
+  constructor(private goodsList: IBasketProduct[], private cb: () => void) {
+    this.cb = cb;
     this.goodsList = goodsList;
   }
 
   private addListeners(): void {
     setTimeout(() => {
+      const basketCalc = new BasketCalc();
       const basketCoods = findElem('.basket-goods');
       basketCoods.addEventListener('click', (event) => {
         const element = event.target as HTMLElement;
+
         switch (element.className) {
-          case 'basket-product__quantity__plus':
+          case Classes.PLUS_BUTTON:
             this.increaseAmountProduct(element);
-            new BasketCalc().updateBasketCalcHeader();
+            basketCalc.updateBasketCalcHeader();
             break;
-          case 'basket-product__quantity__minus':
+          case Classes.MINUS_BUTTON:
             this.decreaseAmountProduct(element);
-            new BasketCalc().updateBasketCalcHeader();
+            basketCalc.updateBasketCalcHeader();
             break;
-          case 'basket-product__remove':
+          case Classes.REMOVE_BUTTON:
             this.removeProduct(element);
-            this.reRender();
-            new BasketCalc().updateBasketCalcHeader();
+            basketCalc.updateBasketCalcHeader();
             break;
           default:
             break;
         }
       });
-    }, 0);
+    });
   }
 
   private increaseAmountProduct(element: HTMLElement) {
     const productContainer = element.closest('.basket-product') as HTMLElement;
     const id = Number(productContainer.id);
     const countElement = findElem('.basket-product__quantity__value', productContainer);
-    const count = Number(countElement.innerHTML);
+    const count = Number(countElement.innerText);
     const { stock } = Database.getProductById(id);
     if (count < stock) {
-      countElement.innerHTML = `${count + 1}`;
-      new Basket().increaseAmount(id);
+      countElement.innerText = `${count + 1}`;
+      this.basket.increaseAmount(id);
       this.recalculationSum(productContainer, id);
     }
   }
@@ -61,10 +66,10 @@ class BasketGoods {
     const productContainer = element.closest('.basket-product') as HTMLElement;
     const id = Number(productContainer.id);
     const countElement = findElem('.basket-product__quantity__value', productContainer);
-    const count = Number(countElement.innerHTML);
+    const count = Number(countElement.innerText);
     if (count > 1) {
-      countElement.innerHTML = `${count - 1}`;
-      new Basket().decreaseAmount(id);
+      countElement.innerText = `${count - 1}`;
+      this.basket.decreaseAmount(id);
       this.recalculationSum(productContainer, id);
     } else {
       this.removeProduct(element);
@@ -73,30 +78,20 @@ class BasketGoods {
 
   private recalculationSum(productContainer: HTMLElement, id: number) {
     const product = Database.getProductById(id);
-    const amount = new Basket().getAmountProduct(id);
+    const amount = this.basket.getAmountProduct(id);
     const totalOldPrice = findElem('.basket-product__total__old', productContainer);
-    totalOldPrice.innerHTML = `${Symbol.CURRENCY}${(product.price * amount).toFixed(2)}`;
+    totalOldPrice.innerText = `${Symbol.CURRENCY}${(product.price * amount).toFixed(2)}`;
     const actualPrice = getPriceAfterDiscont(product.price, product.discountPercentage);
     const totalActualPrice = findElem('.basket-product__total__actual', productContainer);
-    totalActualPrice.innerHTML = `${Symbol.CURRENCY}${(actualPrice * amount).toFixed(2)}`;
+    totalActualPrice.innerText = `${Symbol.CURRENCY}${(actualPrice * amount).toFixed(2)}`;
   }
 
   private removeProduct(element: HTMLElement): void {
     const productContainer = element.closest('.basket-product') as HTMLElement;
     const id = Number(productContainer.id);
-    new Basket().removeProductFromBasket(id);
-    // productContainer.remove();
-    // this.refreshGoodsList();
+    this.basket.removeProductFromBasket(id);
+    this.cb();
   }
-
-  // private refreshGoodsList() {
-  //   this.goodsList = new Basket().getBasketList();
-  //   const sequentialNumbers = [...findElems('.basket-product__index')];
-  //   sequentialNumbers.forEach((item: HTMLElement, index: number) => {
-  //     const element = item as HTMLElement;
-  //     element.innerText = `${index + 1}`;
-  //   });
-  // }
 
   render(): string {
     this.addListeners();

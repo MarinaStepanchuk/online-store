@@ -1,5 +1,6 @@
 import Database from '../database/Database';
 import { IBasketProduct } from '../components/BasketProduct/BasketProduct.interface';
+import getPriceAfterDiscont from './getPriceAfterDiscont';
 
 interface IBasketItem {
   id: number;
@@ -29,7 +30,12 @@ class Basket {
   }
 
   public getBasketSum(): number {
-    return +(this.basketHS.reduce((acc, item) => acc + Database.getPriceById(item.id) * item.amount, 0)).toFixed(2);
+    const basketSum = this.basketHS.reduce((acc, item) => acc + this.getPriceById(item.id) * item.amount, 0);
+    return +basketSum.toFixed(2);
+  }
+
+  private getPriceById(id: number): number {
+    return getPriceAfterDiscont(Database.getProductById(id).price, Database.getProductById(id).discountPercentage);
   }
 
   public getBasketAmount(): number {
@@ -42,22 +48,18 @@ class Basket {
   }
 
   public increaseAmount(id: number): void {
-    this.basketHS = this.basketHS.map((element: IBasketItem) => {
-      return {
-        ...element,
-        amount: element.id === id ? element.amount + 1 : element.amount
-      }
-    });
+    this.basketHS = this.basketHS.map((element: IBasketItem) => ({
+      ...element,
+      amount: element.id === id ? element.amount + 1 : element.amount,
+    }));
     localStorage.basketHS = JSON.stringify(this.basketHS);
   }
 
   public decreaseAmount(id: number): void {
-    this.basketHS = this.basketHS.map((element: IBasketItem) => {
-      return {
-        ...element,
-        amount: element.id === id ? element.amount - 1 : element.amount
-      }
-    });
+    this.basketHS = this.basketHS.map((element: IBasketItem) => ({
+      ...element,
+      amount: element.id === id ? element.amount - 1 : element.amount,
+    }));
     localStorage.basketHS = JSON.stringify(this.basketHS);
   }
 

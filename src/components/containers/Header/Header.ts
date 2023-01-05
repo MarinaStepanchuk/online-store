@@ -15,12 +15,13 @@ class Header {
 
   private startWatcher(): void {
     setInterval(() => {
-      const amount = new Basket().getBasketAmount();
-      const sum = new Basket().getBasketSum();
+      const basket = new Basket();
+      const amount = basket.getBasketAmount();
+      const sum = basket.getBasketSum();
+
       if (this.previousAmount !== amount || this.previousSum !== sum) {
-        document.getElementsByName('basket-amount')[0].innerHTML = `${amount}`;
-        document.getElementsByName('basket-sum')[0].innerHTML = `${Symbol.CURRENCY}${sum}`;
-        this.previousAmount = amount;
+        document.getElementsByName('basket-amount')[0].innerText = `${amount}`;
+        document.getElementsByName('basket-sum')[0].innerText = `${Symbol.CURRENCY}${sum}`;
       }
     }, 300);
   }

@@ -5,9 +5,7 @@ import { IBasketProduct } from './BasketProduct.interface';
 import { Title, Symbol } from '../../common.types/enums';
 
 class BasketProduct {
-  private product: IBasketProduct;
-
-  constructor(product: IBasketProduct) {
+  constructor(private product: IBasketProduct) {
     this.product = product;
   }
 

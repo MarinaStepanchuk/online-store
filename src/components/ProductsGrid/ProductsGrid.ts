@@ -19,7 +19,7 @@ class ProductsGrid {
           changeStatusButton(element, id);
         }
       });
-    }, 0);
+    });
   }
 
   render(): string {
