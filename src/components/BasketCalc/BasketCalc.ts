@@ -1,21 +1,33 @@
 import './BasketCalc.style.scss';
 import { Button, Title, Symbol } from '../../common.types/enums';
+import Basket from '../../utils/Basket';
+import { findElem } from '../../utils/findElem';
 
-class BasketCalcTotal {
-  render() {
+class BasketCalc {
+  public basket = new Basket();
+
+  public updateBasketCalcHeader(): void {
+    const basket = new Basket();
+    const totalProductsCount = findElem('.total-card__header__total-products__value');
+    totalProductsCount.innerHTML = `${basket.getBasketAmount()}`;
+    const subtotalProductsSum = findElem('.total-card__calc__subtotal__value');
+    subtotalProductsSum.innerHTML = `${basket.getBasketSum()}`;
+  }
+
+  public render(): string {
     return `
       <div class="total-card">
         <div class="total-card__header">
           <div class="total-card__header__title">${Title.BASKET_HEADER__TITLE}</div>
           <div class="total-card__header__total-products">
             ${Title.PRODUCTS}
-            <span class="total-card__header__total-products__value">12</span>
+            <span class="total-card__header__total-products__value">${this.basket.getBasketAmount()}</span>
           </div>
         </div>
         <div class="total-card__calc">
           <div class="total-card__calc__subtotal">
             <span class="total-card__calc__subtotal__title">${Title.CARD_SUBTOTAL_MONEY}</span>
-            <span class="total-card__calc__subtotal__value">${Symbol.CURRENCY}2645</span>
+            <span class="total-card__calc__subtotal__value">${Symbol.CURRENCY}${this.basket.getBasketSum()}</span>
           </div>
           <div class="total-card__calc__discount">
             <span class="total-card__calc__discount__title">${Title.DISCOUNT}</span>
@@ -35,4 +47,4 @@ class BasketCalcTotal {
   }
 }
 
-export default BasketCalcTotal;
+export default BasketCalc;
