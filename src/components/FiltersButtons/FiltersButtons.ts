@@ -4,7 +4,9 @@ import { Events } from '../../common.types/enums';
 import UrlFormatter from '../../utils/UrlFormatter';
 
 const COPY_BTN_INNER_TEXT = 'Copy link';
+const COPY_BTN_INNER_TEXT_ACTIVE = 'Copied!';
 const RESET_BTN_INNER_TEXT = 'Reset filters';
+const TIME_BETWEEN_STATES = 2000;
 
 class FiltersButtons {
   constructor(private readonly cbRender: () => void) {
@@ -29,11 +31,17 @@ class FiltersButtons {
       urlFormatter.sendParams(this.cbRender);
     }, '#reset-filters');
 
-    Handler.set(Events.CLICK, () => {
+    Handler.set(Events.CLICK, (e: Event) => {
+      const button = e.target as HTMLButtonElement;
       const text = `${location.href}`;
 
       navigator.clipboard.writeText(text)
-        .then((r) => r);
+        .then(() => {
+          button.innerText = COPY_BTN_INNER_TEXT_ACTIVE;
+          setTimeout(() => {
+            button.innerText = COPY_BTN_INNER_TEXT;
+          }, TIME_BETWEEN_STATES);
+        });
     }, '#copy-link');
   }
 }
