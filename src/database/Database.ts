@@ -64,6 +64,7 @@ class Database {
       price: params.price || Database.getMinMaxPrice(),
       stock: params.stock || Database.getMinMaxStock(),
       mode: '',
+      sort: '',
     };
 
     const isSuitable = (product: IProduct) => {
@@ -76,7 +77,12 @@ class Database {
       }
 
       if (params.search) {
-        if (!(product.title.toLowerCase().includes(params.search) || product.description.toLowerCase().includes(params.search))) {
+        if (!(product.title.toLowerCase().includes(params.search)
+            || product.description.toLowerCase().includes(params.search)
+            || product.category.toLowerCase().includes(params.search)
+            || product.stock.toString().includes(params.search)
+            || product.price.toString().includes(params.search)
+            || product.brand.toLowerCase().includes(params.search))) {
           return false;
         }
       }
@@ -137,6 +143,7 @@ class Database {
       processedData.brands[product.brand].isChecked = params.brand?.has(product.brand) || false;
       processedData.search = params.search || '';
       processedData.mode = params.mode || '';
+      processedData.sort = params.sort || '';
     });
 
     return processedData;

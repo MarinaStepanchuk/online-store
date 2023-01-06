@@ -10,9 +10,7 @@ import getMainBlock from '../../utils/getMainBlock';
 
 class MainPage {
   static getData(): IProcessedData {
-    const urlFormatter = new UrlFormatter();
-
-    return Database.getProcessedData(urlFormatter.getAllQueryParams());
+    return Database.getProcessedData(new UrlFormatter().getAllQueryParams());
   }
 
   static render() {
@@ -21,7 +19,7 @@ class MainPage {
     const welcomeBlock = new WelcomeBlock().render();
     const sideBar = new Sidebar(MainPage.reRender).render(data);
     const controls = new Controls(MainPage.reRender).render(data);
-    const grid = new ProductsGrid([...data.productsId], data.mode).render();
+    const grid = new ProductsGrid(data).render();
     const main = getMainBlock();
 
     main.innerHTML = `

@@ -8,25 +8,11 @@ import Handler from '../../utils/Handler';
 import { Events } from '../../common.types/enums';
 import { findElem } from '../../utils/findElem';
 import UrlFormatter, { QueryNames } from '../../utils/UrlFormatter';
-
-const SORT_TITLE = 'Sort by:';
-const SortingNames = {
-  discount: {
-    fromLowToHigh: '▲ discount',
-    fromHighToLow: '▼ discount',
-  },
-  stock: {
-    fromLowToHigh: '▲ in stock',
-    fromHighToLow: '▼ in stock',
-  },
-};
-const SEARCH_RESULT_TITLE = 'Found:';
-const SEARCH_PLACEHOLDER = 'search';
-
-export enum ViewMode {
-  grid3 = 'grid3',
-  grid4 = 'grid4',
-}
+import { DEFAULT_MODE } from '../ProductsGrid/ProductsGrid.const';
+import {
+  SEARCH_PLACEHOLDER, SEARCH_RESULT_TITLE, SORT_TITLE, SortNames,
+} from './Controls.const';
+import { SortValues, ViewMode } from './Controls.enum';
 
 class Controls {
   constructor(private readonly cbRender: () => void) {
@@ -40,22 +26,33 @@ class Controls {
 
     return `
       <div class="controls">
-        ${this.getSortBlock()}
+        ${this.getSortBlock(data.sort)}
         ${this.getSearchBlock(productsAmount, searchText)}
-        ${this.getModeBlock(data.mode)}
+        ${this.getModeBlock(data.mode || DEFAULT_MODE)}
       </div>`;
   }
 
-  getSortBlock(): string {
+  getSortBlock(sortType: string): string {
     return `
       <div class="controls__sort sorter">
         <span class="sorter__title">${SORT_TITLE}</span>
         <div class="sorter__droplist-wrap">
           <select class="sorter__droplist" name="sort" id="sorter-droplist">
-            <option value="upDiscount">${SortingNames.discount.fromLowToHigh}</option>
-            <option value="downDiscount">${SortingNames.discount.fromHighToLow}</option>
-            <option value="upStock">${SortingNames.stock.fromLowToHigh}</option>
-            <option value="downStock">${SortingNames.stock.fromHighToLow}</option>
+            /* <option ${SortValues.none === sortType ? 'selected' : ''} value=${SortValues.none}>
+              ${SortNames.none}
+            </option> */
+            <option ${SortValues.upDiscount === sortType ? 'selected' : ''} value=${SortValues.upDiscount}>
+              ${SortNames.discount.fromLowToHigh}
+            </option>
+            <option ${SortValues.downDiscount === sortType ? 'selected' : ''} value=${SortValues.downDiscount}>
+              ${SortNames.discount.fromHighToLow}
+            </option>
+            <option ${SortValues.upStock === sortType ? 'selected' : ''} value=${SortValues.upStock}>
+              ${SortNames.stock.fromLowToHigh}
+            </option>
+            <option ${SortValues.downStock === sortType ? 'selected' : ''} value=${SortValues.downStock}>
+              ${SortNames.stock.fromHighToLow}
+            </option>
           </select>
         </div>
       </div>`;
@@ -113,6 +110,7 @@ class Controls {
       urlFormatter.sendParams(this.cbRender);
     }, '#reset-search-btn');
 
+    // switcher mode
     Handler.set(Events.CLICK, (e: Event): void => {
       const target = e.target as HTMLElement;
       const wrapper = target.parentElement as HTMLElement;
@@ -123,6 +121,14 @@ class Controls {
         urlFormatter.sendParams(this.cbRender);
       }
     }, '.controls__mode');
+
+    // sorting
+    Handler.set(Events.INPUT, (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      const urlFormatter = new UrlFormatter();
+      urlFormatter.setSortQueryParam(target.value);
+      urlFormatter.sendParams(this.cbRender);
+    }, '#sorter-droplist');
   }
 }
 

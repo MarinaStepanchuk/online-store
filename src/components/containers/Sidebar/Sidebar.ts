@@ -1,9 +1,10 @@
 import './Sidebar.style.scss';
 import FilterList from '../../FilterList/FilterList';
-import FilterRange, { IRangeOptions } from '../../FilterRange/FilterRange';
+import FilterRange from '../../FilterRange/FilterRange';
 import { Symbol } from '../../../common.types/enums';
 import { IProcessedData } from '../../../database/DataBase.interfaces';
 import { FilterParamTitles } from './Sidebar.enum';
+import { IRangeOptions } from '../../FilterRange/FilterRange.interface';
 
 class Sidebar {
   constructor(private readonly cbRender: () => void) {
@@ -31,6 +32,7 @@ class Sidebar {
       scaleLimits: data.priceScale,
       currentPoses: data.price,
       cbRender: this.cbRender,
+      symbolsAfterComma: 2,
       step: 0.01,
       symbol: Symbol.CURRENCY,
     };
@@ -39,6 +41,7 @@ class Sidebar {
       scaleLimits: data.stockScale,
       currentPoses: data.stock,
       cbRender: this.cbRender,
+      symbolsAfterComma: 0,
       step: 1,
       symbol: '',
     };

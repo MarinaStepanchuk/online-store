@@ -3,24 +3,11 @@ import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import { findElem } from '../../utils/findElem';
 import UrlFormatter from '../../utils/UrlFormatter';
+import { IRangeOptions } from './FilterRange.interface';
+import { SliderEvents } from './FilterRange.enum';
+import { RangeTitle } from './FilterRange.type';
 
 const MIN_MAX_SEPARATOR = ' - ';
-enum SliderEvents {
-  SLIDE = 'slide',
-  END = 'end',
-  CHANGE = 'change',
-}
-
-export type RangeTitle = 'price' | 'stock';
-
-export interface IRangeOptions {
-  rangeTitle: string; // must be one word without spaces!
-  scaleLimits: [number, number];
-  currentPoses: [number, number];
-  cbRender: () => void;
-  step: number;
-  symbol: string;
-}
 
 class FilterRange {
   private sliderId = '';
@@ -59,7 +46,7 @@ class FilterRange {
           min: lowest,
           max: highest,
         },
-        step: 1,
+        step: this.opt.step,
       });
 
       clearTimeout(timer);
@@ -76,8 +63,8 @@ class FilterRange {
 
       range.noUiSlider.on(SliderEvents.SLIDE, (values): void => {
         const [min, max] = values;
-        minElement.innerText = `${min}`;
-        maxElement.innerText = `${max}`;
+        minElement.innerText = `${this.opt.symbol}${Number(min).toFixed(this.opt.symbolsAfterComma)}`;
+        maxElement.innerText = `${this.opt.symbol}${Number(max).toFixed(this.opt.symbolsAfterComma)}`;
       });
       range.noUiSlider.on(SliderEvents.END, (values): void => {
         const correctRangeName = this.opt.rangeTitle.toLowerCase() as RangeTitle;
@@ -86,9 +73,6 @@ class FilterRange {
         urlFormatter.setRangeQueryParam(correctRangeName, values);
         urlFormatter.sendParams(this.opt.cbRender);
       });
-      /* range.noUiSlider.on(SliderEvents.CHANGE, (): void => {
-        console.log('event change');
-      }); */
     });
   }
 }

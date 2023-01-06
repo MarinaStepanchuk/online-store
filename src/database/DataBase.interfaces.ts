@@ -39,4 +39,5 @@ export interface IProcessedData {
   price: [number, number],
   stock: [number, number],
   mode: string,
+  sort: string,
 }
