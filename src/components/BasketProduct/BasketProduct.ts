@@ -23,7 +23,7 @@ class BasketProduct {
       <td class="basket-product__index">
         <span>${index}</span>
       </td>
-      <td class="basket-product__info" onclick="window.location.pathname = '/product/${id}'">
+      <td class="basket-product__info" onclick="window.location.href = '/product/${id}'">
         <div class="basket-product__container">
           <div class="basket-product__image">
             <img src=${thumbnail} alt="product image">

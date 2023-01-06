@@ -5,6 +5,7 @@ import { Symbol } from '../../../common.types/enums';
 import { IProcessedData } from '../../../database/DataBase.interfaces';
 import { FilterParamTitles } from './Sidebar.enum';
 import { IRangeOptions } from '../../FilterRange/FilterRange.interface';
+import FiltersButtons from '../../FiltersButtons/FiltersButtons';
 
 class Sidebar {
   constructor(private readonly cbRender: () => void) {
@@ -13,11 +14,12 @@ class Sidebar {
 
   render(data: IProcessedData): string {
     const {
-      categoryFilter, brandFilter, priceRange, stockRange,
+      buttons, categoryFilter, brandFilter, priceRange, stockRange,
     } = this.getComponents(data);
 
     return `
       <aside class="filters">
+        ${buttons.render()}
         ${categoryFilter.render()}
         ${brandFilter.render()}
         ${priceRange.render()}
@@ -46,6 +48,7 @@ class Sidebar {
       symbol: '',
     };
     return {
+      buttons: new FiltersButtons(this.cbRender),
       categoryFilter: new FilterList(FilterParamTitles.categories, data.categories, this.cbRender),
       brandFilter: new FilterList(FilterParamTitles.brands, data.brands, this.cbRender),
       priceRange: new FilterRange(priceOptions),

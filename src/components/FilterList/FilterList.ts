@@ -15,6 +15,7 @@ class FilterList {
   ) {
     this.filterTitle = filterTitle;
     this.filtersList = filtersList;
+    this.cbRender = cbRender;
   }
 
   render(): string {

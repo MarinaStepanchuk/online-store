@@ -83,19 +83,11 @@ class UrlFormatter {
     }
   }
 
-  setModeQueryParam(value: string): void {
-    if (!this.url.searchParams.has(QueryNames.MODE)) {
-      this.url.searchParams.append(QueryNames.MODE, value);
+  setSingleQueryParam(name: string, value: string): void {
+    if (!this.url.searchParams.has(name)) {
+      this.url.searchParams.append(name, value);
     } else {
-      this.url.searchParams.set(QueryNames.MODE, value);
-    }
-  }
-
-  setSortQueryParam(value: string): void {
-    if (!this.url.searchParams.has(QueryNames.SORT)) {
-      this.url.searchParams.append(QueryNames.SORT, value);
-    } else {
-      this.url.searchParams.set(QueryNames.SORT, value);
+      this.url.searchParams.set(name, value);
     }
   }
 
@@ -105,6 +97,10 @@ class UrlFormatter {
 
   deleteQueryParam(name: string): void {
     this.url.searchParams.delete(name);
+  }
+
+  cleanAllQueryParams(): void {
+    this.url.search = '';
   }
 
   sendParams(cbRender: () => void): void {

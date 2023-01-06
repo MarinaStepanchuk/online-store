@@ -99,7 +99,7 @@ class Controls {
       const inputField = findElem('#search-input') as HTMLInputElement;
 
       const urlFormatter = new UrlFormatter();
-      urlFormatter.setFiltersQueryParam(QueryNames.SEARCH, inputField.value);
+      urlFormatter.setSingleQueryParam(QueryNames.SEARCH, inputField.value);
       urlFormatter.sendParams(this.cbRender);
     }, '#search-btn');
 
@@ -117,7 +117,7 @@ class Controls {
 
       if (wrapper.dataset.viewMode && wrapper.dataset.viewMode !== mode) {
         const urlFormatter = new UrlFormatter();
-        urlFormatter.setModeQueryParam(wrapper.dataset.viewMode);
+        urlFormatter.setSingleQueryParam(QueryNames.MODE, wrapper.dataset.viewMode);
         urlFormatter.sendParams(this.cbRender);
       }
     }, '.controls__mode');
@@ -126,7 +126,7 @@ class Controls {
     Handler.set(Events.INPUT, (e: Event) => {
       const target = e.target as HTMLInputElement;
       const urlFormatter = new UrlFormatter();
-      urlFormatter.setSortQueryParam(target.value);
+      urlFormatter.setSingleQueryParam(QueryNames.SORT, target.value);
       urlFormatter.sendParams(this.cbRender);
     }, '#sorter-droplist');
   }
