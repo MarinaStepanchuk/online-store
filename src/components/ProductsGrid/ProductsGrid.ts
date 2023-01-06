@@ -5,6 +5,8 @@ import Database from '../../database/Database';
 import sort from '../../utils/sort';
 import { DEFAULT_MODE } from './ProductsGrid.const';
 
+const NO_PRODUCT_TEXT = 'No products found 😏';
+
 class ProductsGrid {
   private readonly productsDataList: IProduct[];
 
@@ -16,7 +18,9 @@ class ProductsGrid {
   render(): string {
     const sortedDataList = this.getSortedList(this.data.sort);
     const productsList = sortedDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');
-    return `<div class="grid ${this.data.mode || DEFAULT_MODE}">${productsList}</div>`;
+    const goodsNotFind = `<span class="grid__empty">${NO_PRODUCT_TEXT}</span>`;
+
+    return `<div class="grid ${this.data.mode || DEFAULT_MODE}">${sortedDataList.length ? productsList : goodsNotFind}</div>`;
   }
 
   getSortedList(sortingType: string): IProduct[] {
