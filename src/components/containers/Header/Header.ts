@@ -23,7 +23,7 @@ class Header {
         document.getElementsByName('basket-amount')[0].innerText = `${amount}`;
         document.getElementsByName('basket-sum')[0].innerText = `${Symbol.CURRENCY}${sum}`;
       }
-    }, 300);
+    }, 100);
   }
 
   public render(): string {
