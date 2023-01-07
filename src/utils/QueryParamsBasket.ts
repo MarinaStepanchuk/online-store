@@ -18,9 +18,9 @@ class QueryParamsBasket {
   }
 
   public sendParams(cb: () => void): void {
-    const baseUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-    const newUrl = `${baseUrl}?${this.param.toString()}`;
-    window.history.pushState(null, '', newUrl);
+    const url = new URL(window.location.href);
+    Array.from(this.param.entries()).forEach(([key, value]) => url.searchParams.set(key, value));
+    window.history.pushState(null, '', url.href);
     cb();
   }
 }

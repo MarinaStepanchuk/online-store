@@ -18,8 +18,6 @@ enum Classes {
 class BasketGoods {
   private basket = new Basket();
 
-  private queryParam = new QueryParamsBasket();
-
   constructor(private goodsList: IBasketProduct[], private cb: () => void) {
     this.cb = cb;
     this.goodsList = goodsList;
@@ -126,8 +124,9 @@ class BasketGoods {
   }
 
   getListOfGoods(): string {
-    const productOnPage = Number(this.queryParam.getParam('limit')) || DefaultValues.PAGINATION_LIMIT;
-    const valuePage = Number(this.queryParam.getParam('page')) || DefaultValues.PAGINATION_PAGE;
+    const queryParam = new QueryParamsBasket();
+    const productOnPage = Number(queryParam.getParam('limit')) || DefaultValues.PAGINATION_LIMIT;
+    const valuePage = Number(queryParam.getParam('page')) || DefaultValues.PAGINATION_PAGE;
     const start = (valuePage - 1) * productOnPage;
     const end = start + productOnPage;
     return this.getListOnPage(start, end).reduce((acc: string, prod: IBasketProduct): string => (

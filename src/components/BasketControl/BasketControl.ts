@@ -10,7 +10,7 @@ const SUBHEADER_TITLE = 'shopping card'.toUpperCase();
 const AMOUNT_BASKET_GOODS_TITLE = 'items:'.toUpperCase();
 const AMOUNT_BASKET_PAGES_TITLE = 'page:'.toUpperCase();
 
-class BasketHeaderLine {
+class BasketControls {
   private queryParam = new QueryParamsBasket();
 
   private basket = new Basket();
@@ -19,7 +19,7 @@ class BasketHeaderLine {
     this.cb = cb;
   }
 
-  addListeners() {
+  private addListeners(): void {
     setTimeout(() => {
       const limit = findElem('.items-counter__value') as HTMLInputElement;
       const previousPage = findElem('.pages-counter__prev');
@@ -65,22 +65,24 @@ class BasketHeaderLine {
     return Math.ceil(totalAmountProducts / countProductOnPage);
   }
 
-  private getCountProductOnPage() {
+  private getCountProductOnPage(): number {
     return Number(this.queryParam.getParam('limit')) || DefaultValues.PAGINATION_LIMIT;
   }
 
-  private getCurrentPage() {
+  private getCurrentPage(): number {
     const maxValuePage = this.getMaxValuePage();
     const currentPageFromParams = Number(this.queryParam.getParam('page')) || DefaultValues.PAGINATION_PAGE;
     const currentPage = currentPageFromParams > maxValuePage ? maxValuePage : currentPageFromParams;
+
     if (Number(this.queryParam.getParam('page')) > this.getMaxValuePage()) {
       this.queryParam.setParam('page', `${currentPage}`);
       this.queryParam.sendParams(this.cb);
     }
+
     return currentPage;
   }
 
-  public render() {
+  public render(): string {
     this.addListeners();
     return `
       <div class="basket__subheader ">
@@ -93,7 +95,7 @@ class BasketHeaderLine {
     `;
   }
 
-  getBlockAmountItems() {
+  private getBlockAmountItems(): string {
     return `
       <div class="basket__subheader__amount__items items-counter">
         ${AMOUNT_BASKET_GOODS_TITLE}
@@ -101,7 +103,7 @@ class BasketHeaderLine {
       </div>`;
   }
 
-  getBlockAmountPages() {
+  private getBlockAmountPages(): string {
     return `
       <div class="basket__subheader__amount__pages pages-counter">
         <span class="pages-counter__title">
@@ -122,4 +124,4 @@ class BasketHeaderLine {
   }
 }
 
-export default BasketHeaderLine;
+export default BasketControls;
