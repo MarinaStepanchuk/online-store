@@ -31,3 +31,8 @@ export enum Symbol {
   MINUS = '-',
   PLUS = '+',
 }
+
+export enum DefaultValues {
+  PAGINATION_LIMIT = 3,
+  PAGINATION_PAGE = 1,
+}
