@@ -1,6 +1,6 @@
 import './BasketCoupons.style.scss';
 import removeIcon from '../../assets/svg/delete_button.svg';
-import { Button, Symbol } from '../../common.types/enums';
+import { Button, Symbol, LSKeys } from '../../common.types/enums';
 import { findElem } from '../../utils/findElem';
 import ICoupon from './BasketCoupons.interface';
 import Coupons from './Coupons';
@@ -32,18 +32,19 @@ class BasketCoupons {
       const addCoupon = findElem('.coupons__res__add');
 
       input.addEventListener('input', () => {
-        if (this.coupons.exists(input.value)) {
-          addCouponBlock.classList.add('show-block');
-          const couponFound = this.coupons.getCouponByValue(input.value) as ICoupon;
-          couponValue.innerText = `${couponFound.name} - ${couponFound.discount}${Symbol.DISCOUNT}`;
-
-          if (!this.coupons.isActive(input.value)) {
-            addCoupon.classList.add('show-block');
-          } else {
-            addCoupon.classList.remove('show-block');
-          }
-        } else {
+        if (!this.coupons.isExist(input.value)) {
           addCouponBlock.classList.remove('show-block');
+          return;
+        }
+
+        addCouponBlock.classList.add('show-block');
+        const couponFound = this.coupons.getCouponByValue(input.value) as ICoupon;
+        couponValue.innerText = `${couponFound.name} - ${couponFound.discount}${Symbol.DISCOUNT}`;
+
+        if (!this.coupons.isActive(input.value)) {
+          addCoupon.classList.add('show-block');
+        } else {
+          addCoupon.classList.remove('show-block');
         }
       });
 
@@ -64,6 +65,7 @@ class BasketCoupons {
 
       activeCouponsBlock.addEventListener('click', (event) => {
         const element = event.target as HTMLElement;
+
         if (element.classList.contains(REMOVE_BUTTON)) {
           const couponBlock = element.closest('.coupons__active__element') as HTMLElement;
           const name = couponBlock.id;
@@ -72,6 +74,7 @@ class BasketCoupons {
           this.coupons.removeActiveCoupon(name);
           couponBlock.remove();
           this.basketCalc.updateTotalBlock(this.sumDiscont);
+
           if (coupon.name === input.value) {
             addCoupon.classList.add('show-block');
           }
@@ -94,7 +97,7 @@ class BasketCoupons {
 
   public render(): string {
     setTimeout(() => {
-      if (localStorage.getItem('couponsHS')) {
+      if (localStorage.getItem(LSKeys.coupons)) {
         const activeCouponsBlock = findElem('.coupons__active');
         activeCouponsBlock.classList.add('show-block');
         const activeCoupons = this.coupons.getAllActiveCoupons();
@@ -124,7 +127,7 @@ class BasketCoupons {
         </div>
         <div class="coupons__possible">
           <span class="coupons__possible__title">${Title.TEST_HINT}</span>
-          <span class="coupons__possible__value">${this.coupons.getStringAllCoupons()}</span>
+          <span class="coupons__possible__value">${this.coupons.getCouponsAsString()}</span>
         </div>
       </div>
       `;

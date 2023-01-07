@@ -1,5 +1,6 @@
 import CouponsDatabase from './CouponsDatabase';
 import ICoupon from './BasketCoupons.interface';
+import { LSKeys } from '../../common.types/enums';
 
 class Coupons {
   private data: ICoupon[] = CouponsDatabase;
@@ -11,7 +12,7 @@ class Coupons {
   }
 
   public getAllActiveCoupons(): ICoupon[] {
-    return localStorage.getItem('couponsHS') ? JSON.parse(localStorage.getItem('couponsHS') as string) : [];
+    return localStorage.getItem(LSKeys.coupons) ? JSON.parse(localStorage.getItem(LSKeys.coupons) as string) : [];
   }
 
   public getCouponByValue(name: string): ICoupon {
@@ -20,16 +21,16 @@ class Coupons {
 
   public removeActiveCoupon(name: string): void {
     this.activeCoupons = this.activeCoupons.filter((coupon) => coupon.name !== name);
-    localStorage.setItem('couponsHS', JSON.stringify(this.activeCoupons));
+    localStorage.setItem(LSKeys.coupons, JSON.stringify(this.activeCoupons));
   }
 
-  public setActiveCoupon(value: string) {
+  public setActiveCoupon(value: string): void {
     const coupon = this.getCouponByValue(value);
     this.activeCoupons.push(coupon);
-    localStorage.setItem('couponsHS', JSON.stringify(this.activeCoupons));
+    localStorage.setItem(LSKeys.coupons, JSON.stringify(this.activeCoupons));
   }
 
-  public exists(value: string): boolean {
+  public isExist(value: string): boolean {
     return !!this.data.find((coupon) => coupon.name === value);
   }
 
@@ -37,7 +38,7 @@ class Coupons {
     return !!this.activeCoupons.find((coupon) => coupon.name === value);
   }
 
-  public getStringAllCoupons(): string {
+  public getCouponsAsString(): string {
     return this.data.map((coupon: ICoupon) => coupon.name).join(', ');
   }
 }

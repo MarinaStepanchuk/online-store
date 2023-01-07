@@ -36,3 +36,8 @@ export enum DefaultValues {
   PAGINATION_LIMIT = 3,
   PAGINATION_PAGE = 1,
 }
+
+export enum LSKeys {
+  basket = 'basketHS',
+  coupons = 'couponsHS',
+}
