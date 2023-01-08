@@ -5,7 +5,7 @@
   z-index: 10;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgb(0 0 0 / 80%);
   font-size: 1.4rem;
 }
 
@@ -25,7 +25,7 @@
   padding: 1rem 5rem;
 
   &::before {
-    content: '';
+    content: "";
     width: 100%;
     height: 6rem;
     position: absolute;
@@ -37,7 +37,7 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     width: 100%;
     height: 2rem;
     position: absolute;
@@ -72,7 +72,6 @@
       gap: 0.5rem;
 
       &__title {
-
         &__mark {
           color: $color-primary;
         }
@@ -137,14 +136,6 @@
 
         input {
           width: 100%;
-          background-color: $color-basket-font-light;
-          border-radius: 0.8rem;
-
-          &:focus,
-          &:active {
-            outline: none;
-            background-color: #fff;
-          }
         }
       }
 
@@ -161,31 +152,29 @@
           align-items: center;
           gap: 0.5rem;
           font-size: 1.4rem;
-
-          input {
-            background-color: $color-basket-font-light;
-            border-radius: 0.8rem;
-
-            &:focus,
-            &:active {
-              outline: none;
-              background-color: #fff;
-            }
-          }
         }
 
         &__valid {
-          
           input {
             width: 13rem;
           }
         }
 
         &__cvv {
-
           input {
             width: 4.5rem;
           }
+        }
+      }
+
+      input {
+        background-color: $color-basket-font-light;
+        border-radius: 0.8rem;
+
+        &:focus,
+        &:active {
+          outline: none;
+          background-color: #fff;
         }
       }
     }
@@ -193,6 +182,7 @@
 
   &__submit {
     @include button(15rem, 3.5rem);
+
     margin-bottom: 2rem;
   }
 }
@@ -222,6 +212,6 @@
   font-size: 2rem;
   font-family: CeraProBold, arial, serif;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgb(0 0 0 / 80%);
   text-align: center;
 }
