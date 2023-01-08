@@ -1,47 +1,61 @@
 import './Sidebar.style.scss';
 import FilterList from '../../FilterList/FilterList';
 import FilterRange from '../../FilterRange/FilterRange';
-import Database from '../../../database/Database';
 import { Symbol } from '../../../common.types/enums';
-
-const FilterParamTitles = {
-  categories: 'Categories',
-  brands: 'Brand',
-  price: 'Price',
-  stock: 'Stock',
-};
+import { IProcessedData } from '../../../database/DataBase.interfaces';
+import { FilterParamTitles } from './Sidebar.enum';
+import { IRangeOptions } from '../../FilterRange/FilterRange.interface';
+import FiltersButtons from '../../FiltersButtons/FiltersButtons';
 
 class Sidebar {
-  render(): string {
-    // TODO: каждый раз получаем товары, которые отсортированы
+  constructor(private readonly cbRender: () => void) {
+    this.cbRender = cbRender;
+  }
 
-    const categories = ['house plants', 'Potato', 'Some new staff', 'something1', 'something2', 'something3',
-      'something5', 'something-create', 'some thief', 'something good', 'some thing', 'some shape', 'hint',
-      'my sql', 'react', 'filters big', 'decoration'];
-    const dataCategoriesAmount = [['4', '23'], ['1', '23'], ['2', '23'], ['0', '23'], ['4', '23'], ['4', '23'], ['4', '23'],
-      ['4', '23'], ['4', '23'], ['4', '23'], ['4', '56'], ['4', '23'], ['5', '23'], ['4', '23'],
-      ['4', '23'], ['4', '23'], ['4', '23']];
-    const brands = ['Adidas', 'Gussi', 'MAN', 'Belka', 'some', 'Kit', 'Absolute', 'Kitchen', 'Romero', 'God',
-      'react', 'filtron', 'decoration tank'];
-    const dataBrandsAmount = [['4', '15'], ['1', '2'], ['2', '3'], ['0', '23'], ['4', '23'], ['4', '23'], ['4', '23'],
-      ['4', '23'], ['4', '23'], ['4', '23'], ['4', '56'], ['4', '23'], ['5', '23']];
-    const testRange1: [number, number] = [72, 109];
-    const testRange2: [number, number] = [20, 88];
-    // these constants only for testing layout, in future they will be deleted
-
-    const categoryFilter = new FilterList(FilterParamTitles.categories, categories);
-    const brandFilter = new FilterList(FilterParamTitles.brands, brands);
-    const priceRange = new FilterRange(FilterParamTitles.price, Database.getMinMaxPrice(), testRange1, Symbol.CURRENCY);
-    const stockRange = new FilterRange(FilterParamTitles.stock, Database.getMinMaxStock(), testRange2);
+  render(data: IProcessedData): string {
+    const {
+      buttons, categoryFilter, brandFilter, priceRange, stockRange,
+    } = this.getComponents(data);
 
     return `
       <aside class="filters">
-        ${categoryFilter.render(dataCategoriesAmount)}
-        ${brandFilter.render(dataBrandsAmount)}
+        ${buttons.render()}
+        ${categoryFilter.render()}
+        ${brandFilter.render()}
         ${priceRange.render()}
         ${stockRange.render()}
       </aside>
     `;
+  }
+
+  getComponents(data: IProcessedData) {
+    const priceOptions: IRangeOptions = {
+      rangeTitle: FilterParamTitles.price,
+      scaleLimits: data.priceScale,
+      currentPoses: data.price,
+      cbRender: this.cbRender,
+      symbolsAfterComma: 2,
+      step: 0.01,
+      symbol: Symbol.CURRENCY,
+    };
+
+    const stockOptions: IRangeOptions = {
+      rangeTitle: FilterParamTitles.stock,
+      scaleLimits: data.stockScale,
+      currentPoses: data.stock,
+      cbRender: this.cbRender,
+      symbolsAfterComma: 0,
+      step: 1,
+      symbol: '',
+    };
+
+    return {
+      buttons: new FiltersButtons(this.cbRender),
+      categoryFilter: new FilterList(FilterParamTitles.categories, data.categories, this.cbRender),
+      brandFilter: new FilterList(FilterParamTitles.brands, data.brands, this.cbRender),
+      priceRange: new FilterRange(priceOptions),
+      stockRange: new FilterRange(stockOptions),
+    };
   }
 }
 

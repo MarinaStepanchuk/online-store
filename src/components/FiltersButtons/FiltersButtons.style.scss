@@ -1,0 +1,18 @@
+.filters__buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  &__item {
+    width: 12rem;
+    transition: all 1s;
+
+    &:active {
+      background-color: $color-primary;
+      color: #fff;
+      border-width: 1px;
+      transition: 100ms;
+    }
+  }
+}

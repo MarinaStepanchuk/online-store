@@ -18,26 +18,47 @@
     gap: 2.2rem;
     overflow-y: scroll;
 
-    &.categories {
+    &.category {
       max-height: 36rem;
     }
 
     &.brand {
-      max-height: 12rem;
+      max-height: 27rem;
     }
   }
 
   &__item {
     font-size: 1.6rem;
     font-weight: 400;
+    display: flex;
+    align-items: center;
 
     &__input {
-      display: none;
+      margin-right: 1rem;
+
+      & + label {
+        color: #a6a6a6;
+        font-weight: 400;
+        cursor: pointer;
+      }
+
+      &.available + label {
+        color: inherit;
+        cursor: pointer;
+      }
 
       &:checked + label {
         font-size: 1.6rem;
         font-weight: 700;
+        color: #b78383;
+        cursor: pointer;
+      }
+
+      &.available:checked + label {
+        font-size: 1.6rem;
+        font-weight: 700;
         color: $color-primary;
+        cursor: pointer;
       }
     }
 
@@ -46,7 +67,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      cursor: pointer;
+      width: 100%;
 
       &:hover {
         font-weight: 700;
