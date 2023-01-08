@@ -22,7 +22,7 @@ class ProductsGrid {
       const allProducts = findElem('.grid');
       allProducts.addEventListener('click', (event) => {
         const element = event.target as HTMLElement;
-        if (element.className === 'product-item__buttons_white') {
+        if (element.classList.contains('product-item__buttons_white')) {
           const productContainer = element.closest('.product-item') as HTMLElement;
           const id = Number(productContainer.id);
           changeStatusButton(element, id);

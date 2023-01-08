@@ -1,6 +1,6 @@
 import './BasketCoupons.style.scss';
 import removeIcon from '../../assets/svg/delete_button.svg';
-import { Button, Symbol, LSKeys } from '../../common.types/enums';
+import { Button, Symbol } from '../../common.types/enums';
 import { findElem } from '../../utils/findElem';
 import ICoupon from './BasketCoupons.interface';
 import Coupons from './Coupons';
@@ -75,6 +75,10 @@ class BasketCoupons {
           couponBlock.remove();
           this.basketCalc.updateTotalBlock(this.sumDiscont);
 
+          if (this.coupons.getAllActiveCoupons().length === 0) {
+            activeCouponsBlock.classList.remove('show-block');
+          }
+
           if (coupon.name === input.value) {
             addCoupon.classList.add('show-block');
           }
@@ -97,7 +101,7 @@ class BasketCoupons {
 
   public render(): string {
     setTimeout(() => {
-      if (localStorage.getItem(LSKeys.coupons)) {
+      if (this.coupons.getAllActiveCoupons().length !== 0) {
         const activeCouponsBlock = findElem('.coupons__active');
         activeCouponsBlock.classList.add('show-block');
         const activeCoupons = this.coupons.getAllActiveCoupons();
@@ -113,6 +117,10 @@ class BasketCoupons {
 
     return `
       <div class="coupons">
+        <div class="coupons__possible">
+          <span class="coupons__possible__title">${Title.TEST_HINT}</span>
+          <span class="coupons__possible__value">${this.coupons.getCouponsAsString()}</span>
+        </div>
         <span class="coupons__title">${Title.APPLY}</span>
         <div class="coupons__input">
           <input class="coupons__input__value" type="text" placeholder="${Title.COUPON_PLACEHOLDER}">
@@ -124,10 +132,6 @@ class BasketCoupons {
         </div>
         <div class="coupons__active">
           <p class="coupons__active__title">${Title.ACTIVE}</p>
-        </div>
-        <div class="coupons__possible">
-          <span class="coupons__possible__title">${Title.TEST_HINT}</span>
-          <span class="coupons__possible__value">${this.coupons.getCouponsAsString()}</span>
         </div>
       </div>
       `;

@@ -6,6 +6,7 @@
 }
 
 html {
+  position: relative;
   font-size: 10px;
   height: 100%;
 }
@@ -43,6 +44,12 @@ a {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+}
+
+.added {
+  filter: drop-shadow(0 0 1rem $color-primary);
+  color: $color-primary;
+  background-color: #fff;
 }
 
 .header,

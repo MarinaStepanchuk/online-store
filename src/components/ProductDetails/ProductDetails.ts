@@ -3,7 +3,9 @@ import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import ProductPhotosSlider from '../ProductPhotosSlider/ProductPhotosSlider';
-import { Title, Symbol, Button } from '../../common.types/enums';
+import {
+  Title, Symbol, Button, LSKeys,
+} from '../../common.types/enums';
 import changeStatusButton from '../../utils/changeStatusButton';
 import Basket from '../../utils/Basket';
 import { findElem } from '../../utils/findElem';
@@ -20,10 +22,23 @@ class ProductDetails {
         const element = event.target as HTMLElement;
         changeStatusButton(element, Number(this.product.id));
       });
-    }, 0);
+
+      const buttonBuy = findElem('.product-details__information__buttons_buy');
+      buttonBuy.addEventListener('click', () => {
+        localStorage.setItem(LSKeys.modal, 'open');
+        const basket = new Basket();
+
+        if (basket.basketContain(this.product.id)) {
+          window.location.href = '/basket';
+        } else {
+          basket.setProductToBasket(this.product.id);
+          window.location.href = '/basket';
+        }
+      });
+    });
   }
 
-  render(): string {
+  public render(): string {
     const {
       title, images, thumbnail, stock, discountPercentage, category, brand, price, rating, description, id,
     } = this.product;
@@ -75,8 +90,8 @@ class ProductDetails {
           <span>${discountPercentage}${Symbol.DISCOUNT}</span>
         </div>
         <div class="product-details__information__buttons">
-          <button onclick="window.location.pathname = '/basket'" class="product-details__information__buttons_buy">${Button.BUY}</button>
-          <button class="product-details__information__buttons_basket">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
+          <button class="product-details__information__buttons_buy">${Button.BUY}</button>
+          <button class="${new Basket().basketContain(id) ? 'product-details__information__buttons_basket added' : 'product-details__information__buttons_basket'}">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
         </div>
         <div class="product-details__information__description">
           <span class="product-details__information__description__title">${Title.DESCRIPTION}</span>

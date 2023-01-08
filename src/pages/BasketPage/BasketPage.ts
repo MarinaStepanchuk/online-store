@@ -6,7 +6,8 @@ import BasketCoupons from '../../components/BasketCoupons/BasketCoupons';
 import getMainBlock from '../../utils/getMainBlock';
 import Basket from '../../utils/Basket';
 import BasketGoods from '../../components/BasketGoods/BasketGoods';
-// import { findElem } from '../../utils/findElem';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
+import { LSKeys } from '../../common.types/enums';
 
 class BasketPage {
   static render(): void {
@@ -36,6 +37,11 @@ class BasketPage {
         Cart is Empty
       <div>
     `;
+    }
+
+    if (localStorage.modalHS) {
+      new ModalWindow().render();
+      localStorage.removeItem(LSKeys.modal);
     }
   }
 
