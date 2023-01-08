@@ -3,10 +3,26 @@ import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import ProductPhotosSlider from '../ProductPhotosSlider/ProductPhotosSlider';
-import { Title, Symbol, Button } from '../../common.types/enums';
+import {
+  Title,
+  Symbol,
+  Button,
+  Events,
+} from '../../common.types/enums';
 import changeStatusButton from '../../utils/changeStatusButton';
 import Basket from '../../utils/Basket';
+import Handler from '../../utils/Handler';
 import { findElem } from '../../utils/findElem';
+import createElem from '../../utils/createElem';
+
+const Classes = {
+  photoContainer: 'product-details__photos',
+  addProductBtn: 'product-details__information__buttons_basket',
+  fastBuyBtn: 'product-details__information__buttons_buy',
+  imageContainer: 'big-image',
+  fadeImage: 'big-image__fade',
+  insreasedImage: 'big-image__image',
+};
 
 class ProductDetails {
   constructor(private product: IProduct) {
@@ -14,13 +30,29 @@ class ProductDetails {
   }
 
   private addListeners(): void {
-    setTimeout(() => {
-      const buttonToCard = findElem('.product-details__information__buttons_basket');
-      buttonToCard.addEventListener('click', (event) => {
-        const element = event.target as HTMLElement;
-        changeStatusButton(element, Number(this.product.id));
-      });
-    }, 0);
+    Handler.set(Events.CLICK, (event) => {
+      const element = event.target as HTMLElement;
+      changeStatusButton(element, Number(this.product.id));
+    }, `.${Classes.addProductBtn}`);
+
+    Handler.set(Events.CLICK, (event) => {
+      const target = event.target as HTMLImageElement;
+
+      if (target.alt) {
+        const imgContainer = findElem(`.${Classes.imageContainer}`);
+        const imageWrap = findElem(`.${Classes.insreasedImage}`);
+
+        imgContainer.classList.add('active');
+        const newInsertImg = createElem('img', '', 'big-image__image') as HTMLImageElement;
+        newInsertImg.src = target.src;
+        findElem(`.${Classes.insreasedImage}`).appendChild(newInsertImg);
+
+        newInsertImg.addEventListener(Events.CLICK, () => {
+          imgContainer.classList.remove('active');
+          imageWrap.firstChild?.remove();
+        });
+      }
+    }, `.${Classes.photoContainer}`);
   }
 
   render(): string {
@@ -33,11 +65,15 @@ class ProductDetails {
     this.addListeners();
 
     return `
-      <div class="product-details__photos">
+      <div class=${Classes.photoContainer}>
         ${photosSlider}
         <div class="product-details__photos__general">
           <img src="${thumbnail}" alt="product photo" class="general-photo">
         </div>
+        <div class="big-image container">
+          <div class="big-image__image"></div>
+          <div class="big-image__fade"></div>
+        </div> 
       </div>
       <div id="${id}" class="product-details__information">
         <h4 class="product-details__information__title">${title}</h4>
