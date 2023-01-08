@@ -1,12 +1,20 @@
 import './ProductsGrid.style.scss';
 import Product from '../Product/Product';
-import { IProduct } from '../../database/DataBase.interfaces';
+import { IProcessedData, IProduct } from '../../database/DataBase.interfaces';
 import Database from '../../database/Database';
+import sort from '../../utils/sort';
+import { DEFAULT_MODE } from './ProductsGrid.const';
+const NO_PRODUCT_TEXT = 'No products found 😏';
 import changeStatusButton from '../../utils/changeStatusButton';
 import { findElem } from '../../utils/findElem';
 
 class ProductsGrid {
-  private productsDataList: IProduct[] = Database.getAllProducts();
+  private readonly productsDataList: IProduct[];
+
+  constructor(private data: IProcessedData) {
+    this.data = data;
+    this.productsDataList = [...this.data.productsId].map((id: number) => Database.getProductById(id));
+  }
 
   private addListeners(): void {
     setTimeout(() => {
@@ -23,11 +31,16 @@ class ProductsGrid {
   }
 
   render(): string {
-    const productsList = this.productsDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');
+    const sortedDataList = this.getSortedList(this.data.sort);
+    const productsList = sortedDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');
+    const notFound = `<span class="grid__empty">${NO_PRODUCT_TEXT}</span>`;
 
+    return `<div class="grid ${this.data.mode || DEFAULT_MODE}">${sortedDataList.length ? productsList : notFound}</div>`;
+  }
+
+  getSortedList(sortingType: string): IProduct[] {
     this.addListeners();
-
-    return `<div class="grid grid3col">${productsList}</div>`;
+    return sort(this.productsDataList, sortingType);
   }
 }
 

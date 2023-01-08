@@ -32,6 +32,12 @@ export enum Symbol {
   PLUS = '+',
 }
 
+export enum Events {
+  CLICK = 'click',
+  CHANGE = 'change',
+  INPUT = 'input',
+}
+  
 export enum DefaultValues {
   PAGINATION_LIMIT = 3,
   PAGINATION_PAGE = 1,
