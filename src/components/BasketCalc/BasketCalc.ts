@@ -24,6 +24,28 @@ class BasketCalc {
     });
   }
 
+  public updateTotalBlock(discont: number): void {
+    const subTotalSum = findElem('.total-card__calc__subtotal__value');
+    const discontBlock = findElem('.total-card__calc__discount');
+    const discontValueBlock = findElem('.total-card__calc__discount__value');
+    const totalSumBlock = findElem('.total-card__calc__summary');
+    const totalSumValueBlock = findElem('.total-card__calc__summary__value');
+    if (discont > 0) {
+      subTotalSum.classList.add('cross');
+      discontBlock.classList.add('show-block');
+      totalSumBlock.classList.add('show-block');
+      discontValueBlock.innerText = `${discont}${Symbol.DISCOUNT}`;
+      const sumAfterDiscont = ((this.basket.getBasketSum() * (100 - discont)) / 100).toFixed(2);
+      totalSumValueBlock.innerText = `${Symbol.CURRENCY}${sumAfterDiscont}`;
+    } else {
+      subTotalSum.classList.remove('cross');
+      discontBlock.classList.remove('show-block');
+      discontValueBlock.innerText = `0${Symbol.DISCOUNT}`;
+      totalSumBlock.classList.remove('show-block');
+      totalSumValueBlock.innerText = `${Symbol.CURRENCY}${this.basket.getBasketSum()}`;
+    }
+  }
+
   public render(): string {
     this.addListeners();
 
@@ -45,12 +67,12 @@ class BasketCalc {
             <span class="total-card__calc__discount__title">${Title.DISCOUNT}</span>
             <div>
               <span>${Symbol.SUBTRACT}</span>
-              <span class="total-card__calc__discount__value">20${Symbol.DISCOUNT}</span>
+              <span class="total-card__calc__discount__value"></span>
             </div>
           </div>
           <div class="total-card__calc__summary">
             <span class="total-card__calc__summary__title">${Title.CARD_TOTAL_MONEY}</span>
-            <span class="total-card__calc__summary__value">${Symbol.CURRENCY}2645</span>
+            <span class="total-card__calc__summary__value"></span>
           </div>
           <button class="total-card__calc__ordering">${Button.ORDERING}</button>
         </div> 

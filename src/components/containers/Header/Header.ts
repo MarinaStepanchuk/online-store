@@ -15,15 +15,14 @@ class Header {
 
   private startWatcher(): void {
     setInterval(() => {
+      const headerAmount = document.getElementsByName('basket-amount')[0];
+      const headerSum = document.getElementsByName('basket-sum')[0];
       const basket = new Basket();
       const amount = basket.getBasketAmount();
       const sum = basket.getBasketSum();
-
-      if (this.previousAmount !== amount || this.previousSum !== sum) {
-        document.getElementsByName('basket-amount')[0].innerText = `${amount}`;
-        document.getElementsByName('basket-sum')[0].innerText = `${Symbol.CURRENCY}${sum}`;
-      }
-    }, 300);
+      headerAmount.innerText = `${amount}`;
+      headerSum.innerText = `${Symbol.CURRENCY}${sum}`;
+    }, 100);
   }
 
   public render(): string {
@@ -36,7 +35,7 @@ class Header {
                 <span class="header__money__text">${Title.HEADER_TOTAL_MONEY}</span>
                 <span id="headerTotalMoney" class="header__money__value" name="basket-sum">${Symbol.CURRENCY}${this.previousSum}</span>
             </div>
-            <div onclick="window.location.pathname = '/basket'" class="header__basket">
+            <div onclick="window.location.href = '/basket'" class="header__basket">
                 <img src=${headerBasket} alt="basket icon">
                 <div id="headerBasketAmount" class="header__basket__amount show" name="basket-amount">${this.previousAmount}</div>
             </div>

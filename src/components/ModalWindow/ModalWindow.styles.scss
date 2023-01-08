@@ -6,7 +6,6 @@
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
-  overflow: hidden;
   font-size: 1.4rem;
 }
 
@@ -15,19 +14,15 @@
   left: 50%;
   top: 50vh;
   z-index: 20;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  align-items: center;
   transform: translate(-50%, -50%);
   width: 40rem;
   background-color: #fff;
   border-radius: 2rem;
   padding: 1rem 5rem;
-
-  form {
-    width: 100%;
-    display: flex;
-    gap: 1.5rem;
-    flex-direction: column;
-    align-items: center;
-  }
 
   &::before {
     content: '';
@@ -99,7 +94,6 @@
         }
 
         &__error-message {
-          display: none;
           width: 4rem;
           color: $color-primary;
         }
@@ -197,15 +191,6 @@
     }
   }
 
-  &__error-card {
-
-    &__message {
-      width: 100%;
-      text-align: center;
-      color: $color-primary;
-    }
-  }
-
   &__submit {
     @include button(15rem, 3.5rem);
     margin-bottom: 2rem;
@@ -214,4 +199,29 @@
 
 .overflow {
   overflow-y: hidden;
+}
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 4rem;
+  color: $color-primary;
+}
+
+.order-complete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  font-size: 2rem;
+  font-family: CeraProBold, arial, serif;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-align: center;
 }

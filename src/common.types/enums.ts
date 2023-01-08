@@ -7,6 +7,7 @@ export enum Button {
   CLEAR_INPUT = 'CLEAR',
   COUPON_APPLY = 'APPLY',
   COUPON_ADD = 'ADD',
+  CONFIRM = 'CONFIRM',
 }
 
 export enum Title {
@@ -30,4 +31,16 @@ export enum Symbol {
   SUBTRACT = '(-)',
   MINUS = '-',
   PLUS = '+',
+  MANDATORY = '*',
+}
+
+export enum DefaultValues {
+  PAGINATION_LIMIT = 3,
+  PAGINATION_PAGE = 1,
+}
+
+export enum LSKeys {
+  basket = 'basketHS',
+  coupons = 'couponsHS',
+  modal = 'modalHS',
 }

@@ -6,22 +6,25 @@ import BasketCoupons from '../../components/BasketCoupons/BasketCoupons';
 import getMainBlock from '../../utils/getMainBlock';
 import Basket from '../../utils/Basket';
 import BasketGoods from '../../components/BasketGoods/BasketGoods';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
+import { LSKeys } from '../../common.types/enums';
 // import { findElem } from '../../utils/findElem';
 
 class BasketPage {
   static render(): void {
-    const control = new BasketControl().render();
+    const control = new BasketControl(BasketPage.reRender).render();
     const basketListOfProds: IBasketProduct[] = new Basket().getBasketList();
-    const basket = new BasketGoods(basketListOfProds, BasketPage.reRender).render();
+    const basketGoods = new BasketGoods(basketListOfProds, BasketPage.reRender).render();
     const basketCalc = new BasketCalc().render();
     const basketPromo = new BasketCoupons().render();
     const main = getMainBlock();
 
-    main.innerHTML = `
+    if (new Basket().getBasketAmount() !== 0) {
+      main.innerHTML = `
       <div class="basket">
         <section class="basket__content">
           ${control}
-          ${basket}
+          ${basketGoods}
         </section>
         <section class="basket__aside-block">
           ${basketCalc}
@@ -29,6 +32,18 @@ class BasketPage {
         </section>
       <div>
     `;
+    } else {
+      main.innerHTML = `
+      <div class="basket-empty">
+        Cart is Empty
+      <div>
+    `;
+    }
+
+    if (localStorage.modalHS) {
+      new ModalWindow().render();
+      localStorage.removeItem(LSKeys.modal);
+    }
   }
 
   static reRender() {
