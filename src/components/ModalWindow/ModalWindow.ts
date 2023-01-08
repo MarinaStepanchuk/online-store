@@ -31,12 +31,10 @@ class ModalWindow {
     const regValid = /^(0[1-9]|1[1-2])\/(0[1-9]|1[0-9]|2[0-9]|3[0-1])/gm;
     const regCVV = /^[0-9]{3}/gm;
 
-    background.addEventListener('click', () => {
-      this.remove();
-    });
+    background.addEventListener('click', (event) => {
+      const targetElement = event.target as HTMLElement;
 
-    form.addEventListener('click', (event) => {
-      event.stopPropagation();
+      if (targetElement.classList.contains('modal')) this.remove();
     });
 
     form.addEventListener('submit', (event) => {
@@ -90,37 +88,37 @@ class ModalWindow {
       }
     });
 
-    cardNumber.addEventListener('input', () => {
-      if (cardNumber.value.match(/[^0-9]/g)) {
-        cardNumber.value = cardNumber.value.replace(/[^\d]/g, '');
+    form.addEventListener('input', (event) => {
+      const targetElem = event.target as HTMLElement;
+
+      if (targetElem.id === 'card-number') {
+        if (cardNumber.value.match(/[^0-9]/g)) {
+          cardNumber.value = cardNumber.value.replace(/[^\d]/g, '');
+        }
+
+        cardNumber.value = cardNumber.value.replace(/(\d{4})(?!\s|$)/gm, '$1 ');
+        const firdtNumCard = cardNumber.value[0];
+
+        switch (firdtNumCard) {
+          case '4':
+            cardLogo.src = cardLogoVisa;
+            break;
+          case '5':
+            cardLogo.src = cardLogoMaster;
+            break;
+          case '6':
+            cardLogo.src = cardLogoUnion;
+            break;
+          default:
+            cardLogo.src = cardLogoDef;
+        }
       }
 
-      cardNumber.value = cardNumber.value.replace(/(\d{4})(?!\s|$)/gm, '$1 ');
-      const firdtNumCard = cardNumber.value[0];
+      if (targetElem.id === 'card-valid') cardValid.value = cardValid.value.replace(/(\d{2})(?!\/|$)/gm, '$1/');
 
-      switch (firdtNumCard) {
-        case '4':
-          cardLogo.src = cardLogoVisa;
-          break;
-        case '5':
-          cardLogo.src = cardLogoMaster;
-          break;
-        case '6':
-          cardLogo.src = cardLogoUnion;
-          break;
-        default:
-          cardLogo.src = cardLogoDef;
+      if (targetElem.id === 'card-cvv') {
+        if (cardCVV.value.match(/[^0-9]/g)) cardCVV.value = cardCVV.value.replace(/[^\d]/g, '');
       }
-    });
-
-    cardCVV.addEventListener('input', () => {
-      if (cardCVV.value.match(/[^0-9]/g)) {
-        cardCVV.value = cardCVV.value.replace(/[^\d]/g, '');
-      }
-    });
-
-    cardValid.addEventListener('input', () => {
-      cardValid.value = cardValid.value.replace(/(\d{2})(?!\/|$)/gm, '$1/');
     });
   }
 
@@ -142,11 +140,11 @@ class ModalWindow {
     const main = getMainBlock();
     main.innerHTML = '';
     const div = createElem('div', '', 'order-complete');
-    let time = 4;
-    div.innerHTML = `Thanks for your order. Redirect to the store after ${time} sec.`;
+    let timeInSeconds = 4;
+    div.innerHTML = `Thanks for your order. Redirect to the store after ${timeInSeconds} sec.`;
     const showMessage = setInterval(() => {
-      time -= 1;
-      div.innerHTML = `Thanks for your order. Redirect to the store after ${time} sec.`;
+      timeInSeconds -= 1;
+      div.innerHTML = `Thanks for your order. Redirect to the store after ${timeInSeconds} sec.`;
     }, 1000);
     setTimeout(() => {
       clearInterval(showMessage);

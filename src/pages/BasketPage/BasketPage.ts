@@ -8,7 +8,6 @@ import Basket from '../../utils/Basket';
 import BasketGoods from '../../components/BasketGoods/BasketGoods';
 import ModalWindow from '../../components/ModalWindow/ModalWindow';
 import { LSKeys } from '../../common.types/enums';
-// import { findElem } from '../../utils/findElem';
 
 class BasketPage {
   static render(): void {

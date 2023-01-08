@@ -15,8 +15,8 @@ class Header {
 
   private startWatcher(): void {
     setInterval(() => {
-      const headerAmount = document.getElementsByName('basket-amount')[0];
-      const headerSum = document.getElementsByName('basket-sum')[0];
+      const [headerAmount] = document.getElementsByName('basket-amount');
+      const [headerSum] = document.getElementsByName('basket-sum');
       const basket = new Basket();
       const amount = basket.getBasketAmount();
       const sum = basket.getBasketSum();

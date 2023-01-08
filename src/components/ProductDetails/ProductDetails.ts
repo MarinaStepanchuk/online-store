@@ -27,6 +27,7 @@ class ProductDetails {
       buttonBuy.addEventListener('click', () => {
         localStorage.setItem(LSKeys.modal, 'open');
         const basket = new Basket();
+
         if (basket.basketContain(this.product.id)) {
           window.location.href = '/basket';
         } else {
