@@ -37,7 +37,7 @@ export enum Events {
   CHANGE = 'change',
   INPUT = 'input',
 }
-  
+
 export enum DefaultValues {
   PAGINATION_LIMIT = 3,
   PAGINATION_PAGE = 1,

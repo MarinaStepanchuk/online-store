@@ -4,9 +4,10 @@ import { IProcessedData, IProduct } from '../../database/DataBase.interfaces';
 import Database from '../../database/Database';
 import sort from '../../utils/sort';
 import { DEFAULT_MODE } from './ProductsGrid.const';
-const NO_PRODUCT_TEXT = 'No products found 😏';
 import changeStatusButton from '../../utils/changeStatusButton';
 import { findElem } from '../../utils/findElem';
+
+const NO_PRODUCT_TEXT = 'No products found 😏';
 
 class ProductsGrid {
   private readonly productsDataList: IProduct[];
