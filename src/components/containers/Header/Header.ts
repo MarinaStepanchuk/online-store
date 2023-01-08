@@ -33,11 +33,23 @@ class Header {
             </a>
             <div class="header__money show">
                 <span class="header__money__text">${Title.HEADER_TOTAL_MONEY}</span>
-                <span id="headerTotalMoney" class="header__money__value" name="basket-sum">${Symbol.CURRENCY}${this.previousSum}</span>
+                <span 
+                  id="headerTotalMoney" 
+                  class="header__money__value" 
+                  name="basket-sum"
+                >
+                  ${Symbol.CURRENCY}${this.previousSum}
+                </span>
             </div>
             <div onclick="window.location.href = '/basket'" class="header__basket">
                 <img src=${headerBasket} alt="basket icon">
-                <div id="headerBasketAmount" class="header__basket__amount show" name="basket-amount">${this.previousAmount}</div>
+                <div 
+                  id="headerBasketAmount" 
+                  class="header__basket__amount show" 
+                  name="basket-amount"
+                >
+                  ${this.previousAmount}
+                </div>
             </div>
           </header>
           `;

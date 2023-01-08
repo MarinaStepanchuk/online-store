@@ -8,11 +8,13 @@
 html {
   position: relative;
   font-size: 10px;
+  height: 100%;
 }
 
 body {
   max-width: 1440px;
   margin: 0 auto;
+  width: 100%;
   font-family: CeraProReg, arial, serif;
   font-size: 1.6rem;
   background-color: #fff;
@@ -25,7 +27,10 @@ a {
 }
 
 #app {
-  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.4rem 0 0;
 }
 
 .h2 {
@@ -37,6 +42,7 @@ a {
 .main,
 .footer {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -44,4 +50,13 @@ a {
   filter: drop-shadow(0 0 1rem $color-primary);
   color: $color-primary;
   background-color: #fff;
+}
+
+.header,
+.footer {
+  flex: 0 0 auto;
+}
+
+.main {
+  flex: 1 0 auto;
 }

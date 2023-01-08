@@ -1,6 +1,6 @@
 import './BasketCoupons.style.scss';
 import removeIcon from '../../assets/svg/delete_button.svg';
-import { Button, Symbol, LSKeys } from '../../common.types/enums';
+import { Button, Symbol } from '../../common.types/enums';
 import { findElem } from '../../utils/findElem';
 import ICoupon from './BasketCoupons.interface';
 import Coupons from './Coupons';
