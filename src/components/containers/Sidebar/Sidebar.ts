@@ -38,6 +38,7 @@ class Sidebar {
       step: 0.01,
       symbol: Symbol.CURRENCY,
     };
+
     const stockOptions: IRangeOptions = {
       rangeTitle: FilterParamTitles.stock,
       scaleLimits: data.stockScale,
@@ -47,6 +48,7 @@ class Sidebar {
       step: 1,
       symbol: '',
     };
+
     return {
       buttons: new FiltersButtons(this.cbRender),
       categoryFilter: new FilterList(FilterParamTitles.categories, data.categories, this.cbRender),

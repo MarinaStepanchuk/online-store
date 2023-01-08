@@ -10,3 +10,11 @@ export enum SortValues {
   upStock = 'upStock',
   downStock = 'downStock',
 }
+
+export enum Selectors {
+  inputField = '#search-input',
+  searchBtn = '#search-btn',
+  resetSearchBtn = '#reset-search-btn',
+  modeSwitcher = '.controls__mode',
+  sortingDroplist = '#sorter-droplist',
+}

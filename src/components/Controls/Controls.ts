@@ -10,9 +10,12 @@ import { findElem } from '../../utils/findElem';
 import UrlFormatter, { QueryNames } from '../../utils/UrlFormatter';
 import { DEFAULT_MODE } from '../ProductsGrid/ProductsGrid.const';
 import {
-  SEARCH_PLACEHOLDER, SEARCH_RESULT_TITLE, SORT_TITLE, SortNames,
+  SEARCH_PLACEHOLDER,
+  SEARCH_RESULT_TITLE,
+  SORT_TITLE,
+  SortNames,
 } from './Controls.const';
-import { SortValues, ViewMode } from './Controls.enum';
+import { Selectors, SortValues, ViewMode } from './Controls.enum';
 
 class Controls {
   constructor(private readonly cbRender: () => void) {
@@ -38,9 +41,9 @@ class Controls {
         <span class="sorter__title">${SORT_TITLE}</span>
         <div class="sorter__droplist-wrap">
           <select class="sorter__droplist" name="sort" id="sorter-droplist">
-            /* <option ${SortValues.none === sortType ? 'selected' : ''} value=${SortValues.none}>
+            <option ${SortValues.none === sortType ? 'selected' : ''} value=${SortValues.none}>
               ${SortNames.none}
-            </option> */
+            </option>
             <option ${SortValues.upDiscount === sortType ? 'selected' : ''} value=${SortValues.upDiscount}>
               ${SortNames.discount.fromLowToHigh}
             </option>
@@ -66,8 +69,15 @@ class Controls {
           <span class="search__result__amount" id="search-amount">${amount}</span>
         </div>
         <div class="search__input-wrap">
-          <input type="text" class="search__input" id="search-input" placeholder=${SEARCH_PLACEHOLDER} 
-              autofocus autocomplete="off" value=${search}>
+          <input 
+            type="text" 
+            id="search-input" 
+            class="search__input" 
+            placeholder=${SEARCH_PLACEHOLDER}
+            autofocus 
+            autocomplete="off" 
+            value=${search}
+          >
           <button id="reset-search-btn"  class="search__reset">
             <img src=${searchCross} alt="reset search">
           </button>
@@ -82,35 +92,40 @@ class Controls {
   getModeBlock(mode: string): string {
     return `
       <div class="controls__mode">
-        <div class="controls__mode__item ${mode === ViewMode.grid3 ? 'active' : ''}" 
-            id="switch-${ViewMode.grid3}-btn" data-view-mode=${ViewMode.grid3}>
+        <div 
+          id="switch-${ViewMode.grid3}-btn" 
+          class="controls__mode__item 
+          ${mode === ViewMode.grid3 ? 'active' : ''}" 
+          data-view-mode=${ViewMode.grid3}
+        >
           <img src=${modeGrid3Icon} alt="icon mode">
         </div>
-        <div class="controls__mode__item ${mode === ViewMode.grid4 ? 'active' : ''}" 
-            id="switch-${ViewMode.grid4}-btn" data-view-mode=${ViewMode.grid4}>
+        <div 
+          id="switch-${ViewMode.grid4}-btn" 
+          class="controls__mode__item 
+          ${mode === ViewMode.grid4 ? 'active' : ''}" 
+          data-view-mode=${ViewMode.grid4}
+        >
           <img src=${modeGrid4Icon} alt="icon mode">
         </div>
       </div>`;
   }
 
   setHandlers(mode: string): void {
-    // search button
     Handler.set(Events.CLICK, (): void => {
-      const inputField = findElem('#search-input') as HTMLInputElement;
+      const inputField = findElem(Selectors.inputField) as HTMLInputElement;
 
       const urlFormatter = new UrlFormatter();
       urlFormatter.setSingleQueryParam(QueryNames.SEARCH, inputField.value);
       urlFormatter.sendParams(this.cbRender);
-    }, '#search-btn');
+    }, Selectors.searchBtn);
 
-    // reset search button
     Handler.set(Events.CLICK, (): void => {
       const urlFormatter = new UrlFormatter();
       urlFormatter.deleteQueryParam(QueryNames.SEARCH);
       urlFormatter.sendParams(this.cbRender);
-    }, '#reset-search-btn');
+    }, Selectors.resetSearchBtn);
 
-    // switcher mode
     Handler.set(Events.CLICK, (e: Event): void => {
       const target = e.target as HTMLElement;
       const wrapper = target.parentElement as HTMLElement;
@@ -120,15 +135,14 @@ class Controls {
         urlFormatter.setSingleQueryParam(QueryNames.MODE, wrapper.dataset.viewMode);
         urlFormatter.sendParams(this.cbRender);
       }
-    }, '.controls__mode');
+    }, Selectors.modeSwitcher);
 
-    // sorting
     Handler.set(Events.INPUT, (e: Event) => {
       const target = e.target as HTMLInputElement;
       const urlFormatter = new UrlFormatter();
       urlFormatter.setSingleQueryParam(QueryNames.SORT, target.value);
       urlFormatter.sendParams(this.cbRender);
-    }, '#sorter-droplist');
+    }, Selectors.sortingDroplist);
   }
 }
 

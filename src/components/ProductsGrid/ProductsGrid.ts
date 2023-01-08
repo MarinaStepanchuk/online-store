@@ -18,9 +18,9 @@ class ProductsGrid {
   render(): string {
     const sortedDataList = this.getSortedList(this.data.sort);
     const productsList = sortedDataList.reduce((acc: string, data: IProduct) => acc + new Product(data).render(), '');
-    const goodsNotFind = `<span class="grid__empty">${NO_PRODUCT_TEXT}</span>`;
+    const notFound = `<span class="grid__empty">${NO_PRODUCT_TEXT}</span>`;
 
-    return `<div class="grid ${this.data.mode || DEFAULT_MODE}">${sortedDataList.length ? productsList : goodsNotFind}</div>`;
+    return `<div class="grid ${this.data.mode || DEFAULT_MODE}">${sortedDataList.length ? productsList : notFound}</div>`;
   }
 
   getSortedList(sortingType: string): IProduct[] {

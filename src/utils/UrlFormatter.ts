@@ -30,22 +30,22 @@ class UrlFormatter {
       temp[name] = values;
     });
 
-    this.objQueryParams.category = new Set(temp.category?.split(VALUE_SEPARATOR));
-    this.objQueryParams.brand = new Set(temp.brand?.split(VALUE_SEPARATOR));
-    this.objQueryParams.search = temp.search?.toLowerCase() || '';
-
-    if (temp.price) {
-      const [minPrice, maxPrice] = temp.price.split(VALUE_SEPARATOR);
-      this.objQueryParams.price = [+minPrice, +maxPrice];
-    }
-
-    if (temp.stock) {
-      const [minStock, maxStock] = temp.stock.split(VALUE_SEPARATOR);
-      this.objQueryParams.stock = [+minStock, +maxStock];
-    }
-
-    this.objQueryParams.mode = temp.mode || '';
-    this.objQueryParams.sort = temp.sort || '';
+    this.objQueryParams = {
+      ...this.objQueryParams,
+      category: new Set(temp.category?.split(VALUE_SEPARATOR)),
+      brand: new Set(temp.brand?.split(VALUE_SEPARATOR)),
+      search: temp.search?.toLowerCase() || '',
+      price: temp.price ? [
+        +temp.price.split(VALUE_SEPARATOR)[0],
+        +temp.price.split(VALUE_SEPARATOR)[1],
+      ] : undefined,
+      stock: temp.stock ? [
+        +temp.stock.split(VALUE_SEPARATOR)[0],
+        +temp.stock.split(VALUE_SEPARATOR)[1],
+      ] : undefined,
+      mode: temp.mode || '',
+      sort: temp.sort || '',
+    };
   }
 
   getAllQueryParams(): IPageParams {

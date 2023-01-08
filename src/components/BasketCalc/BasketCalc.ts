@@ -1,5 +1,9 @@
 import './BasketCalc.style.scss';
-import { Button, Title, Symbol } from '../../common.types/enums';
+import {
+  Button,
+  Title,
+  Symbol,
+} from '../../common.types/enums';
 
 class BasketCalcTotal {
   render() {
