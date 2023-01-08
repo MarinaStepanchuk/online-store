@@ -5,13 +5,14 @@
   justify-content: space-around;
 
   &__item {
-    width: 12rem;
+    @include button(40%);
+
     transition: all 1s;
 
     &:active {
-      background-color: $color-primary;
-      color: #fff;
-      border-width: 1px;
+      // background-color: $color-primary;
+      // color: #fff;
+      // border-width: 1px;
       transition: 100ms;
     }
   }

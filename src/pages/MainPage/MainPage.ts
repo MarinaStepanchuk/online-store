@@ -38,7 +38,7 @@ class MainPage {
       ${welcomeBlock}
       <section class="goods">
         ${sideBar}
-        <div class="controls-grid">
+        <div class="controls-grid" id="products-main">
           ${controls}
           ${grid}
         </div>
