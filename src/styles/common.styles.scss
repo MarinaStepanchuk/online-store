@@ -39,3 +39,9 @@ a {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.added {
+  filter: drop-shadow(0 0 1rem $color-primary);
+  color: $color-primary;
+  background-color: #fff;
+}
