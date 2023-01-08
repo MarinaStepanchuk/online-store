@@ -4,8 +4,9 @@ import { IProcessedData, IProduct } from '../../database/DataBase.interfaces';
 import Database from '../../database/Database';
 import sort from '../../utils/sort';
 import { DEFAULT_MODE } from './ProductsGrid.const';
-
 const NO_PRODUCT_TEXT = 'No products found 😏';
+import changeStatusButton from '../../utils/changeStatusButton';
+import { findElem } from '../../utils/findElem';
 
 class ProductsGrid {
   private readonly productsDataList: IProduct[];
@@ -13,6 +14,20 @@ class ProductsGrid {
   constructor(private data: IProcessedData) {
     this.data = data;
     this.productsDataList = [...this.data.productsId].map((id: number) => Database.getProductById(id));
+  }
+
+  private addListeners(): void {
+    setTimeout(() => {
+      const allProducts = findElem('.grid');
+      allProducts.addEventListener('click', (event) => {
+        const element = event.target as HTMLElement;
+        if (element.className === 'product-item__buttons_white') {
+          const productContainer = element.closest('.product-item') as HTMLElement;
+          const id = Number(productContainer.id);
+          changeStatusButton(element, id);
+        }
+      });
+    });
   }
 
   render(): string {
@@ -24,6 +39,7 @@ class ProductsGrid {
   }
 
   getSortedList(sortingType: string): IProduct[] {
+    this.addListeners();
     return sort(this.productsDataList, sortingType);
   }
 }

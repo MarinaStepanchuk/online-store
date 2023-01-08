@@ -4,18 +4,33 @@ import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import ProductPhotosSlider from '../ProductPhotosSlider/ProductPhotosSlider';
 import { Title, Symbol, Button } from '../../common.types/enums';
+import changeStatusButton from '../../utils/changeStatusButton';
+import Basket from '../../utils/Basket';
+import { findElem } from '../../utils/findElem';
 
 class ProductDetails {
   constructor(private product: IProduct) {
     this.product = product;
   }
 
+  private addListeners(): void {
+    setTimeout(() => {
+      const buttonToCard = findElem('.product-details__information__buttons_basket');
+      buttonToCard.addEventListener('click', (event) => {
+        const element = event.target as HTMLElement;
+        changeStatusButton(element, Number(this.product.id));
+      });
+    }, 0);
+  }
+
   render(): string {
     const {
-      title, images, thumbnail, stock, discountPercentage, category, brand, price, rating, description,
+      title, images, thumbnail, stock, discountPercentage, category, brand, price, rating, description, id,
     } = this.product;
     const photosSlider = new ProductPhotosSlider(images).render();
     const actualPrice = getPriceAfterDiscont(price, discountPercentage);
+
+    this.addListeners();
 
     return `
       <div class="product-details__photos">
@@ -24,7 +39,7 @@ class ProductDetails {
           <img src="${thumbnail}" alt="product photo" class="general-photo">
         </div>
       </div>
-      <div class="product-details__information">
+      <div id="${id}" class="product-details__information">
         <h4 class="product-details__information__title">${title}</h4>
         <div class="product-details__information__container">
           <div class="product-details__information__prices">
@@ -61,7 +76,7 @@ class ProductDetails {
         </div>
         <div class="product-details__information__buttons">
           <button onclick="window.location.pathname = '/basket'" class="product-details__information__buttons_buy">${Button.BUY}</button>
-          <button class="product-details__information__buttons_basket">${Button.ADD}</button>
+          <button class="product-details__information__buttons_basket">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
         </div>
         <div class="product-details__information__description">
           <span class="product-details__information__description__title">${Title.DESCRIPTION}</span>

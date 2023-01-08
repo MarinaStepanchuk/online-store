@@ -5,9 +5,7 @@ import { IBasketProduct } from './BasketProduct.interface';
 import { Title, Symbol } from '../../common.types/enums';
 
 class BasketProduct {
-  private product: IBasketProduct;
-
-  constructor(product: IBasketProduct) {
+  constructor(private product: IBasketProduct) {
     this.product = product;
   }
 
@@ -16,12 +14,12 @@ class BasketProduct {
       index, amount, title, brand, stock, discountPercentage, price, thumbnail, category, description, id,
     } = this.product;
     const actualPrice = getPriceAfterDiscont(price, discountPercentage);
-    const totalOldPrice = price * amount;
-    const totalActualPrice = actualPrice * amount;
+    const totalOldPrice = (price * amount).toFixed(2);
+    const totalActualPrice = (actualPrice * amount).toFixed(2);
 
     return `
-      <td class="basket-product__index">
-        <span>${index}</span>
+      <td>
+        <span class="basket-product__index">${index}</span>
       </td>
       <td class="basket-product__info" onclick="window.location.href = '/product/${id}'">
         <div class="basket-product__container">
@@ -72,9 +70,7 @@ class BasketProduct {
         </div>
       </td>
       <td class="">
-        <div class="basket-product__remove">
-          <img src=${removeIcon} alt="remove product">
-        </div>
+        <img class="basket-product__remove" src=${removeIcon} alt="remove product">
       </td>`;
   }
 }

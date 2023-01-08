@@ -3,6 +3,7 @@ import { IProduct } from '../../database/DataBase.interfaces';
 import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import { Title, Symbol, Button } from '../../common.types/enums';
+import Basket from '../../utils/Basket';
 
 class Product {
   private data: IProduct;
@@ -17,9 +18,8 @@ class Product {
     } = this.data;
     const actualPrice = getPriceAfterDiscont(price, discountPercentage);
 
-    // TODO: change hardcode route after refactoring
     return `
-        <div class="product-item">
+        <div class="product-item" id="${id}">
             <div class="product-item__discont">
                 <span>${discountPercentage}${Symbol.DISCOUNT}${Title.PRODUCT_DISCOUNT}</span>
             </div>
@@ -54,7 +54,7 @@ class Product {
             </div>
             <div class="product-item__buttons">
                 <button onclick="window.location.pathname = '/product/${id}'" class="product-item__buttons_red">${Button.DETAILS}</button>
-                <button class="product-item__buttons_white">${Button.ADD}</button>
+                <button class="product-item__buttons_white">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
             </div>
         </div>
         `;
