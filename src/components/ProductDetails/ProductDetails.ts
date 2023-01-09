@@ -8,6 +8,7 @@ import {
   Symbol,
   Button,
   Events,
+  LSKeys,
 } from '../../common.types/enums';
 import changeStatusButton from '../../utils/changeStatusButton';
 import Basket from '../../utils/Basket';
@@ -32,6 +33,18 @@ class ProductDetails {
       const element = event.target as HTMLElement;
       changeStatusButton(element, Number(this.product.id));
     }, `.${Classes.addProductBtn}`);
+
+    Handler.set(Events.CLICK, () => {
+      localStorage.setItem(LSKeys.modal, 'open');
+      const basket = new Basket();
+
+      if (basket.basketContain(this.product.id)) {
+        window.location.href = '/basket';
+      } else {
+        basket.setProductToBasket(this.product.id);
+        window.location.href = '/basket';
+      }
+    }, `.${Classes.fastBuyBtn}`);
 
     Handler.set(Events.CLICK, (event) => {
       const target = event.target as HTMLImageElement;

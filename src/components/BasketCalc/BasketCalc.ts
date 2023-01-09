@@ -2,6 +2,7 @@ import './BasketCalc.style.scss';
 import { Button, Title, Symbol } from '../../common.types/enums';
 import Basket from '../../utils/Basket';
 import { findElem } from '../../utils/findElem';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 class BasketCalc {
   public basket = new Basket();
@@ -12,6 +13,15 @@ class BasketCalc {
     totalProductsCount.innerHTML = `${basket.getBasketAmount()}`;
     const subtotalProductsSum = findElem('.total-card__calc__subtotal__value');
     subtotalProductsSum.innerHTML = `${basket.getBasketSum()}`;
+  }
+
+  private addListeners() {
+    setTimeout(() => {
+      const buttonOrdering = findElem('.total-card__calc__ordering');
+      buttonOrdering.addEventListener('click', () => {
+        new ModalWindow().render();
+      });
+    });
   }
 
   public updateTotalBlock(discont: number): void {
@@ -37,6 +47,8 @@ class BasketCalc {
   }
 
   public render(): string {
+    this.addListeners();
+
     return `
       <div class="total-card">
         <div class="total-card__header">

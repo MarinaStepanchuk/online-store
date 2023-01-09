@@ -76,6 +76,10 @@ class Basket {
     this.basket = this.basket.filter((item) => item.id !== id);
     localStorage.basketHS = JSON.stringify(this.basket);
   }
+
+  public clear():void {
+    localStorage.removeItem(LSKeys.basket);
+  }
 }
 
 export default Basket;

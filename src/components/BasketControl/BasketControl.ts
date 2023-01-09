@@ -56,7 +56,7 @@ class BasketControls {
           this.queryParam.sendParams(this.cb);
         }
       });
-    }, 0);
+    });
   }
 
   private getMaxValuePage():number {
