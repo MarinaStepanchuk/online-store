@@ -10,9 +10,6 @@
     transition: all 1s;
 
     &:active {
-      // background-color: $color-primary;
-      // color: #fff;
-      // border-width: 1px;
       transition: 100ms;
     }
   }
