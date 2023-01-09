@@ -26,8 +26,8 @@ class Product {
             <div class="product-item__stock">
                 <span>${Title.STOCK}${stock}</span>
             </div>
-            <div class="product-item__image">
-                <img onclick="window.location.pathname = '/product/${id}'" src=${thumbnail} alt="product image">
+            <div onclick="window.location.pathname = '/product/${id}'" class="product-item__image">
+                <img src=${thumbnail} alt="product image">
             </div>
             <div class="product-item__title">${title}</div>
             <div class="product-item__category">

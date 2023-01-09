@@ -4,11 +4,24 @@ import star from '../../assets/img/star-icon.png';
 import getPriceAfterDiscont from '../../utils/getPriceAfterDiscont';
 import ProductPhotosSlider from '../ProductPhotosSlider/ProductPhotosSlider';
 import {
-  Title, Symbol, Button, LSKeys,
+  Title,
+  Symbol,
+  Button,
+  Events,
+  LSKeys,
 } from '../../common.types/enums';
 import changeStatusButton from '../../utils/changeStatusButton';
 import Basket from '../../utils/Basket';
+import Handler from '../../utils/Handler';
 import { findElem } from '../../utils/findElem';
+
+const Classes = {
+  photoContainer: 'product-details__photos',
+  addProductBtn: 'product-details__information__buttons_basket',
+  fastBuyBtn: 'product-details__information__buttons_buy',
+  imageSlider: 'product-details__photos__slider',
+  bigPhotoImg: 'general-photo',
+};
 
 class ProductDetails {
   constructor(private product: IProduct) {
@@ -16,29 +29,34 @@ class ProductDetails {
   }
 
   private addListeners(): void {
-    setTimeout(() => {
-      const buttonToCard = findElem('.product-details__information__buttons_basket');
-      buttonToCard.addEventListener('click', (event) => {
-        const element = event.target as HTMLElement;
-        changeStatusButton(element, Number(this.product.id));
-      });
+    Handler.set(Events.CLICK, (event) => {
+      const element = event.target as HTMLElement;
+      changeStatusButton(element, Number(this.product.id));
+    }, `.${Classes.addProductBtn}`);
 
-      const buttonBuy = findElem('.product-details__information__buttons_buy');
-      buttonBuy.addEventListener('click', () => {
-        localStorage.setItem(LSKeys.modal, 'open');
-        const basket = new Basket();
+    Handler.set(Events.CLICK, () => {
+      localStorage.setItem(LSKeys.modal, 'open');
+      const basket = new Basket();
 
-        if (basket.basketContain(this.product.id)) {
-          window.location.href = '/basket';
-        } else {
-          basket.setProductToBasket(this.product.id);
-          window.location.href = '/basket';
-        }
-      });
-    });
+      if (basket.basketContain(this.product.id)) {
+        window.location.href = '/basket';
+      } else {
+        basket.setProductToBasket(this.product.id);
+        window.location.href = '/basket';
+      }
+    }, `.${Classes.fastBuyBtn}`);
+
+    Handler.set(Events.CLICK, (event) => {
+      const target = event.target as HTMLImageElement;
+
+      if (target.alt) {
+        const bigImage = findElem(`.${Classes.bigPhotoImg}`) as HTMLImageElement;
+        bigImage.src = target.src;
+      }
+    }, `.${Classes.imageSlider}`);
   }
 
-  public render(): string {
+  render(): string {
     const {
       title, images, thumbnail, stock, discountPercentage, category, brand, price, rating, description, id,
     } = this.product;
@@ -48,7 +66,7 @@ class ProductDetails {
     this.addListeners();
 
     return `
-      <div class="product-details__photos">
+      <div class=${Classes.photoContainer}>
         ${photosSlider}
         <div class="product-details__photos__general">
           <img src="${thumbnail}" alt="product photo" class="general-photo">
@@ -90,8 +108,8 @@ class ProductDetails {
           <span>${discountPercentage}${Symbol.DISCOUNT}</span>
         </div>
         <div class="product-details__information__buttons">
-          <button class="product-details__information__buttons_buy">${Button.BUY}</button>
-          <button class="${new Basket().basketContain(id) ? 'product-details__information__buttons_basket added' : 'product-details__information__buttons_basket'}">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
+          <button onclick="window.location.pathname = '/basket'" class="product-details__information__buttons_buy">${Button.BUY}</button>
+          <button class="product-details__information__buttons_basket">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
         </div>
         <div class="product-details__information__description">
           <span class="product-details__information__description__title">${Title.DESCRIPTION}</span>
