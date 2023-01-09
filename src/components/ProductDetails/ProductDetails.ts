@@ -109,7 +109,7 @@ class ProductDetails {
         </div>
         <div class="product-details__information__buttons">
           <button onclick="window.location.pathname = '/basket'" class="product-details__information__buttons_buy">${Button.BUY}</button>
-          <button class="product-details__information__buttons_basket">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
+          <button class="${new Basket().basketContain(id) ? 'product-details__information__buttons_basket added' : 'product-details__information__buttons_basket'}">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
         </div>
         <div class="product-details__information__description">
           <span class="product-details__information__description__title">${Title.DESCRIPTION}</span>
