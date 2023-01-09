@@ -16,7 +16,7 @@ class WelcomeBlock {
                 ${SUBTITLE}
                 <span class="shopnow__subtitle_red">${SUBTITLE_HIGHLIGHTED_TEXT}</span>
             </div>
-            <button class="shopnow__button">${BUTTON_SHOP}</button>
+            <a class="shopnow__button" href="#products-main">${BUTTON_SHOP}</a>
         </section>
         `;
   }
