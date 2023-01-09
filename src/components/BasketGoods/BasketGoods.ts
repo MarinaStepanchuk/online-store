@@ -33,15 +33,15 @@ class BasketGoods {
         switch (element.className) {
           case Classes.PLUS_BUTTON:
             this.increaseAmountProduct(element);
-            basketCalc.updateBasketCalcHeader();
+            basketCalc.updateTotalBlock();
             break;
           case Classes.MINUS_BUTTON:
             this.decreaseAmountProduct(element);
-            basketCalc.updateBasketCalcHeader();
+            basketCalc.updateTotalBlock();
             break;
           case Classes.REMOVE_BUTTON:
             this.removeProduct(element);
-            basketCalc.updateBasketCalcHeader();
+            basketCalc.updateTotalBlock();
             break;
           default:
             break;

@@ -25,7 +25,7 @@ class ModalWindow {
     const cardLogo = findElem('.modal-content__card-details__card__logo') as HTMLImageElement;
     const regName = /^([a-zA-Z]{3,})[ ]([a-zA-Z]{3,})(([a-zA-Z]{0,}){0,})/gm;
     const regPhone = /^[+]([0-9]{9,})/gm;
-    const regAddress = /^([a-zA-Z]{5,})[ ]([a-zA-Z]{5,})[ ]([a-zA-Z]{5,})(([a-zA-Z]{0,}){0,})/gm;
+    const regAddress = /^([a-zA-Z.,/]{5,})[ ]([a-zA-Z.,/]{5,})[ ]([a-zA-Z.,/]{5,})(([a-zA-Z.,/]{0,}){0,})/gm;
     const regMail = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}/gm;
     const regCardNumber = /^[0-9]{16}/gm;
     const regValid = /^(0[1-9]|1[1-2])\/(0[1-9]|1[0-9]|2[0-9]|3[0-1])/gm;
