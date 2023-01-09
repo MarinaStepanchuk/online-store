@@ -13,15 +13,13 @@ import changeStatusButton from '../../utils/changeStatusButton';
 import Basket from '../../utils/Basket';
 import Handler from '../../utils/Handler';
 import { findElem } from '../../utils/findElem';
-import createElem from '../../utils/createElem';
 
 const Classes = {
   photoContainer: 'product-details__photos',
   addProductBtn: 'product-details__information__buttons_basket',
   fastBuyBtn: 'product-details__information__buttons_buy',
-  imageContainer: 'big-image',
-  fadeImage: 'big-image__fade',
-  insreasedImage: 'big-image__image',
+  imageSlider: 'product-details__photos__slider',
+  bigPhotoImg: 'general-photo',
 };
 
 class ProductDetails {
@@ -39,20 +37,10 @@ class ProductDetails {
       const target = event.target as HTMLImageElement;
 
       if (target.alt) {
-        const imgContainer = findElem(`.${Classes.imageContainer}`);
-        const imageWrap = findElem(`.${Classes.insreasedImage}`);
-
-        imgContainer.classList.add('active');
-        const newInsertImg = createElem('img', '', 'big-image__image') as HTMLImageElement;
-        newInsertImg.src = target.src;
-        findElem(`.${Classes.insreasedImage}`).appendChild(newInsertImg);
-
-        newInsertImg.addEventListener(Events.CLICK, () => {
-          imgContainer.classList.remove('active');
-          imageWrap.firstChild?.remove();
-        });
+        const bigImage = findElem(`.${Classes.bigPhotoImg}`) as HTMLImageElement;
+        bigImage.src = target.src;
       }
-    }, `.${Classes.photoContainer}`);
+    }, `.${Classes.imageSlider}`);
   }
 
   render(): string {
@@ -70,10 +58,6 @@ class ProductDetails {
         <div class="product-details__photos__general">
           <img src="${thumbnail}" alt="product photo" class="general-photo">
         </div>
-        <div class="big-image container">
-          <div class="big-image__image"></div>
-          <div class="big-image__fade"></div>
-        </div> 
       </div>
       <div id="${id}" class="product-details__information">
         <h4 class="product-details__information__title">${title}</h4>
