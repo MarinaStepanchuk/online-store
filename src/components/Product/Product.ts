@@ -26,7 +26,7 @@ class Product {
             <div class="product-item__stock">
                 <span>${Title.STOCK}${stock}</span>
             </div>
-            <div onclick="window.location.pathname = '/product/${id}'" class="product-item__image">
+            <div onclick="window.location.href = '/product/${id}'" class="product-item__image">
                 <img src=${thumbnail} alt="product image">
             </div>
             <div class="product-item__title">${title}</div>
@@ -53,7 +53,7 @@ class Product {
                 <div class="product-item__prices__old">${Symbol.CURRENCY}${price}</div>
             </div>
             <div class="product-item__buttons">
-                <button onclick="window.location.pathname = '/product/${id}'" class="product-item__buttons_red">${Button.DETAILS}</button>
+                <button onclick="window.location.href = '/product/${id}'" class="product-item__buttons_red">${Button.DETAILS}</button>
                 <button class="${new Basket().basketContain(id) ? 'product-item__buttons_white added' : 'product-item__buttons_white'}">${new Basket().basketContain(id) ? Button.REMOVE : Button.ADD}</button>
             </div>
         </div>
