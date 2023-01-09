@@ -50,9 +50,10 @@ const baseConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './index.html'),
+      title: 'Christmas shop - gifts and decorations!',
       filename: 'index.html',
-      /* favicon: './src/assets/favicon.ico' */
+      template: path.resolve(__dirname, './index.html'),
+      favicon: './src/assets/favicon/tree.ico',
     }),
     new CleanWebpackPlugin(),
     new ESLintPlugin(),
