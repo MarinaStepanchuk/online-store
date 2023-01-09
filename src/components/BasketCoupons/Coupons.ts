@@ -15,6 +15,10 @@ class Coupons {
     return localStorage.getItem(LSKeys.coupons) ? JSON.parse(localStorage.getItem(LSKeys.coupons) as string) : [];
   }
 
+  public getActualDiscont(): number {
+    return this.getAllActiveCoupons().reduce((acc, coupon) => acc + coupon.discount, 0);
+  }
+
   public getCouponByValue(name: string): ICoupon {
     return this.data.find((coupon) => coupon.name === name) as ICoupon;
   }

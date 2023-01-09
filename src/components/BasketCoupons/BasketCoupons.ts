@@ -18,8 +18,6 @@ const REMOVE_BUTTON = 'coupons__active__element__remove';
 class BasketCoupons {
   private coupons = new Coupons();
 
-  private sumDiscont = 0;
-
   private basketCalc = new BasketCalc();
 
   private addListeners(): void {
@@ -59,8 +57,7 @@ class BasketCoupons {
         activeCouponsBlock.append(this.createActiveCouponBlock(coupon));
         this.coupons.setActiveCoupon(input.value);
         addCoupon.classList.remove('show-block');
-        this.sumDiscont += coupon.discount;
-        this.basketCalc.updateTotalBlock(this.sumDiscont);
+        this.basketCalc.updateTotalBlock();
       });
 
       activeCouponsBlock.addEventListener('click', (event) => {
@@ -70,10 +67,9 @@ class BasketCoupons {
           const couponBlock = element.closest('.coupons__active__element') as HTMLElement;
           const name = couponBlock.id;
           const coupon = this.coupons.getCouponByValue(name);
-          this.sumDiscont -= coupon.discount;
           this.coupons.removeActiveCoupon(name);
           couponBlock.remove();
-          this.basketCalc.updateTotalBlock(this.sumDiscont);
+          this.basketCalc.updateTotalBlock();
 
           if (this.coupons.getAllActiveCoupons().length === 0) {
             activeCouponsBlock.classList.remove('show-block');
@@ -107,10 +103,9 @@ class BasketCoupons {
         const activeCoupons = this.coupons.getAllActiveCoupons();
         activeCoupons.forEach((coupon: ICoupon) => {
           activeCouponsBlock.append(this.createActiveCouponBlock(coupon));
-          this.sumDiscont += coupon.discount;
         });
       }
-      this.basketCalc.updateTotalBlock(this.sumDiscont);
+      this.basketCalc.updateTotalBlock();
     });
 
     this.addListeners();
