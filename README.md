@@ -1,7 +1,9 @@
 # online-store
 
 [Link to Deploy](https://christmas-online-store.netlify.app/)
+
 [Task](https://github.com/rolling-scopes-school/tasks/tree/master/tasks/online-store-team)
+
 Screenshot:
 
 
